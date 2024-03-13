@@ -3,6 +3,7 @@ import shutil
 import time
 
 from Graph_finaly_version_2 import Graph
+from Combinatorics import CombinatoricsTaskGenerator
 
 
 def delete_image_folder():
@@ -17,7 +18,7 @@ def delete_image_folder():
         print(f'Папка {folder_path} не существует.')
 
 
-def create_all_tasks():
+def create_all_tasks_graph():
     start_time_all = time.time()
 
     categories = {
@@ -106,5 +107,49 @@ def create_all_tasks():
     print("\n\n\n")
 
 
-create_all_tasks()
+def create_all_tasks_combinatorics():
+    start_time_all = time.time()
+    graph_2 = Graph()
 
+    categories = {
+        "task_combinatorics_one": "Задание 1. Графы. Категория 1",
+        "task_combinatorics_two": "Задание 2. Графы. Категория 1",
+        "task_combinatorics_three": "Задание 3. Графы. Категория 1",
+        "task_combinatorics_four": "Задание 4. Графы. Категория 1",
+        "task_combinatorics_five": "Задание 5. Графы. Категория 1",
+    }
+
+    combinatorics_gen = CombinatoricsTaskGenerator()
+    all_tasks_method = [combinatorics_gen.task_combinatorics_one, combinatorics_gen.task_combinatorics_two,
+                        combinatorics_gen.task_combinatorics_three, combinatorics_gen.task_combinatorics_four,
+                        combinatorics_gen.task_combinatorics_five]
+
+    categories_dict = {}
+    for method in all_tasks_method:
+        method_name = method.__name__
+        if method_name in categories:
+            categories_dict[method_name] = categories[method_name]
+
+    for i, method in enumerate(all_tasks_method):
+        for number_variables in [10]:
+            start_time = time.time()
+
+            tasks = method(number_variables)
+            file_name = categories_dict[method.__name__]
+            question_name = categories_dict[method.__name__]
+
+            graph_2.create_txt_file(tasks, 2, question_name, file_name)
+
+            end_time = time.time()
+            print(f"Время работы программы на {number_variables} вариантах для {method.__name__}:",
+                  end_time - start_time)
+            print("\n\n\n")
+
+    print("Готово")
+    end_time_all = time.time()
+    print("\n\n\n")
+    print(f"Общее время работы программы:", (end_time_all - start_time_all) / 60, "минут")
+    print("\n\n\n")
+
+
+create_all_tasks_combinatorics()

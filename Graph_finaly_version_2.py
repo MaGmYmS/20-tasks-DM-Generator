@@ -34,6 +34,7 @@ class Graph:
         self.graph = dict()
         self.value = []
 
+    # region вспомогательные функции
     def __graph_generator(self):
         """
         Метод, который создает граф с минимальным и максимальным количеством ребер из вершин
@@ -288,6 +289,7 @@ class Graph:
             print(f"Произошла ошибка: {e}")
         else:
             print(f"Архив {zip_file_name} успешно создан.")
+    # endregion
 
     def task_two(self, number_of_tasks, drawing_graph=True, number_forbidden_answer=3):
         """
