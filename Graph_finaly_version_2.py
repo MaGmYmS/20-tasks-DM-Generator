@@ -138,7 +138,7 @@ class Graph:
 
         check_unique_question_inner.add(frozenset((text_tuple, answer_tuple, forbidden_answer_tuple)))
         if length_check_unique_question == len(check_unique_question_inner):
-            return True
+            return True  # Такое задние уже существует
         else:
             return False
 

@@ -112,17 +112,22 @@ def create_all_tasks_combinatorics():
     graph_2 = Graph()
 
     categories = {
-        "task_combinatorics_one": "Задание 1. Графы. Категория 1",
-        "task_combinatorics_two": "Задание 2. Графы. Категория 1",
-        "task_combinatorics_three": "Задание 3. Графы. Категория 1",
-        "task_combinatorics_four": "Задание 4. Графы. Категория 1",
-        "task_combinatorics_five": "Задание 5. Графы. Категория 1",
+        "task_combinatorics_one": "Задание 1. Комбинаторика. Категория 1",
+        "task_combinatorics_two": "Задание 2. Комбинаторика. Категория 1",
+        "task_combinatorics_three": "Задание 3. Комбинаторика. Категория 1",
+        "task_combinatorics_four": "Задание 4. Комбинаторика. Категория 1",
+        "task_combinatorics_five": "Задание 5. Комбинаторика. Категория 1",
+        "probability_of_value": "Задание 6. Комбинаторика. Категория 2",
+        "expected_value": "Задание 7. Комбинаторика. Категория 3",
+        "lecture_4_task_combinatorics_two": "Задание 9. Комбинаторика. Категория 4",
+
     }
 
     combinatorics_gen = CombinatoricsTaskGenerator()
     all_tasks_method = [combinatorics_gen.task_combinatorics_one, combinatorics_gen.task_combinatorics_two,
                         combinatorics_gen.task_combinatorics_three, combinatorics_gen.task_combinatorics_four,
-                        combinatorics_gen.task_combinatorics_five]
+                        combinatorics_gen.task_combinatorics_five, combinatorics_gen.probability_of_value,
+                        combinatorics_gen.expected_value, combinatorics_gen.lecture_4_task_combinatorics_two]
 
     categories_dict = {}
     for method in all_tasks_method:

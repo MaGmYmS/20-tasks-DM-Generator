@@ -29,6 +29,7 @@ class CombinatoricsTaskGenerator:
                                "двадцати трех", "двадцати четырех", "двадцати пяти", "двадцати шести", "двадцати семи",
                                "двадцати восьми", "двадцати девяти", "тридцати"]
 
+    # region Тест по лекции № 1
     @staticmethod
     def task_combinatorics_one(number_of_tasks):
         result_tasks_massive = []
@@ -135,3 +136,149 @@ class CombinatoricsTaskGenerator:
                 list_task.append(result)
 
         return list_task
+
+    # endregion
+
+    # region Тест по лекции № 2
+    @staticmethod
+    def probability_of_value(number_of_tasks):
+        """
+        3	Случайная величина Х принимает три возможных значения х1, х2, х3. Значение х1 она принимает с вероятностью
+        0,4, значение х2 – с вероятностью 0,5. С какой вероятностью случайная величина Х принимает значение х3?
+        (правильный ответ – a)
+            a.	0,1;
+            b.	0,9;
+            c.	0,45;
+            d.	невозможно определить вероятность.
+        :return: list: Список кортежей, каждый из которых содержит текст задачи,
+                  правильный ответ и массив неправильных ответов.
+        """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            p1 = round(random.uniform(0.1, 0.5), 1)
+            p2 = round(random.uniform(0.1, 0.9 - p1), 1)
+
+            # Вычисляем вероятность для x3
+            p3 = round(1 - p1 - p2, 1)
+
+            # Генерируем неправильные ответы
+            wrong_answers = set()
+            while len(wrong_answers) < 3:
+                wrong_p = round(random.uniform(0.1, 0.9), 1)
+                if wrong_p != p3:
+                    wrong_answers.add(wrong_p)
+
+            # Составляем текст задачи
+            task_text = (
+                f"Случайная величина X принимает три возможных значения x1, x2, x3. "
+                f"Значение x1 она принимает с вероятностью {p1}, значение x2 – с вероятностью {p2}. "
+                f"С какой вероятностью случайная величина X принимает значение x3?"
+            )
+
+            result_tasks_massive.append((task_text, [p3], list(wrong_answers)))
+
+        return result_tasks_massive
+
+    # endregion
+
+    # region Тест по лекции № 3
+    @staticmethod
+    def expected_value(number_of_tasks):
+        """
+        Генерирует задачу по определению математического ожидания случайной величины.
+
+        Args:
+            number_of_tasks (int): Количество задач для генерации.
+
+        Returns:
+            list: Список кортежей, каждый из которых содержит текст задачи,
+                  правильный ответ и массив неправильных ответов.
+        """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            # Генерируем случайные вероятности p1, p2, p3 так, чтобы их сумма была равна 1
+            p1 = round(random.uniform(0.1, 0.5), 1)
+            p2 = round(random.uniform(0.1, 0.1 + p1), 1)
+            p3 = round(1 - p1 - p2, 1)
+
+            random_variables = [random.randint(-5, 5) for _ in range(3)]
+
+            expected_value = random_variables[0] * p1 + random_variables[1] * p2 + random_variables[2] * p3
+
+            expected_value_str = "{:.1f}".format(expected_value)
+
+            wrong_answers = set()
+            while len(wrong_answers) < 3:
+                wrong_ev = round(random.uniform(-5, 5), 1)  # Генерация случайного значения в диапазоне от -5 до 5
+                if wrong_ev != round(expected_value, 1):
+                    wrong_answers.add(str(wrong_ev))
+
+            # Составляем текст задачи
+            task_text = (
+                f"Случайная величина принимает значения {random_variables[0]}, {random_variables[1]} и "
+                f"{random_variables[2]} с вероятностями {p1}, {p2} и {p3} соответственно. "
+                f"Математическое ожидание этой случайной величины равно:"
+            )
+
+            result_tasks_massive.append((task_text, [expected_value_str], list(wrong_answers)))
+
+        return result_tasks_massive
+
+    # endregion
+
+    # region Тест по лекции № 4
+    @staticmethod
+    def lecture_4_task_combinatorics_two(number_of_tasks):
+        """
+          Плотность случайной величины f(x) математическое ожидание этой случайной величины равно (правильный ответ – с)
+            a.	4
+            b.	6
+            c.	7
+            d.	10
+        Args:
+            number_of_tasks (int): Количество задач для генерации.
+
+        Returns:
+            list: Список кортежей, каждый из которых содержит текст задачи,
+                  правильный ответ и массив неправильных ответов.
+        """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            x1 = random.randint(1, 9)
+            x2 = random.randint(10, 20)
+            
+            numerator = random.randint(1, 9)
+            denominator = random.randint(10, 20)
+
+            answer = (x2 ** 2 - x1 ** 2) * numerator / (2 * denominator)
+            answer = round(answer, 1)
+
+            latex_equation = (r"""
+            \[
+            f(x) = 
+            \begin\{cases\}
+                0 & \text\{при \} x \\le \{""" + str(x1) + r"""\} \\\
+                \frac\{""" + str(numerator) + r"""\}\{""" + str(denominator) + r"""\} & \text\{при \} \{""" + str(x1)
+                              + r"""\} < x < \{""" + str(x2) + r"""\} \\\
+                0 & \text\{при \} x \\ge \{""" + str(x2) + r"""\}
+            \end\{cases\}
+            \]
+            """)
+
+            wrong_answers = set()
+            while len(wrong_answers) < 3:
+                wrong_ev = round(random.uniform(answer - 5, answer + 5), 1)  # Генерация случайного значения в диапазоне от -5 до 5
+                if abs(wrong_ev - answer) > 0.3:
+                    wrong_answers.add(str(wrong_ev))
+
+            task_text = (f"Плотность случайной величины {latex_equation} математическое ожидание этой случайной "
+                         f"величины равно: ")
+
+            result_tasks_massive.append((task_text, [answer], list(wrong_answers)))
+
+        return result_tasks_massive
+    # endregion
+
+    # region КР № 1
+
+    # endregion
