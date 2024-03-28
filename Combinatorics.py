@@ -1,3 +1,4 @@
+import math
 import random
 
 
@@ -246,7 +247,7 @@ class CombinatoricsTaskGenerator:
         for _ in range(number_of_tasks):
             x1 = random.randint(1, 9)
             x2 = random.randint(10, 20)
-            
+
             numerator = random.randint(1, 9)
             denominator = random.randint(10, 20)
 
@@ -267,7 +268,8 @@ class CombinatoricsTaskGenerator:
 
             wrong_answers = set()
             while len(wrong_answers) < 3:
-                wrong_ev = round(random.uniform(answer - 5, answer + 5), 1)  # Генерация случайного значения в диапазоне от -5 до 5
+                wrong_ev = round(random.uniform(answer - 5, answer + 5),
+                                 1)  # Генерация случайного значения в диапазоне от -5 до 5
                 if abs(wrong_ev - answer) > 0.3:
                     wrong_answers.add(str(wrong_ev))
 
@@ -277,8 +279,230 @@ class CombinatoricsTaskGenerator:
             result_tasks_massive.append((task_text, [answer], list(wrong_answers)))
 
         return result_tasks_massive
+
     # endregion
 
     # region КР № 1
+    @staticmethod
+    def task_combinatorics_dice(number_of_tasks):
+        '''
+        Опыт состоит в одновременном бросании трех игральных кубиков. Какие события являются случайными относительно этого опыта? (правильный ответ – b, c)
+    А – «в сумме выпало меньше 20 очков»;
+    В – «в сумме выпало 18 очков;
+    С – «в сумме выпало больше 10 очков»;
+    D – «в сумме выпало 23 очка».
+        :param number_of_tasks:
+        :return: List_task
+        '''
+        list_task = []
 
+        for i in range(number_of_tasks):
+            dice = random.randint(2, 6)
+            task_text = (f"Опыт состоит в одновременном бросании {dice} игральных кубиков. Какие события являются "
+                         f"случайными относительно этого опыта? ")
+            answer = set()
+
+            first_ans = random.randint(dice, dice * 6)
+            answer.add(f"В сумме выпало {first_ans}")
+
+            forbidden_answer = set()
+
+            while (len(answer) + len(forbidden_answer)) < 4:
+                true_false = random.choice([True, False])
+                if true_false:
+                    type_true = random.choice([True, False])
+                    if type_true:
+                        generated_value = f"В сумме выпало {random.randint(dice, dice * 6)}"
+                    else:
+                        random_sign = random.choice(['больше', 'меньше'])
+                        generated_value = f"В сумме выпало {random_sign} {random.randint(dice + 1, dice * 6 - 1)}"
+                    if generated_value not in answer:
+                        answer.add(generated_value)
+                else:
+                    type_false = random.choice([True, False])
+                    if type_false:
+                        random_sign_false_1 = random.choice(
+                            [random.randint(1, dice - 1), random.randint(dice * 6 + 1, dice * 7)])
+                        generated_value = f"В сумме выпало {random_sign_false_1}"
+                    else:
+                        random_sign_false_2 = random.choice(['больше', 'меньше'])
+                        random_sign_false_3 = random.choice(
+                            [random.randint(1, dice - 1), random.randint(dice * 6 + 1, dice * 7)])
+                        generated_value = f"В сумме выпало {random_sign_false_2} {random_sign_false_3}"
+                    if generated_value not in forbidden_answer:
+                        forbidden_answer.add(generated_value)
+
+            result = (task_text, list(answer), list(forbidden_answer))
+            list_task.append(result)
+
+        return list_task
+
+    @staticmethod
+    def task_combinatorics_moscow(number_of_tasks):
+        """
+        Буквы А, В, К, М, О, С случайным образом располагают в ряд. Какова вероятность того, что получится слово МОСКВА?
+         (правильный ответ – c)
+        1/6;
+        1/120;
+        1/720;
+        720.
+        :param number_of_tasks:
+        :return:
+        """
+        list_task = []
+        words = [
+            "ВИРАЖ", "ПУСТЫРЬ", "ФУТЛЯР", "КОФЕЙНИК", "ТРЯПЬЕ",
+            "МЕШОЧЕК", "ЦИТАДЕЛЬ", "ЛАНДЫШ", "ВОЗДУШНИК", "КАРНИЗ",
+            "ДЕКАБРЬ", "НАЖИМ", "СВЕЧКА", "ПАРКЕТ", "МЫЧАНИЕ", "ФОНАРИК",
+            "КОЛЧАН", "ПРИТОН", "СВИТОК", "ЧЕМОДАН", "ЯЧМЕНЬ",
+            "КОЗЫРЕК", "ТРОПИНКА", "РОЯЛЬ", "ЖИЛЕТКА", "КОВЕР",
+            "МИШЕНЬ", "ПОТЯГ", "ШКАФЧИК", "ПРЯЖКА", "ЩЕГОЛЬ",
+            "ПЕЧКА", "КОЛЕСНИЦА", "ЗОНТИК", "ПОМЕТ", "КОРЖИК",
+            "ГАРПУН", "ПЕРИСКОП", "ФОНАРЬ", "КОСИЧКА",
+            "ВИДОК", "КОНЮШНЯ", "КИРКА", "ХЛОПЬЯ",
+            "РОЯЛЬ", "ПАРУС", "КОБРА", "ПЛАВНИК",
+            "ВЬЮГА", "ВИЛКА", "КОРЗИНА", "ШЛЯПА"
+        ]
+
+        for word in words:
+            letters = list(word)
+            random.shuffle(letters)
+            formatted_letters = ', '.join(str(letter) for letter in letters)
+            task_text = (
+                f"Буквы {formatted_letters} случайным образом располагают в ряд. Какова вероятность того, что получится слово"
+                f" {word}?")
+            answer = set()
+            forbidden_answer = set()
+            answer.add(f"1/{math.factorial(len(letters))}")
+
+            forbidden_answer.add(f"1/{len(letters)}")
+            forbidden_answer.add(f"1/{math.factorial(len(letters) - 1)}")
+            forbidden_answer.add(f"{math.factorial(len(letters))}")
+
+            result = (task_text, list(answer), list(forbidden_answer))
+            list_task.append(result)
+
+        return list_task
+
+    @staticmethod
+    def task_combinatorics_stud(number_of_tasks):
+        '''
+        В группе 25 студентов, из них 20 человек обучаются по IT-направлениям, 5 человек обучаются по естественно-научным
+        направлениям подготовки. Для ответа на вопросы преподавателя вызываются два студента. Событие А – «первый вызванный
+        студент обучается по IT-направлению подготовки», событие В – «второй вызванный студент обучается по естественно-научному
+        направлению подготовки». Чему равна вероятность пересечения событий А и В? (правильный ответ – a)
+        1/6;
+        4/25;
+        1/5;
+        12/25.
+        :param number_of_tasks:
+        :return: List_task
+        '''
+        list_task = []
+
+        for i in range(number_of_tasks):
+            random_all = random.randint(3, 50)
+            random_IT = random.randint(1, random_all)
+            another = random_all - random_IT
+            task_text = (
+                f"В группе {random_all} студентов, из них {random_IT} человек обучаются по IT-направлениям, {another} человек обучаются"
+                f" по естественно-научнымнаправлениям подготовки. Для ответа на вопросы преподавателя вызываются"
+                f" два студента. Событие А – «первый вызванныйстудент обучается по IT-направлению подготовки», "
+                f"событие В – «второй вызванный студент обучается по естественно-научномунаправлению подготовки»."
+                f" Чему равна вероятность пересечения событий А и В?")
+            answer = set()
+            forbidden_answer = set()
+
+            answer.add(f"{random_IT / random_all * another / (random_all - 1):.3f}")
+            forbidden_answer.add(f"{random_IT / random_all * another / random_all:.3f}")
+            forbidden_answer.add(f"{another / random_all:.3f}")
+            forbidden_answer.add(f"{(random_IT / random_all) * (another - 1) / (random_all - 1):.3f}")  # ?????
+
+            result = (task_text, list(answer), list(forbidden_answer))
+            list_task.append(result)
+
+        return list_task
+
+    @staticmethod
+    def task_combinatorics_man(number_of_tasks):
+        '''
+        В отделе работают 4 мужчины и 6 женщин. Руководитель организации выбирает двух сотрудников отдела для участия в
+        проекте. Событие А - "первый выбранный человек - мужчина", событие В - "второй выбранный человек - мужчина".
+        Чему равна вероятность объединения событий А и В? (правильный ответ – b)
+        2/15;
+        2/3;
+        4/5;
+        11/15.
+        :param number_of_tasks:
+        :return: List_task
+        '''
+        list_task = []
+
+        for i in range(number_of_tasks):
+            random_all = random.randint(4, 50)
+            Man = random.randint(2, random_all)
+            Woman = random_all - Man
+            # Man = 4
+            # Woman = 6
+
+            task_text = (
+                f"В отделе работают {Man} мужчин и {Woman} женщин. Руководитель организации выбирает двух сотрудников"
+                f" отдела для участия в проекте. Событие А - 'первый выбранный человек - мужчина', событие В -"
+                f" 'второй выбранный человек - мужчина'. Чему равна вероятность объединения событий А и В?")
+            answer = set()
+            forbidden_answer = set()
+
+            p_A = Man / (Woman + Man)
+            p_B_or_A = (Man - 1) / ((Woman + Man) - 1)
+            p_A_and_B = p_A * p_B_or_A
+            p_ans = p_A * 2 - p_A_and_B
+
+            answer.add(f"{p_ans:.3f} 1")
+            forbidden_answer.add(f"{p_A_and_B:.3f} 2")
+            forbidden_answer.add(f"{p_A * 2:.3f} 3")
+            forbidden_answer.add(f"{1 - p_A_and_B * 2:.3f} 4")
+
+            result = (task_text, list(answer), list(forbidden_answer))
+            list_task.append(result)
+
+        return list_task
+
+    @staticmethod
+    def task_combinatorics_dice_2(number_of_tasks):
+        '''
+        Опыт состоит в одновременном бросании трех игральных кубиков. Какие события являются случайными относительно этого опыта? (правильный ответ – b, c)
+            А – «в сумме выпало меньше 20 очков»;
+            В – «в сумме выпало 18 очков;
+            С – «в сумме выпало больше 10 очков»;
+            D – «в сумме выпало 23 очка».
+        :param number_of_tasks:
+        :return: List_task
+        '''
+        list_task = []
+
+        for i in range(number_of_tasks):
+            dice = random.randint(3, 7)
+            count_dice = random.randint(2, dice - 1)
+            random_sign = random.choice(['четное', 'нечетное'])
+            dice = 5
+            count_dice = 3
+            random_sign = random.choice(['четное', 'нечетное'])
+
+            task_text = (f"Опыт состоит в бросании игрального кубика {dice} раз."
+                         f" Чему равна вероятность того, что {random_sign}"
+                         f" число очков выпадет {count_dice} раза?")
+            answer = set()
+
+            answer.add(
+                f"{math.factorial(dice) // (math.factorial(count_dice) * math.factorial(dice - count_dice)) * math.pow(1 / 2, dice)}")
+
+            forbidden_answer = set()
+            forbidden_answer.add(
+                f"{math.factorial(dice) // (math.factorial(count_dice) * math.factorial(dice - count_dice)) * math.pow(1 / 2, dice + 1)}")
+            # forbidden_answer.add(f"{math.factorial(dice) // (math.factorial(count_dice) * math.factorial(dice - count_dice)) * math.pow(1/2,dice+1)}")
+
+            result = (task_text, list(answer), list(forbidden_answer))
+            list_task.append(result)
+
+        return list_task
     # endregion
