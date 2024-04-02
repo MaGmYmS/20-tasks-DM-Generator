@@ -1,5 +1,6 @@
 import math
 import random
+import numpy as np
 
 
 # from fractions import Fraction
@@ -193,6 +194,72 @@ class CombinatoricsTaskGenerator:
 
         return list_task
 
+    '''требуется проверка'''
+
+    def task_combinatorics_1_2(self, number_of_tasks):
+        """
+        Из пяти участников команды выбирают организатора совместной работы и человека, который будет представлять ее результаты (это должны быть разные люди).  С помощью какой комбинаторной схемы можно построить множество способов такого выбора? (правильный ответ – b)
+        сочетания без повторений;
+        размещения без повторений;
+        сочетания с повторениями;
+        размещения с повторениями.
+        :param number_of_tasks:
+        :return:
+        """
+        list_task = []
+
+        for i in range(number_of_tasks):
+            random_people = random.randint(5, 100)
+            task_text = (
+                f"Из {random_people} участников команды выбирают организатора совместной работы и человека, который"
+                f" будет представлять ее результаты (это должны быть разные люди).  С помощью какой комбинаторной схемы"
+                f" можно построить множество способов такого выбора?")
+            answer = set()
+            forbidden_answer = set()
+            answer.add("размещения без повторений")
+
+            forbidden_answer.add("сочетания без повторений")
+            forbidden_answer.add("сочетания с повторениями")
+            forbidden_answer.add("размещения с повторениями")
+
+            result = (task_text, list(answer), list(forbidden_answer))
+            list_task.append(result)
+
+        return list_task
+
+    '''требуется проверка'''
+
+    def task_combinatorics_1_3(self, number_of_tasks):
+        """
+        Девушка выбирает 3 платья из 14, имеющихся в магазине. С помощью какой комбинаторной схемы можно построить множество способов такого выбора? (правильный ответ – a)
+        сочетания без повторений;
+        размещения без повторений;
+        сочетания с повторениями;
+        размещения с повторениями.
+        :param number_of_tasks:
+        :return:
+        """
+        list_task = []
+
+        for i in range(number_of_tasks):
+            all_cust = random.randint(14, 1000)
+            random_cust = random.randint(3, all_cust - 15)
+            task_text = (
+                f"Девушка выбирает 3 платья из 14, имеющихся в магазине. С помощью какой комбинаторной схемы можно"
+                f" построить множество способов такого выбора?")
+            answer = set()
+            forbidden_answer = set()
+            answer.add("размещения без повторений")
+
+            forbidden_answer.add("сочетания без повторений")
+            forbidden_answer.add("сочетания с повторениями")
+            forbidden_answer.add("размещения с повторениями")
+
+            result = (task_text, list(answer), list(forbidden_answer))
+            list_task.append(result)
+
+        return list_task
+
     def task_combinatorics_moscow(self, number_of_tasks):
         """
         Буквы А, В, К, М, О, С случайным образом располагают в ряд. Какова вероятность того, что получится слово МОСКВА?
@@ -277,6 +344,8 @@ class CombinatoricsTaskGenerator:
 
         return list_task
 
+    '''может быть косяк с тем как считается надо уточнить этот момент'''
+
     def task_combinatorics_man(self, number_of_tasks):
         '''
         В отделе работают 4 мужчины и 6 женщин. Руководитель организации выбирает двух сотрудников отдела для участия в
@@ -320,6 +389,8 @@ class CombinatoricsTaskGenerator:
 
         return list_task
 
+    '''требуется проверка формулы плюсом поиграть с разбросом'''
+
     def task_combinatorics_dice_2(self, number_of_tasks):
         '''
         Опыт состоит в одновременном бросании трех игральных кубиков. Какие события являются случайными относительно этого опыта? (правильный ответ – b, c)
@@ -333,25 +404,137 @@ class CombinatoricsTaskGenerator:
         list_task = []
 
         for i in range(number_of_tasks):
-            dice = random.randint(3, 7)
-            count_dice = random.randint(2, dice - 1)
+            dice = random.randint(5, 7)
+            count_dice = random.randint(2, dice - 2)
             random_sign = random.choice(['четное', 'нечетное'])
-            dice = 5
-            count_dice = 3
-            random_sign = random.choice(['четное', 'нечетное'])
+            # dice = 5
+            # count_dice = 3
+            # random_sign = random.choice(['четное', 'нечетное'])
 
             task_text = (f"Опыт состоит в бросании игрального кубика {dice} раз."
                          f" Чему равна вероятность того, что {random_sign}"
                          f" число очков выпадет {count_dice} раза?")
             answer = set()
 
-            answer.add(f"{math.factorial(dice) // (math.factorial(count_dice) * math.factorial(dice - count_dice)) * math.pow(1/2,dice)}")
+            answer.add(
+                f"{math.factorial(dice) // (math.factorial(count_dice) * math.factorial(dice - count_dice)) * math.pow(1 / 2, dice):.3f}")
 
             forbidden_answer = set()
-            forbidden_answer.add(f"{math.factorial(dice) // (math.factorial(count_dice) * math.factorial(dice - count_dice)) * math.pow(1/2,dice+1)}")
-            # forbidden_answer.add(f"{math.factorial(dice) // (math.factorial(count_dice) * math.factorial(dice - count_dice)) * math.pow(1/2,dice+1)}")
+            forbidden_answer.add(
+                f"{math.factorial(dice) // (math.factorial(count_dice) * math.factorial(dice - count_dice)) * math.pow(1 / 2, dice + 1):.3f}")
+            forbidden_answer.add(
+                f"{math.pow(1 / 2, count_dice):.3f}")
+            forbidden_answer.add(
+                f"{(1 / 2) * count_dice}")
 
+            result = (task_text, list(answer), list(forbidden_answer))
+            list_task.append(result)
 
+        return list_task
+
+    '''поиграться с величинами'''
+
+    def task_combinatorics_normal_distribution(self, number_of_tasks):
+        '''
+        Случайная величина Х имеет стандартное нормальное распределение,  математическое ожидание случайной величины У=3-2Х равно (правильный ответ – d)
+        -2
+        0
+        1
+        3
+        :param number_of_tasks:
+        :return: List_task
+        '''
+        list_task = []
+
+        for i in range(number_of_tasks):
+            random_C = random.randint(3, 50)
+            random_x = random.randint(1, random_C - 1)
+            random_sign = random.choice(['-', '+'])
+
+            task_text = (f"Случайная величина Х имеет стандартное нормальное распределение,"
+                         f"  математическое ожидание случайной величины У={random_C}{random_sign}{random_x}Х равно ")
+            answer = set()
+
+            answer.add(f"{random_C}")
+
+            forbidden_answer = set()
+            forbidden_answer.add(f"0")
+            if random_sign == '-':
+                forbidden_answer.add(f"{random_sign}{random_x}")
+                forbidden_answer.add(f"{random_C - random_x}")
+
+            else:
+                forbidden_answer.add(f"{random_x}")
+                forbidden_answer.add(f"{random_C + random_x}")
+
+            result = (task_text, list(answer), list(forbidden_answer))
+            list_task.append(result)
+
+        return list_task
+
+    '''проверить формулу, ну уж очень я в ней не уверен'''
+
+    def task_combinatorics_math_expectation(self, number_of_tasks):
+        '''
+        Случайная величина Х – время между вызовами «скорой помощи».  В среднем за один час поступает 10 вызовов.  Математическое ожидание случайной величины Х равно  (правильный ответ – b)
+        0,01
+        0,1
+        10
+        10
+        :param number_of_tasks:
+        :return: List_task
+        '''
+        list_task = []
+
+        for i in range(number_of_tasks):
+            random_t = random.randint(1, 60)
+
+            task_text = (f" Случайная величина Х – время между вызовами «скорой помощи».  В среднем за один час"
+                         f" поступает {random_t} вызовов.  Математическое ожидание случайной величины Х равно ")
+            answer = set()
+
+            answer.add(f"{1 / random_t:.3f}")
+
+            forbidden_answer = set()
+            forbidden_answer.add(f"{1 / math.pow(random_t, 2):.3f}")
+
+            forbidden_answer.add(f"{random_t}")
+            forbidden_answer.add(f"{math.pow(random_t, 2)}")
+            result = (task_text, list(answer), list(forbidden_answer))
+            list_task.append(result)
+
+        return list_task
+
+    '''жесть че за формула жоская надо уточнять'''
+
+    def task_combinatorics_normal_distribution_2(self, number_of_tasks):
+        '''
+        Случайные величины Х, У и Z независимы и имеют нормальное распределение с параметрами  α = 1, σ = 2. Дисперсия суммы этих случайных величин равна (ответ d)
+        a.	3
+        b.	6
+        c.	9
+        d.	12
+
+        :param number_of_tasks:
+        :return: List_task
+        '''
+        list_task = []
+
+        for i in range(number_of_tasks):
+            random_alpha = random.randint(1, 60)
+            random_sigma = random.randint(1, 3)
+
+            task_text = (f" Случайные величины Х, У и Z независимы и имеют нормальное распределение "
+                         f"с параметрами  α = {random_alpha}, σ = {random_sigma}. Дисперсия суммы этих случайных величин равна")
+            answer = set()
+
+            answer.add(f"{math.pow(random_sigma, 2) * 3}")
+
+            forbidden_answer = set()
+            forbidden_answer.add(f"{math.pow(random_sigma, 2)}")
+
+            forbidden_answer.add(f"{random_alpha}")
+            forbidden_answer.add(f"{math.pow(random_sigma, 2) + random_alpha}")
             result = (task_text, list(answer), list(forbidden_answer))
             list_task.append(result)
 
