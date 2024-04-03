@@ -128,15 +128,39 @@ def create_all_tasks_combinatorics():
         "lecture_4_task_combinatorics_seven": "Задание 14. Комбинаторика. Категория 4",
         "lecture_4_task_combinatorics_eight": "Задание 15. Комбинаторика. Категория 4",
         "lecture_4_task_combinatorics_ten": "Задание 16. Комбинаторика. Категория 4",
+
+        "task_combinatorics_dice": "Задание 17. Комбинаторика. Категория 5",
+        "task_combinatorics_1_2": "Задание 18. Комбинаторика. Категория 5",
+        "task_combinatorics_1_3": "Задание 19. Комбинаторика. Категория 5",
+        "task_combinatorics_moscow": "Задание 20. Комбинаторика. Категория 5",
+        "task_combinatorics_stud": "Задание 21. Комбинаторика. Категория 5",
+        "task_combinatorics_man": "Задание 22. Комбинаторика. Категория 5",
+        "task_combinatorics_dice_2": "Задание 23. Комбинаторика. Категория 5",
     }
 
     combinatorics_gen = CombinatoricsTaskGenerator()
     all_tasks_method = [combinatorics_gen.task_combinatorics_one, combinatorics_gen.task_combinatorics_two,
                         combinatorics_gen.task_combinatorics_three, combinatorics_gen.task_combinatorics_four,
                         combinatorics_gen.task_combinatorics_five, combinatorics_gen.probability_of_value,
-                        combinatorics_gen.expected_value, combinatorics_gen.lecture_4_task_combinatorics_two,
+                        combinatorics_gen.expected_value,
+
+                        combinatorics_gen.lecture_4_task_combinatorics_one,
+                        combinatorics_gen.lecture_4_task_combinatorics_two,
+                        combinatorics_gen.lecture_4_task_combinatorics_three,
                         combinatorics_gen.lecture_4_task_combinatorics_four,
-                        combinatorics_gen.lecture_4_task_combinatorics_ten,]
+                        combinatorics_gen.lecture_4_task_combinatorics_five,
+                        combinatorics_gen.lecture_4_task_combinatorics_six,
+                        combinatorics_gen.lecture_4_task_combinatorics_seven,
+                        combinatorics_gen.lecture_4_task_combinatorics_eight,
+                        combinatorics_gen.lecture_4_task_combinatorics_ten,
+
+                        combinatorics_gen.task_combinatorics_dice,
+                        combinatorics_gen.task_combinatorics_1_2,
+                        combinatorics_gen.task_combinatorics_1_3,
+                        combinatorics_gen.task_combinatorics_moscow,
+                        combinatorics_gen.task_combinatorics_stud,
+                        combinatorics_gen.task_combinatorics_man,
+                        combinatorics_gen.task_combinatorics_dice_2,]
 
     categories_dict = {}
     for method in all_tasks_method:
@@ -145,7 +169,7 @@ def create_all_tasks_combinatorics():
             categories_dict[method_name] = categories[method_name]
 
     for i, method in enumerate(all_tasks_method):
-        for number_variables in [10]:
+        for number_variables in [1]:
             start_time = time.time()
 
             tasks = method(number_variables)

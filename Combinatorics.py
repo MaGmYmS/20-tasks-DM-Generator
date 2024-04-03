@@ -4,6 +4,7 @@ import numpy as np
 from scipy.integrate import quad
 from scipy.optimize import minimize_scalar
 
+
 class CombinatoricsTaskGenerator:
     CONST_NUM_AUTO_TO_STRING = ["0", "1 автомобиль", "2 автомобиля", "3 автомобиля", "4 автомобиля", "5 автомобилей",
                                 "6 автомобилей", "7 автомобилей", "8 автомобилей", "9 автомобилей", "10 автомобилей",
@@ -119,6 +120,8 @@ class CombinatoricsTaskGenerator:
 
                 result = (task_text, [answer], forbidden_answer)
                 list_task.append(result)
+                if len(list_task) == number_of_tasks:
+                    return list_task
 
         return list_task
 
@@ -137,6 +140,8 @@ class CombinatoricsTaskGenerator:
 
                 result = (task_text, [answer], forbidden_answer)
                 list_task.append(result)
+                if len(list_task) == number_of_tasks:
+                    return list_task
 
         return list_task
 
@@ -231,6 +236,52 @@ class CombinatoricsTaskGenerator:
 
     # region Тест по лекции № 4
     @staticmethod
+    def lecture_4_task_combinatorics_one(number_of_tasks):
+        """
+          Плотность случайной величины f(x) математическое ожидание этой случайной величины равно (правильный ответ – с)
+            a.	2
+            b.	1
+            c.	0,5
+            d.	0,25
+        Args:
+            number_of_tasks (int): Количество задач для генерации.
+
+        Returns:
+            list: Список кортежей, каждый из которых содержит текст задачи,
+                  правильный ответ и массив неправильных ответов.
+        """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            lambda_x = random.randint(1, 9)
+
+            answer = 1 / lambda_x
+            answer = round(answer, 2)
+
+            latex_equation = (r"""
+            \[
+            f(x) = 
+            \begin\{cases\}
+                0 & \text\{при \} x < \{0\} \\\
+                """ + str(lambda_x) + r""" e^\{-""" + str(lambda_x) + r"""x\}  & \text\{при \} x \\ge \{0\}
+            \end\{cases\}
+            \]
+            """)
+
+            wrong_answers = set()
+            wrong_answers.add(str(answer))
+            wrong_answers.add(str(round(answer * 2, 2)))
+            wrong_answers.add(str(round(answer * 4, 2)))
+            wrong_answers.add(str(round(answer / 2, 2)))
+            wrong_answers.remove(str(answer))
+
+            task_text = (f"Плотность случайной величины {latex_equation} математическое ожидание этой случайной "
+                         f"величины равно: ")
+
+            result_tasks_massive.append((task_text, [answer], list(wrong_answers)))
+
+        return result_tasks_massive
+
+    @staticmethod
     def lecture_4_task_combinatorics_two(number_of_tasks):
         """
           Плотность случайной величины f(x) математическое ожидание этой случайной величины равно (правильный ответ – с)
@@ -285,7 +336,7 @@ class CombinatoricsTaskGenerator:
     '''поиграться с величинами fix'''
 
     @staticmethod
-    def task_combinatorics_normal_distribution(number_of_tasks):
+    def lecture_4_task_combinatorics_three(number_of_tasks):
         '''
         Случайная величина Х имеет стандартное нормальное распределение,  математическое ожидание случайной величины У=3-2Х равно (правильный ответ – d)
         -2
@@ -375,7 +426,7 @@ class CombinatoricsTaskGenerator:
     '''проверить формулу, ну уж очень я в ней не уверен fix'''
 
     @staticmethod
-    def task_combinatorics_math_expectation(number_of_tasks):
+    def lecture_4_task_combinatorics_five(number_of_tasks):
         '''
         Случайная величина Х – время между вызовами «скорой помощи».  В среднем за один час поступает 10 вызовов.  Математическое ожидание случайной величины Х равно  (правильный ответ – b)
         0,01
@@ -406,10 +457,63 @@ class CombinatoricsTaskGenerator:
 
         return list_task
 
+    '''по хорошему, спросить формулу и подправить вариативность, ложные ответы fix'''
+
+    @staticmethod
+    def lecture_4_task_combinatorics_six(number_of_tasks):
+        """
+        Плотность случайной величины (1 / np.sqrt(8 * np.pi)) * np.exp(-((x - 3)**2) / 8), дисперсия этой случайной
+         величины равна (правильный ответ - d)
+        a.	1
+        b.	2
+        c.	3
+        d.	4
+        :param number_of_tasks:
+        :return: List_task
+        """
+        list_task = []
+
+        # Формула плотности вероятности
+
+        for i in range(number_of_tasks):
+            # random_alpha = random.randint(1, 60)
+            # random_sigma = random.randint(1, 3)
+            x_min = -10  # Минимальное значение X для интегрирования
+            x_max = 10  # Максимальное значение X для интегрирования
+            random_a = random.randint(3, 15)
+            random_d = random.randint(8, 15)
+
+            def pdf(x):
+                return (1 / np.sqrt(random_d * np.pi)) * np.exp(-((x - random_a) ** 2) / random_d)
+
+            task_text = (
+                f"Плотность случайной величины (1 / np.sqrt({random_d} * np.pi)) * np.exp(-((x - {random_a})**2) / {random_d}),"
+                f" дисперсия этой случайной величины равна")
+
+            # Вычисляем математическое ожидание (среднее)
+            e_x = quad(lambda x: x * pdf(x), x_min, x_max)[0]
+            # Вычисляем математическое ожидание квадрата
+            e_x2 = quad(lambda x: (pdf(x) * x ** 2), x_min, x_max)[0]
+            # Вычисляем дисперсию
+            variance = e_x2 - e_x ** 2
+
+            answer = set()
+            answer.add(f"{variance:.1f}")
+
+            forbidden_answer = set()
+            forbidden_answer.add(f"{variance + 1:.1f}")
+            forbidden_answer.add(f"{variance - 1:.1f}")
+            forbidden_answer.add(f"{variance - 2:.1f}")
+
+            result = (task_text, list(answer), list(forbidden_answer))
+            list_task.append(result)
+
+        return list_task
+
     '''жесть че за формула жоская надо уточнять fix'''
 
     @staticmethod
-    def task_combinatorics_normal_distribution_2(number_of_tasks):
+    def lecture_4_task_combinatorics_seven(number_of_tasks):
         """
         Случайные величины Х, У и Z независимы и имеют нормальное распределение с параметрами  α = 1, σ = 2. Дисперсия суммы этих случайных величин равна (ответ d)
         a.	3
@@ -442,60 +546,14 @@ class CombinatoricsTaskGenerator:
 
         return list_task
 
-    '''по хорошему, спросить формулу и подправить вариативность, ложные ответы fix'''
-    @staticmethod
-    def task_combinatorics_random_distribution(number_of_tasks):
-        """
-        Плотность случайной величины (1 / np.sqrt(8 * np.pi)) * np.exp(-((x - 3)**2) / 8), дисперсия этой случайной
-         величины равна (правильный ответ - d)
-        a.	1
-        b.	2
-        c.	3
-        d.	4
-        :param number_of_tasks:
-        :return: List_task
-        """
-        list_task = []
-
-        # Формула плотности вероятности
-
-        for i in range(number_of_tasks):
-            # random_alpha = random.randint(1, 60)
-            # random_sigma = random.randint(1, 3)
-            x_min = -10  # Минимальное значение X для интегрирования
-            x_max = 10  # Максимальное значение X для интегрирования
-            random_a = random.randint(3, 15)
-            random_d = random.randint(8, 15)
-            def pdf(x):
-                return (1 / np.sqrt(random_d * np.pi)) * np.exp(-((x - random_a) ** 2) / random_d)
-
-            task_text = (f"Плотность случайной величины (1 / np.sqrt({ random_d} * np.pi)) * np.exp(-((x - {random_a})**2) / { random_d}),"
-                         f" дисперсия этой случайной величины равна")
-
-            # Вычисляем математическое ожидание (среднее)
-            e_x = quad(lambda x: x * pdf(x), x_min, x_max)[0]
-            # Вычисляем математическое ожидание квадрата
-            e_x2 = quad(lambda x: (pdf(x) * x ** 2), x_min, x_max)[0]
-            # Вычисляем дисперсию
-            variance = e_x2 - e_x ** 2
-
-            answer = set()
-            answer.add(f"{variance:.1f}")
-
-            forbidden_answer = set()
-            forbidden_answer.add(f"{variance+1:.1f}")
-            forbidden_answer.add(f"{variance-1:.1f}")
-            forbidden_answer.add(f"{variance-2:.1f}")
-
-            result = (task_text, list(answer), list(forbidden_answer))
-            list_task.append(result)
-
-        return list_task
     '''формула думаю верная, подправить ложные ответы и вариативность рандома fix'''
+
+    # TODO: поправить текст
     @staticmethod
-    def task_combinatorics_max_random_distribution(number_of_tasks):
+    def lecture_4_task_combinatorics_eight(number_of_tasks):
         """
-        Плотность случайной величины (1 / np.sqrt(8 * np.pi)) * np.exp(-((x - 3)**2) / 8), точка максимума графика плотности этой случайной величины равна   (правильный ответ - с)
+        Плотность случайной величины (1 / np.sqrt(8 * np.pi)) * np.exp(-((x - 3)**2) / 8),
+        точка максимума графика плотности этой случайной величины равна (правильный ответ - с)
         a.	-3
         b.	0
         c.	3
@@ -523,7 +581,6 @@ class CombinatoricsTaskGenerator:
             # так как minimize_scalar ищет минимум функции
             def neg_pdf(x):
                 return -pdf(x)
-
 
             task_text = (
                 f"Плотность случайной величины (1 / np.sqrt({random_d} * np.pi)) * np.exp(-((x - {random_a})**2) / {random_d}),"
@@ -605,6 +662,7 @@ class CombinatoricsTaskGenerator:
     # endregion
 
     # region КР № 1
+    # TODO: Сколько тут правильных ответов?
     @staticmethod
     def task_combinatorics_dice(number_of_tasks):
         """
@@ -664,7 +722,9 @@ class CombinatoricsTaskGenerator:
     @staticmethod
     def task_combinatorics_1_2(number_of_tasks):
         """
-        Из пяти участников команды выбирают организатора совместной работы и человека, который будет представлять ее результаты (это должны быть разные люди).  С помощью какой комбинаторной схемы можно построить множество способов такого выбора? (правильный ответ – b)
+        Из пяти участников команды выбирают организатора совместной работы и человека, который будет представлять ее
+        результаты (это должны быть разные люди).  С помощью какой комбинаторной схемы можно построить множество
+        способов такого выбора? (правильный ответ – b)
         сочетания без повторений;
         размещения без повторений;
         сочетания с повторениями;
@@ -695,6 +755,7 @@ class CombinatoricsTaskGenerator:
 
     '''требуется проверка fix'''
 
+    # TODO: ты не сделал рандомизацию чисел
     @staticmethod
     def task_combinatorics_1_3(number_of_tasks):
         """
@@ -708,7 +769,6 @@ class CombinatoricsTaskGenerator:
         :return:
         """
         list_task = []
-
         for i in range(number_of_tasks):
             all_cust = random.randint(14, 1000)
             random_cust = random.randint(3, all_cust - 15)
@@ -756,13 +816,13 @@ class CombinatoricsTaskGenerator:
             "ВЬЮГА", "ВИЛКА", "КОРЗИНА", "ШЛЯПА"
         ]
 
-        for word in words:
+        for i, word in enumerate(words):
             letters = list(word)
             random.shuffle(letters)
             formatted_letters = ', '.join(str(letter) for letter in letters)
             task_text = (
-                f"Буквы {formatted_letters} случайным образом располагают в ряд. Какова вероятность того, что получится слово"
-                f" {word}?")
+                f"Буквы {formatted_letters} случайным образом располагают в ряд. Какова вероятность того, "
+                f"что получится слово {word}?")
             answer = set()
             forbidden_answer = set()
             answer.add(f"1/{math.factorial(len(letters))}")
@@ -773,12 +833,14 @@ class CombinatoricsTaskGenerator:
 
             result = (task_text, list(answer), list(forbidden_answer))
             list_task.append(result)
+            if i + 1 == number_of_tasks:
+                break
 
         return list_task
 
     @staticmethod
     def task_combinatorics_stud(number_of_tasks):
-        '''
+        """
         В группе 25 студентов, из них 20 человек обучаются по IT-направлениям, 5 человек обучаются по естественно-научным
         направлениям подготовки. Для ответа на вопросы преподавателя вызываются два студента. Событие А – «первый вызванный
         студент обучается по IT-направлению подготовки», событие В – «второй вызванный студент обучается по естественно-научному
@@ -789,26 +851,26 @@ class CombinatoricsTaskGenerator:
         12/25.
         :param number_of_tasks:
         :return: List_task
-        '''
+        """
         list_task = []
 
         for i in range(number_of_tasks):
             random_all = random.randint(3, 50)
-            random_IT = random.randint(1, random_all)
-            another = random_all - random_IT
+            random_it = random.randint(1, random_all)
+            another = random_all - random_it
             task_text = (
-                f"В группе {random_all} студентов, из них {random_IT} человек обучаются по IT-направлениям, {another} человек обучаются"
-                f" по естественно-научнымнаправлениям подготовки. Для ответа на вопросы преподавателя вызываются"
-                f" два студента. Событие А – «первый вызванныйстудент обучается по IT-направлению подготовки», "
-                f"событие В – «второй вызванный студент обучается по естественно-научномунаправлению подготовки»."
-                f" Чему равна вероятность пересечения событий А и В?")
+                f"В группе {random_all} студентов, из них {random_it} человек обучаются по IT-направлениям, {another} "
+                f"человек обучаются по естественно-научным направлениям подготовки. Для ответа на вопросы преподавателя"
+                f" вызываются два студента. Событие А – «первый вызванный студент обучается по IT-направлению "
+                f"подготовки», событие В – «второй вызванный студент обучается по естественно-научному направлению "
+                f"подготовки». Чему равна вероятность пересечения событий А и В?")
             answer = set()
             forbidden_answer = set()
 
-            answer.add(f"{random_IT / random_all * another / (random_all - 1):.3f}")
-            forbidden_answer.add(f"{random_IT / random_all * another / random_all:.3f}")
+            answer.add(f"{random_it / random_all * another / (random_all - 1):.3f}")
+            forbidden_answer.add(f"{random_it / random_all * another / random_all:.3f}")
             forbidden_answer.add(f"{another / random_all:.3f}")
-            forbidden_answer.add(f"{(random_IT / random_all) * (another - 1) / (random_all - 1):.3f}")  # ?????
+            forbidden_answer.add(f"{(random_it / random_all) * (another - 1) / (random_all - 1):.3f}")  # ?????
 
             result = (task_text, list(answer), list(forbidden_answer))
             list_task.append(result)
@@ -819,7 +881,7 @@ class CombinatoricsTaskGenerator:
 
     @staticmethod
     def task_combinatorics_man(number_of_tasks):
-        '''
+        """
         В отделе работают 4 мужчины и 6 женщин. Руководитель организации выбирает двух сотрудников отдела для участия в
         проекте. Событие А - "первый выбранный человек - мужчина", событие В - "второй выбранный человек - мужчина".
         Чему равна вероятность объединения событий А и В? (правильный ответ – b)
@@ -829,25 +891,25 @@ class CombinatoricsTaskGenerator:
         11/15.
         :param number_of_tasks:
         :return: List_task
-        '''
+        """
         list_task = []
 
         for i in range(number_of_tasks):
             random_all = random.randint(4, 50)
-            Man = random.randint(2, random_all)
-            Woman = random_all - Man
+            man = random.randint(2, random_all)
+            woman = random_all - man
             # Man = 4
             # Woman = 6
 
             task_text = (
-                f"В отделе работают {Man} мужчин и {Woman} женщин. Руководитель организации выбирает двух сотрудников"
+                f"В отделе работают {man} мужчин и {woman} женщин. Руководитель организации выбирает двух сотрудников"
                 f" отдела для участия в проекте. Событие А - 'первый выбранный человек - мужчина', событие В -"
                 f" 'второй выбранный человек - мужчина'. Чему равна вероятность объединения событий А и В?")
             answer = set()
             forbidden_answer = set()
 
-            p_A = Man / (Woman + Man)
-            p_B_or_A = (Man - 1) / ((Woman + Man) - 1)
+            p_A = man / (woman + man)
+            p_B_or_A = (man - 1) / ((woman + man) - 1)
             p_A_and_B = p_A * p_B_or_A
             p_ans = p_A * 2 - p_A_and_B
 
@@ -865,7 +927,7 @@ class CombinatoricsTaskGenerator:
 
     @staticmethod
     def task_combinatorics_dice_2(number_of_tasks):
-        '''
+        """
         Опыт состоит в одновременном бросании трех игральных кубиков. Какие события являются случайными относительно этого опыта? (правильный ответ – b, c)
             А – «в сумме выпало меньше 20 очков»;
             В – «в сумме выпало 18 очков;
@@ -873,7 +935,7 @@ class CombinatoricsTaskGenerator:
             D – «в сумме выпало 23 очка».
         :param number_of_tasks:
         :return: List_task
-        '''
+        """
         list_task = []
 
         for i in range(number_of_tasks):
