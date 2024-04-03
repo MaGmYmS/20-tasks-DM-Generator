@@ -1,7 +1,8 @@
 import math
 import random
 import numpy as np
-
+from scipy.integrate import quad
+from scipy.optimize import minimize_scalar
 
 class CombinatoricsTaskGenerator:
     CONST_NUM_AUTO_TO_STRING = ["0", "1 автомобиль", "2 автомобиля", "3 автомобиля", "4 автомобиля", "5 автомобилей",
@@ -281,7 +282,7 @@ class CombinatoricsTaskGenerator:
 
         return result_tasks_massive
 
-    '''поиграться с величинами'''
+    '''поиграться с величинами fix'''
 
     @staticmethod
     def task_combinatorics_normal_distribution(number_of_tasks):
@@ -371,7 +372,7 @@ class CombinatoricsTaskGenerator:
 
         return result_tasks_massive
 
-    '''проверить формулу, ну уж очень я в ней не уверен'''
+    '''проверить формулу, ну уж очень я в ней не уверен fix'''
 
     @staticmethod
     def task_combinatorics_math_expectation(number_of_tasks):
@@ -405,7 +406,7 @@ class CombinatoricsTaskGenerator:
 
         return list_task
 
-    '''жесть че за формула жоская надо уточнять'''
+    '''жесть че за формула жоская надо уточнять fix'''
 
     @staticmethod
     def task_combinatorics_normal_distribution_2(number_of_tasks):
@@ -433,12 +434,111 @@ class CombinatoricsTaskGenerator:
 
             forbidden_answer = set()
             forbidden_answer.add(f"{math.pow(random_sigma, 2)}")
-
             forbidden_answer.add(f"{random_alpha}")
             forbidden_answer.add(f"{math.pow(random_sigma, 2) + random_alpha}")
 
-            # forbidden_answer.add(f"{math.factorial(dice) // (math.factorial(count_dice) * math.factorial(dice - count_dice)) * math.pow(1 / 2, dice + 1)}")
-            # forbidden_answer.add(f"{math.factorial(dice) // (math.factorial(count_dice) * math.factorial(dice - count_dice)) * math.pow(1/2,dice+1)}")
+            result = (task_text, list(answer), list(forbidden_answer))
+            list_task.append(result)
+
+        return list_task
+
+    '''по хорошему, спросить формулу и подправить вариативность, ложные ответы fix'''
+    @staticmethod
+    def task_combinatorics_random_distribution(number_of_tasks):
+        """
+        Плотность случайной величины (1 / np.sqrt(8 * np.pi)) * np.exp(-((x - 3)**2) / 8), дисперсия этой случайной
+         величины равна (правильный ответ - d)
+        a.	1
+        b.	2
+        c.	3
+        d.	4
+        :param number_of_tasks:
+        :return: List_task
+        """
+        list_task = []
+
+        # Формула плотности вероятности
+
+        for i in range(number_of_tasks):
+            # random_alpha = random.randint(1, 60)
+            # random_sigma = random.randint(1, 3)
+            x_min = -10  # Минимальное значение X для интегрирования
+            x_max = 10  # Максимальное значение X для интегрирования
+            random_a = random.randint(3, 15)
+            random_d = random.randint(8, 15)
+            def pdf(x):
+                return (1 / np.sqrt(random_d * np.pi)) * np.exp(-((x - random_a) ** 2) / random_d)
+
+            task_text = (f"Плотность случайной величины (1 / np.sqrt({ random_d} * np.pi)) * np.exp(-((x - {random_a})**2) / { random_d}),"
+                         f" дисперсия этой случайной величины равна")
+
+            # Вычисляем математическое ожидание (среднее)
+            e_x = quad(lambda x: x * pdf(x), x_min, x_max)[0]
+            # Вычисляем математическое ожидание квадрата
+            e_x2 = quad(lambda x: (pdf(x) * x ** 2), x_min, x_max)[0]
+            # Вычисляем дисперсию
+            variance = e_x2 - e_x ** 2
+
+            answer = set()
+            answer.add(f"{variance:.1f}")
+
+            forbidden_answer = set()
+            forbidden_answer.add(f"{variance+1:.1f}")
+            forbidden_answer.add(f"{variance-1:.1f}")
+            forbidden_answer.add(f"{variance-2:.1f}")
+
+            result = (task_text, list(answer), list(forbidden_answer))
+            list_task.append(result)
+
+        return list_task
+    '''формула думаю верная, подправить ложные ответы и вариативность рандома fix'''
+    @staticmethod
+    def task_combinatorics_max_random_distribution(number_of_tasks):
+        """
+        Плотность случайной величины (1 / np.sqrt(8 * np.pi)) * np.exp(-((x - 3)**2) / 8), точка максимума графика плотности этой случайной величины равна   (правильный ответ - с)
+        a.	-3
+        b.	0
+        c.	3
+        d.	4
+
+        :param number_of_tasks:
+        :return: List_task
+        """
+        list_task = []
+
+        # Формула плотности вероятности
+
+        for i in range(number_of_tasks):
+            # random_alpha = random.randint(1, 60)
+            # random_sigma = random.randint(1, 3)
+            x_min = -10  # Минимальное значение X для интегрирования
+            x_max = 10  # Максимальное значение X для интегрирования
+            random_a = random.randint(3, 15)
+            random_d = random.randint(8, 15)
+
+            def pdf(x):
+                return (1 / np.sqrt(random_d * np.pi)) * np.exp(-((x - random_a) ** 2) / random_d)
+
+            # Функция для минимизации (максимизации) - отрицательная плотность вероятности,
+            # так как minimize_scalar ищет минимум функции
+            def neg_pdf(x):
+                return -pdf(x)
+
+
+            task_text = (
+                f"Плотность случайной величины (1 / np.sqrt({random_d} * np.pi)) * np.exp(-((x - {random_a})**2) / {random_d}),"
+                f" дисперсия этой случайной величины равна")
+
+            result = minimize_scalar(neg_pdf)
+            maximum_point = result.x
+
+            answer = set()
+            answer.add(f"{maximum_point:.1f}")
+
+            forbidden_answer = set()
+            forbidden_answer.add(f"{maximum_point + 1:.1f}")
+            forbidden_answer.add(f"{maximum_point - 1:.1f}")
+            forbidden_answer.add(f"{maximum_point - 2:.1f}")
 
             result = (task_text, list(answer), list(forbidden_answer))
             list_task.append(result)
@@ -559,7 +659,7 @@ class CombinatoricsTaskGenerator:
 
         return list_task
 
-    '''требуется проверка'''
+    '''требуется проверка fix'''
 
     @staticmethod
     def task_combinatorics_1_2(number_of_tasks):
@@ -593,12 +693,13 @@ class CombinatoricsTaskGenerator:
 
         return list_task
 
-    '''требуется проверка'''
+    '''требуется проверка fix'''
 
     @staticmethod
     def task_combinatorics_1_3(number_of_tasks):
         """
-        Девушка выбирает 3 платья из 14, имеющихся в магазине. С помощью какой комбинаторной схемы можно построить множество способов такого выбора? (правильный ответ – a)
+        Девушка выбирает 3 платья из 14, имеющихся в магазине. С помощью какой комбинаторной схемы можно построить
+         множество способов такого выбора? (правильный ответ – a)
         сочетания без повторений;
         размещения без повторений;
         сочетания с повторениями;
@@ -714,7 +815,7 @@ class CombinatoricsTaskGenerator:
 
         return list_task
 
-    '''может быть косяк с тем как считается надо уточнить этот момент'''
+    '''может быть косяк с тем как считается надо уточнить этот момент fix'''
 
     @staticmethod
     def task_combinatorics_man(number_of_tasks):
@@ -750,17 +851,17 @@ class CombinatoricsTaskGenerator:
             p_A_and_B = p_A * p_B_or_A
             p_ans = p_A * 2 - p_A_and_B
 
-            answer.add(f"{p_ans:.3f} 1")
-            forbidden_answer.add(f"{p_A_and_B:.3f} 2")
-            forbidden_answer.add(f"{p_A * 2:.3f} 3")
-            forbidden_answer.add(f"{1 - p_A_and_B * 2:.3f} 4")
+            answer.add(f"{p_ans:.3f}")
+            forbidden_answer.add(f"{p_A_and_B:.3f}")
+            forbidden_answer.add(f"{p_A * 2:.3f}")
+            forbidden_answer.add(f"{1 - p_A_and_B * 2:.3f}")
 
             result = (task_text, list(answer), list(forbidden_answer))
             list_task.append(result)
 
         return list_task
 
-    '''требуется проверка формулы плюсом поиграть с разбросом'''
+    '''требуется проверка формулы плюсом поиграть с разбросом fix'''
 
     @staticmethod
     def task_combinatorics_dice_2(number_of_tasks):
