@@ -548,7 +548,6 @@ class CombinatoricsTaskGenerator:
 
     '''формула думаю верная, подправить ложные ответы и вариативность рандома fix'''
 
-    # TODO: поправить текст
     @staticmethod
     def lecture_4_task_combinatorics_eight(number_of_tasks):
         """
@@ -584,7 +583,7 @@ class CombinatoricsTaskGenerator:
 
             task_text = (
                 f"Плотность случайной величины (1 / np.sqrt({random_d} * np.pi)) * np.exp(-((x - {random_a})**2) / {random_d}),"
-                f" дисперсия этой случайной величины равна")
+                f" точка максимума графика плотности величины равна")
 
             result = minimize_scalar(neg_pdf)
             maximum_point = result.x
@@ -755,7 +754,7 @@ class CombinatoricsTaskGenerator:
 
     '''требуется проверка fix'''
 
-    # TODO: ты не сделал рандомизацию чисел
+
     @staticmethod
     def task_combinatorics_1_3(number_of_tasks):
         """
@@ -773,7 +772,7 @@ class CombinatoricsTaskGenerator:
             all_cust = random.randint(14, 1000)
             random_cust = random.randint(3, all_cust - 15)
             task_text = (
-                f"Девушка выбирает 3 платья из 14, имеющихся в магазине. С помощью какой комбинаторной схемы можно"
+                f"Девушка выбирает {random_cust} платья из {all_cust}, имеющихся в магазине. С помощью какой комбинаторной схемы можно"
                 f" построить множество способов такого выбора?")
             answer = set()
             forbidden_answer = set()
