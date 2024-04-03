@@ -486,8 +486,13 @@ class CombinatoricsTaskGenerator:
             def pdf(x):
                 return (1 / np.sqrt(random_d * np.pi)) * np.exp(-((x - random_a) ** 2) / random_d)
 
+            latex_equation = (r"""$$ 
+            \frac\{1\}\{\sqrt\{""" + str(random_d) + r"""\pi\}\}\exp\{\left(-\frac\{(x - """ + str(random_a)
+                              + r""")^\{2\}\}\{""" + str(random_d) + r"""\}\right)\} 
+            $$""")
+
             task_text = (
-                f"Плотность случайной величины (1 / np.sqrt({random_d} * np.pi)) * np.exp(-((x - {random_a})**2) / {random_d}),"
+                f"Плотность случайной величины {latex_equation},"
                 f" дисперсия этой случайной величины равна")
 
             # Вычисляем математическое ожидание (среднее)
@@ -582,8 +587,13 @@ class CombinatoricsTaskGenerator:
             def neg_pdf(x):
                 return -pdf(x)
 
+            latex_equation = (r"""$$ 
+            \frac\{1\}\{\sqrt\{""" + str(random_d) + r"""\pi\}\}\exp\{\left(-\frac\{(x - """ + str(random_a)
+                              + r""")^\{2\}\}\{""" + str(random_d) + r"""\}\right)\} 
+            $$""")
+
             task_text = (
-                f"Плотность случайной величины (1 / np.sqrt({random_d} * np.pi)) * np.exp(-((x - {random_a})**2) / {random_d}),"
+                f"Плотность случайной величины {latex_equation},"
                 f" дисперсия этой случайной величины равна")
 
             result = minimize_scalar(neg_pdf)
