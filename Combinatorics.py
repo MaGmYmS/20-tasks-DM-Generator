@@ -248,8 +248,8 @@ class CombinatoricsTaskGenerator:
             x1 = random.randint(1, 9)
             x2 = random.randint(10, 20)
 
-            numerator = random.randint(1, 9)
-            denominator = random.randint(10, 20)
+            numerator = 1
+            denominator = x2 - x1
 
             answer = (x2 ** 2 - x1 ** 2) * numerator / (2 * denominator)
             answer = round(answer, 1)
@@ -275,6 +275,113 @@ class CombinatoricsTaskGenerator:
 
             task_text = (f"Плотность случайной величины {latex_equation} математическое ожидание этой случайной "
                          f"величины равно: ")
+
+            result_tasks_massive.append((task_text, [answer], list(wrong_answers)))
+
+        return result_tasks_massive
+
+    @staticmethod
+    def lecture_4_task_combinatorics_four(number_of_tasks):
+        """
+            Случайная величина распределена по равномерному закону, значение плотности f(3) = 1 / 2.
+            Значение дисперсии этой случайной величины равно (правильный ответ – а)
+                a.	1/3
+                b.	1/2
+                c.	1
+                d.	2
+
+        Args:
+            number_of_tasks (int): Количество задач для генерации.
+
+        Returns:
+            list: Список кортежей, каждый из которых содержит текст задачи,
+                  правильный ответ и массив неправильных ответов.
+        """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            x1 = random.randint(0, 7)
+            x2 = random.randint(8, 15)
+            point = random.randint(x1 + 1, x2)
+
+            # Формируем дробь
+            numerator = 1
+            denominator = x2 - x1
+
+            # Формируем ответ
+            answer = denominator ** 2 / 12
+            answer = round(answer, 2)
+
+            latex_equation = (r"""$$ 
+            f(""" + str(point) + r""") = \frac\{""" + str(numerator) + r"""\}\{""" + str(denominator) + r"""\} 
+            $$""")
+
+
+            wrong_answers = set()
+            wrong_answers.add(str(answer))
+            wrong_answers.add(str(round(denominator ** 2 / 6, 2)))
+            wrong_answers.add(str(round(denominator / 6, 2)))
+            wrong_answers.add(str(round(denominator / 12, 2)))
+            wrong_answers.remove(str(answer))
+
+            task_text = (f"Случайная величина распределена по равномерному закону, значение плотности  "
+                         f"{latex_equation} Значение дисперсии этой случайной величины равно: ")
+
+            result_tasks_massive.append((task_text, [answer], list(wrong_answers)))
+
+        return result_tasks_massive
+
+    @staticmethod
+    def lecture_4_task_combinatorics_ten(number_of_tasks):
+        """
+          Плотность случайной величины f(x) функция распределения этой случайной величины в точке  2 равна
+          (правильный ответ –b )
+            a.	0,125
+            b.	0,25
+            c.	0,5
+            d.	0,75
+
+        Args:
+            number_of_tasks (int): Количество задач для генерации.
+
+        Returns:
+            list: Список кортежей, каждый из которых содержит текст задачи,
+                  правильный ответ и массив неправильных ответов.
+        """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            x1 = random.randint(0, 9)
+            x2 = random.randint(10, 20)
+            point = random.randint(x1 + 1, x2)
+
+            # Формируем дробь
+            numerator = 1
+            denominator = x2 - x1
+            fraction = numerator / denominator
+
+            # Формируем ответ
+            answer = fraction * (point - x1)
+            answer = round(answer, 3)
+
+            latex_equation = (r"""
+            \[
+            f(x) = 
+            \begin\{cases\}
+                0 & \text\{при \} x \\le \{""" + str(x1) + r"""\} \\\
+                \frac\{""" + str(numerator) + r"""\}\{""" + str(denominator) + r"""\} & \text\{при \} \{""" + str(x1)
+                              + r"""\} < x < \{""" + str(x2) + r"""\} \\\
+                0 & \text\{при \} x \\ge \{""" + str(x2) + r"""\}
+            \end\{cases\}
+            \]
+            """)
+
+            wrong_answers = set()
+            while len(wrong_answers) < 3:
+                wrong_ev = round(random.uniform(0, 1), 3)
+                if abs(wrong_ev - answer) > 0.2:
+                    wrong_answers.add(str(wrong_ev))
+
+            task_text = (f"Плотность случайной величины {latex_equation} функция распределения этой случайной "
+                         f"величины в точке {point} равна: ")
 
             result_tasks_massive.append((task_text, [answer], list(wrong_answers)))
 
