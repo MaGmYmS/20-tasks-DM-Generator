@@ -35,7 +35,7 @@ class CombinatoricsTaskGenerator:
 
     # region Тест по лекции № 1
     @staticmethod
-    def task_combinatorics_one(number_of_tasks):
+    def lecture_1_task_combinatorics_one(number_of_tasks):
         result_tasks_massive = []
         for _ in range(number_of_tasks):
             # Generate random parameters for the combinatorial task
@@ -61,7 +61,7 @@ class CombinatoricsTaskGenerator:
         return result_tasks_massive
 
     @staticmethod
-    def task_combinatorics_two(number_of_tasks):
+    def lecture_1_task_combinatorics_two(number_of_tasks):
         result_tasks_massive = []
         for _ in range(number_of_tasks):
             # Generate random parameters for the combinatorial task
@@ -84,7 +84,7 @@ class CombinatoricsTaskGenerator:
         return result_tasks_massive
 
     @staticmethod
-    def task_combinatorics_three(number_of_tasks):
+    def lecture_1_task_combinatorics_three(number_of_tasks):
         result_tasks_massive = []
         for _ in range(number_of_tasks):
             # Generate random parameters for the combinatorial task
@@ -105,7 +105,7 @@ class CombinatoricsTaskGenerator:
 
         return result_tasks_massive
 
-    def task_combinatorics_four(self, number_of_tasks):
+    def lecture_1_task_combinatorics_four(self, number_of_tasks):
         list_task = []
 
         for i in range(2, 30):
@@ -125,7 +125,7 @@ class CombinatoricsTaskGenerator:
 
         return list_task
 
-    def task_combinatorics_five(self, number_of_tasks):
+    def lecture_1_task_combinatorics_five(self, number_of_tasks):
         list_task = []
 
         for i in range(2, 10):
@@ -149,7 +149,7 @@ class CombinatoricsTaskGenerator:
 
     # region Тест по лекции № 2
     @staticmethod
-    def probability_of_value(number_of_tasks):
+    def lecture_2_probability_of_value(number_of_tasks):
         """
         3	Случайная величина Х принимает три возможных значения х1, х2, х3. Значение х1 она принимает с вероятностью
         0,4, значение х2 – с вероятностью 0,5. С какой вероятностью случайная величина Х принимает значение х3?
@@ -191,7 +191,7 @@ class CombinatoricsTaskGenerator:
 
     # region Тест по лекции № 3
     @staticmethod
-    def expected_value(number_of_tasks):
+    def lecture_3_expected_value(number_of_tasks):
         """
         Генерирует задачу по определению математического ожидания случайной величины.
 
@@ -337,15 +337,16 @@ class CombinatoricsTaskGenerator:
 
     @staticmethod
     def lecture_4_task_combinatorics_three(number_of_tasks):
-        '''
-        Случайная величина Х имеет стандартное нормальное распределение,  математическое ожидание случайной величины У=3-2Х равно (правильный ответ – d)
+        """
+        Случайная величина Х имеет стандартное нормальное распределение,  математическое ожидание случайной величины
+        У=3-2Х равно (правильный ответ – d)
         -2
         0
         1
         3
         :param number_of_tasks:
         :return: List_task
-        '''
+        """
         list_task = []
 
         for i in range(number_of_tasks):
@@ -427,15 +428,16 @@ class CombinatoricsTaskGenerator:
 
     @staticmethod
     def lecture_4_task_combinatorics_five(number_of_tasks):
-        '''
-        Случайная величина Х – время между вызовами «скорой помощи».  В среднем за один час поступает 10 вызовов.  Математическое ожидание случайной величины Х равно  (правильный ответ – b)
+        """
+        Случайная величина Х – время между вызовами «скорой помощи».  В среднем за один час поступает 10 вызовов.
+        Математическое ожидание случайной величины Х равно  (правильный ответ – b)
         0,01
         0,1
         10
         10
         :param number_of_tasks:
         :return: List_task
-        '''
+        """
         list_task = []
 
         for i in range(number_of_tasks):
@@ -520,7 +522,8 @@ class CombinatoricsTaskGenerator:
     @staticmethod
     def lecture_4_task_combinatorics_seven(number_of_tasks):
         """
-        Случайные величины Х, У и Z независимы и имеют нормальное распределение с параметрами  α = 1, σ = 2. Дисперсия суммы этих случайных величин равна (ответ d)
+        Случайные величины Х, У и Z независимы и имеют нормальное распределение с параметрами  α = 1, σ = 2.
+        Дисперсия суммы этих случайных величин равна (ответ d)
         a.	3
         b.	6
         c.	9
@@ -536,7 +539,8 @@ class CombinatoricsTaskGenerator:
             random_sigma = random.randint(1, 3)
 
             task_text = (f" Случайные величины Х, У и Z независимы и имеют нормальное распределение "
-                         f"с параметрами  α = {random_alpha}, σ = {random_sigma}. Дисперсия суммы этих случайных величин равна")
+                         f"с параметрами  α = {random_alpha}, σ = {random_sigma}. "
+                         f"Дисперсия суммы этих случайных величин равна")
             answer = set()
 
             answer.add(f"{math.pow(random_sigma, 2) * 3}")
@@ -574,8 +578,6 @@ class CombinatoricsTaskGenerator:
         for i in range(number_of_tasks):
             # random_alpha = random.randint(1, 60)
             # random_sigma = random.randint(1, 3)
-            x_min = -10  # Минимальное значение X для интегрирования
-            x_max = 10  # Максимальное значение X для интегрирования
             random_a = random.randint(3, 15)
             random_d = random.randint(8, 15)
 
@@ -674,9 +676,10 @@ class CombinatoricsTaskGenerator:
     # region КР № 1
     # TODO: Сколько тут правильных ответов?
     @staticmethod
-    def task_combinatorics_dice(number_of_tasks):
+    def control_work_task_combinatorics_dice(number_of_tasks):
         """
-        Опыт состоит в одновременном бросании трех игральных кубиков. Какие события являются случайными относительно этого опыта? (правильный ответ – b, c)
+        Опыт состоит в одновременном бросании трех игральных кубиков. Какие события являются случайными относительно
+        этого опыта? (правильный ответ – b, c)
             А – «в сумме выпало меньше 20 очков»;
             В – «в сумме выпало 18 очков;
             С – «в сумме выпало больше 10 очков»;
@@ -730,7 +733,7 @@ class CombinatoricsTaskGenerator:
     '''требуется проверка fix'''
 
     @staticmethod
-    def task_combinatorics_1_2(number_of_tasks):
+    def control_work_task_combinatorics_1_2(number_of_tasks):
         """
         Из пяти участников команды выбирают организатора совместной работы и человека, который будет представлять ее
         результаты (это должны быть разные люди).  С помощью какой комбинаторной схемы можно построить множество
@@ -767,7 +770,7 @@ class CombinatoricsTaskGenerator:
 
     # TODO: ты не сделал рандомизацию чисел
     @staticmethod
-    def task_combinatorics_1_3(number_of_tasks):
+    def control_work_task_combinatorics_1_3(number_of_tasks):
         """
         Девушка выбирает 3 платья из 14, имеющихся в магазине. С помощью какой комбинаторной схемы можно построить
          множество способов такого выбора? (правильный ответ – a)
@@ -799,7 +802,7 @@ class CombinatoricsTaskGenerator:
         return list_task
 
     @staticmethod
-    def task_combinatorics_moscow(number_of_tasks):
+    def control_work_task_combinatorics_moscow(number_of_tasks):
 
         """
         Буквы А, В, К, М, О, С случайным образом располагают в ряд. Какова вероятность того, что получится слово МОСКВА?
@@ -849,12 +852,13 @@ class CombinatoricsTaskGenerator:
         return list_task
 
     @staticmethod
-    def task_combinatorics_stud(number_of_tasks):
+    def control_work_task_combinatorics_stud(number_of_tasks):
         """
-        В группе 25 студентов, из них 20 человек обучаются по IT-направлениям, 5 человек обучаются по естественно-научным
-        направлениям подготовки. Для ответа на вопросы преподавателя вызываются два студента. Событие А – «первый вызванный
-        студент обучается по IT-направлению подготовки», событие В – «второй вызванный студент обучается по естественно-научному
-        направлению подготовки». Чему равна вероятность пересечения событий А и В? (правильный ответ – a)
+        В группе 25 студентов, из них 20 человек обучаются по IT-направлениям, 5 человек обучаются по
+        естественно-научным направлениям подготовки. Для ответа на вопросы преподавателя вызываются два студента.
+        Событие А – «первый вызванный студент обучается по IT-направлению подготовки», событие В – «второй вызванный
+        студент обучается по естественно-научному направлению подготовки». Чему равна вероятность пересечения событий
+        А и В? (правильный ответ – a)
         1/6;
         4/25;
         1/5;
@@ -890,7 +894,7 @@ class CombinatoricsTaskGenerator:
     '''может быть косяк с тем как считается надо уточнить этот момент fix'''
 
     @staticmethod
-    def task_combinatorics_man(number_of_tasks):
+    def control_work_task_combinatorics_man(number_of_tasks):
         """
         В отделе работают 4 мужчины и 6 женщин. Руководитель организации выбирает двух сотрудников отдела для участия в
         проекте. Событие А - "первый выбранный человек - мужчина", событие В - "второй выбранный человек - мужчина".
@@ -936,9 +940,10 @@ class CombinatoricsTaskGenerator:
     '''требуется проверка формулы плюсом поиграть с разбросом fix'''
 
     @staticmethod
-    def task_combinatorics_dice_2(number_of_tasks):
+    def control_work_task_combinatorics_dice_2(number_of_tasks):
         """
-        Опыт состоит в одновременном бросании трех игральных кубиков. Какие события являются случайными относительно этого опыта? (правильный ответ – b, c)
+        Опыт состоит в одновременном бросании трех игральных кубиков. Какие события являются случайными относительно
+        этого опыта? (правильный ответ – b, c)
             А – «в сумме выпало меньше 20 очков»;
             В – «в сумме выпало 18 очков;
             С – «в сумме выпало больше 10 очков»;
@@ -987,15 +992,28 @@ class CombinatoricsTaskGenerator:
         """
         return math.factorial(n) // (math.factorial(k) * math.factorial(n - k))
 
-    def task_combinatorics_one_binom_newton(self, number_of_tasks):
+    def logic_1_task_combinatorics_one_binom_newton(self, number_of_tasks):
+        """
+        В выражении (-a+3b)^15 раскрыли скобки и привели подобные слагаемые. Какие числовые коэффициенты будут
+        у выражений a^3⋅b^12?
+        :param number_of_tasks:
+        :return:
+        """
         result_tasks_massive = []
         for _ in range(number_of_tasks):
             n = random.randint(5, 15)  # Choose a random number
             k = random.randint(2, n - 1)  # Choose a random number for k where 1 < k < n
-            a_coefficient = random.randint(-5, 5)  # Random coefficient for a
-            b_coefficient = random.randint(-5, 5)  # Random coefficient for b
+            a_coefficient = 0
+            while a_coefficient == 0:
+                a_coefficient = random.randint(-5, 5)  # Random coefficient for a
+            b_coefficient = 0
+            while b_coefficient == 0:
+                b_coefficient = random.randint(-5, 5)  # Random coefficient for b
 
-            expression_1 = fr"$$ ({a_coefficient}a + {b_coefficient}b)" + r"^\{" + str(n) + r"\} $$"
+            if b_coefficient > 0:
+                expression_1 = fr"$$ ({a_coefficient}a + {b_coefficient}b)" + r"^\{" + str(n) + r"\} $$"
+            else:
+                expression_1 = fr"$$ ({a_coefficient}a - {abs(b_coefficient)}b)" + r"^\{" + str(n) + r"\} $$"
             expression_2 = r"$$ a^\{" + str(n - k) + r"\} * b^\{" + str(k) + r"\} $$"
             # Generate task text
             task_text = (
@@ -1008,4 +1026,48 @@ class CombinatoricsTaskGenerator:
             result_tasks_massive.append((task_text, [answer], []))
 
         return result_tasks_massive
+
+    def logic_1_task_combinatorics_five_distribution_tickets(self, number_of_tasks):
+        """
+        Группе из десяти сотрудников выделено три путевки. Сколько существует способов распределения путевок,
+        если все путевки одинаковы?
+        :param number_of_tasks:
+        :return:
+        """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            number_of_employees = random.randint(5, 15)  # количество сотрудников
+            number_of_tickets = random.randint(1, number_of_employees - 2)  # количество путевок
+            task_text = f"Группе из {number_of_employees} сотрудников выделено {number_of_tickets} путевки. " \
+                        f"Сколько существует способов распределения путевок, если все путевки одинаковы?"
+
+            answer = self.C(number_of_employees, number_of_tickets)
+
+            result_tasks_massive.append((task_text, [answer], []))
+
+        return result_tasks_massive
+
+    def logic_1_task_combinatorics_six_different_gender_pairs(self, number_of_tasks):
+        """
+        На школьном вечере присутствуют 12 девушек и 15 юношей. Сколькими способами можно выбрать из них 4
+        разнополые пары для танца?
+        :param number_of_tasks:
+        :return:
+        """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            number_of_girls = random.randint(8, 20)
+            number_of_boys = random.randint(8, 20)
+            number_pairs = random.randint(3, 8)
+            task_text = f"На школьном вечере присутствуют {number_of_girls} девушек и {number_of_boys} юношей. " \
+                        f"Сколькими способами можно выбрать из них {number_pairs} разнополые пары для танца?"
+
+            part1 = self.C(number_of_girls, number_pairs)
+            part2 = self.C(number_of_boys, number_pairs)
+            answer = part1 * part2
+
+            result_tasks_massive.append((task_text, [answer], []))
+
+        return result_tasks_massive
+
     # endregion
