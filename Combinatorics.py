@@ -978,3 +978,34 @@ class CombinatoricsTaskGenerator:
         return list_task
 
     # endregion
+
+    # region Задачи по комбинаторике от Володины Т.Ю
+    @staticmethod
+    def C(n: int, k: int):
+        """
+        Calculate the number of combinations C(n, k).
+        """
+        return math.factorial(n) // (math.factorial(k) * math.factorial(n - k))
+
+    def task_combinatorics_one_binom_newton(self, number_of_tasks):
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            n = random.randint(5, 15)  # Choose a random number
+            k = random.randint(2, n - 1)  # Choose a random number for k where 1 < k < n
+            a_coefficient = random.randint(-5, 5)  # Random coefficient for a
+            b_coefficient = random.randint(-5, 5)  # Random coefficient for b
+
+            expression_1 = fr"$$ ({a_coefficient}a + {b_coefficient}b)" + r"^\{" + str(n) + r"\} $$"
+            expression_2 = r"$$ a^\{" + str(n - k) + r"\} * b^\{" + str(k) + r"\} $$"
+            # Generate task text
+            task_text = (
+                f"В выражении {expression_1} раскрыли скобки и привели подобные слагаемые. "
+                f"Какие числовые коэффициенты будут у выражений {expression_2}?"
+            )
+
+            answer = self.C(n, k) * (a_coefficient ** (n - k)) * (b_coefficient ** k)
+
+            result_tasks_massive.append((task_text, [answer], []))
+
+        return result_tasks_massive
+    # endregion

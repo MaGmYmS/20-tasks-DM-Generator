@@ -136,6 +136,9 @@ def create_all_tasks_combinatorics():
         "task_combinatorics_stud": "Задание 21. Комбинаторика. Категория 5",
         "task_combinatorics_man": "Задание 22. Комбинаторика. Категория 5",
         "task_combinatorics_dice_2": "Задание 23. Комбинаторика. Категория 5",
+
+        "task_combinatorics_one_binom_newton": "Задание 101. Комбинаторика. Категория 11",
+
     }
 
     combinatorics_gen = CombinatoricsTaskGenerator()
@@ -160,7 +163,9 @@ def create_all_tasks_combinatorics():
                         combinatorics_gen.task_combinatorics_moscow,
                         combinatorics_gen.task_combinatorics_stud,
                         combinatorics_gen.task_combinatorics_man,
-                        combinatorics_gen.task_combinatorics_dice_2,]
+                        combinatorics_gen.task_combinatorics_dice_2,
+
+                        combinatorics_gen.task_combinatorics_one_binom_newton]
 
     categories_dict = {}
     for method in all_tasks_method:
