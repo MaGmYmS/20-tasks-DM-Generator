@@ -1070,4 +1070,130 @@ class CombinatoricsTaskGenerator:
 
         return result_tasks_massive
 
+    """не уверен в решении, так как на вопрос как решать мне ответили погугли fix"""
+    def logic_1_task_combinatorics_twelve_cards(self, number_of_tasks):
+        """
+                12.	Сколькими способами колоду из 36 карт можно разделить произвольно на 2 части?
+                :param number_of_tasks:
+                :return:
+                """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            forbidden_answer = set()
+            number_of_card = random.choice([36, 52])  # кол-во карт
+            number_of_part = random.randint(2, 10)  # количество частей
+            task_text = f"Сколькими способами колоду из {number_of_card} карт можно разделить произвольно на {number_of_part} частей?"
+
+            answer = self.C(number_of_card - 1, number_of_part)
+            forbidden_answer.add(f"{self.C(number_of_card, number_of_part)}")
+            forbidden_answer.add(f"{number_of_card * number_of_part}")
+            forbidden_answer.add(f"{math.pow(2, number_of_part)}")
+            result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
+
+        return result_tasks_massive
+
+    def logic_1_task_combinatorics_thirteen_biatlon(self, number_of_tasks):
+        """
+                13.	Биатлонист делает 5 выстрелов на рубеже. За каждую не закрытую мишень он
+                 получает штрафной круг. Сколько возможных комбинаций (закрытых/не закрытых мишеней)
+                 приводят к двум штрафным кругам?
+                :param number_of_tasks:
+                :return:
+                """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            forbidden_answer = set()
+            number_of_target = random.randint(5, 15)  # кол-во мишеней
+            number_of_miss = random.randint(2, number_of_target - 1)  # количество штрафов
+            task_text = (
+                f"Биатлонист делает {number_of_target} выстрелов на рубеже. За каждую не закрытую мишень он получает "
+                f"штрафной круг. Сколько возможных комбинаций (закрытых/не закрытых мишеней) "
+                f"приводят к {number_of_miss} штрафным кругам?")
+
+            answer = self.C(number_of_target, number_of_miss)
+            forbidden_answer.add(f"{self.C(number_of_target - 1, number_of_miss)}")
+            forbidden_answer.add(f"{number_of_target * number_of_miss}")
+            forbidden_answer.add(f"{math.pow(2, number_of_miss)}")
+            result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
+
+        return result_tasks_massive
+
+    def logic_1_task_combinatorics_Fourteen_cake(self, number_of_tasks):
+        """
+                14.	В кондитерской продаются пирожные четырех видов. Сколькими способами можно купить 8 пирожных?
+                :param number_of_tasks:
+                :return:
+                """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            forbidden_answer = set()
+            number_of_cake = random.randint(4, 6)  # виды пирожных
+            number_of_choice = random.randint(8, 14)  # количество, что мы берем
+            task_text = (f"В кондитерской продаются пирожные {number_of_cake} видов. Сколькими способами можно купить"
+                         f" {number_of_choice} пирожных?")
+
+            answer = self.C(number_of_cake + number_of_choice - 1, number_of_choice)
+            forbidden_answer.add(f"{self.C(number_of_cake + number_of_choice, number_of_choice)}")
+            forbidden_answer.add(f"{number_of_choice * number_of_cake}")
+            forbidden_answer.add(f"{math.pow(2, number_of_choice)}")
+            result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
+
+        return result_tasks_massive
+
+    def logic_1_task_combinatorics_fifteen_letter(self, number_of_tasks):
+        """
+                15.	Алфавит А состоит из двух символов. Сколько существует различных слов алфавита А,
+                 длины которых не превосходят 5?
+                :param number_of_tasks:
+                :return:
+                """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+
+            forbidden_answer = set()
+            number_of_letter = random.randint(2, 10)  # кол-во букв
+            number_of_words = random.randint(2, 5)  # длина слова
+            task_text = (
+                f"Алфавит А состоит из {number_of_letter} символов. Сколько существует различных слов алфавита А,"
+                f"длины которых не превосходят {number_of_words}?")
+
+            answer = 0
+            # Перебираем длины слов от 1 до максимальной длины
+            for length in range(1, number_of_words + 1):
+                # Количество слов длины length равно alphabet_size в степени length
+                words_count = math.pow(number_of_letter, length)
+                answer += words_count
+
+            forbidden_answer.add(f"{answer / number_of_words}")
+            forbidden_answer.add(f"{(answer / number_of_words) * 2}")
+            forbidden_answer.add(f"{math.pow(2, number_of_words)}")
+            result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
+
+        return result_tasks_massive
+
+    def logic_1_task_combinatorics_SEXteen_profkom(self, number_of_tasks):
+        """
+               16.	В профком выбрано 9 человек. Из них нужно выбрать председателя, его заместителя и секретаря.
+                Сколькими способами это можно сделать?
+                :param number_of_tasks:
+                :return:
+                """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            forbidden_answer = set()
+            number_of_letter = random.randint(7, 15)  # кол-во людей
+            # number_of_words = random.randint(2, 5)  # длина слова
+            task_text = (
+                f"В профком выбрано {number_of_letter} человек. Из них нужно выбрать председателя, его заместителя и секретаря."
+                "Сколькими способами это можно сделать?")
+
+            answer = number_of_letter * (number_of_letter - 1) * (number_of_letter - 2)
+            # Перебираем длины слов от 1 до максимальной длины
+
+            forbidden_answer.add(f"{math.pow(number_of_letter, 2)}")
+            forbidden_answer.add(f"{math.pow(2, number_of_letter)}")
+            forbidden_answer.add(f"{number_of_letter * (number_of_letter - 1)}")
+            result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
+
+        return result_tasks_massive
     # endregion
