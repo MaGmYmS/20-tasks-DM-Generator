@@ -1048,6 +1048,7 @@ class Graph:
             result_mas.append((string_task, [string_task_results], wrong_ans, path_to_graph_img))
         return result_mas
 
+# TODO: сделать так чтобы из города nck нельзя было попасть сразу в город E
     def task_eleven(self, count_task, max_weight=10):
         """
     ::Теория графов::Система автодорог, проходящих через N-скую область, может обеспечить следующие пропускные способности измеряемые в тыс. автомашин в час:

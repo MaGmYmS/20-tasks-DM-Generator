@@ -489,9 +489,10 @@ class CombinatoricsTaskGenerator:
                 return (1 / np.sqrt(random_d * np.pi)) * np.exp(-((x - random_a) ** 2) / random_d)
 
             latex_equation = (r"""$$ 
-            \frac\{1\}\{\sqrt\{""" + str(random_d) + r"""\pi\}\}\exp\{\left(-\frac\{(x - """ + str(random_a)
+                                   \frac\{1\}\{\sqrt\{""" + str(
+                random_d) + r"""\pi\}\}\exp\{\left(-\frac\{(x - """ + str(random_a)
                               + r""")^\{2\}\}\{""" + str(random_d) + r"""\}\right)\} 
-            $$""")
+                                   $$""")
 
             task_text = (
                 f"Плотность случайной величины {latex_equation},"
@@ -557,7 +558,6 @@ class CombinatoricsTaskGenerator:
 
     '''формула думаю верная, подправить ложные ответы и вариативность рандома fix'''
 
-    # TODO: поправить текст
     @staticmethod
     def lecture_4_task_combinatorics_eight(number_of_tasks):
         """
@@ -578,6 +578,8 @@ class CombinatoricsTaskGenerator:
         for i in range(number_of_tasks):
             # random_alpha = random.randint(1, 60)
             # random_sigma = random.randint(1, 3)
+            x_min = -10  # Минимальное значение X для интегрирования
+            x_max = 10  # Максимальное значение X для интегрирования
             random_a = random.randint(3, 15)
             random_d = random.randint(8, 15)
 
@@ -590,13 +592,14 @@ class CombinatoricsTaskGenerator:
                 return -pdf(x)
 
             latex_equation = (r"""$$ 
-            \frac\{1\}\{\sqrt\{""" + str(random_d) + r"""\pi\}\}\exp\{\left(-\frac\{(x - """ + str(random_a)
+                                              \frac\{1\}\{\sqrt\{""" + str(
+                random_d) + r"""\pi\}\}\exp\{\left(-\frac\{(x - """ + str(random_a)
                               + r""")^\{2\}\}\{""" + str(random_d) + r"""\}\right)\} 
-            $$""")
+                                              $$""")
 
             task_text = (
                 f"Плотность случайной величины {latex_equation},"
-                f" дисперсия этой случайной величины равна")
+                f" точка максимума графика плотности величины равна")
 
             result = minimize_scalar(neg_pdf)
             maximum_point = result.x
@@ -674,7 +677,7 @@ class CombinatoricsTaskGenerator:
     # endregion
 
     # region КР № 1
-    # TODO: Сколько тут правильных ответов?
+    # TODO: другой вариант ответов, может быть несколько правильных
     @staticmethod
     def control_work_task_combinatorics_dice(number_of_tasks):
         """
@@ -768,7 +771,7 @@ class CombinatoricsTaskGenerator:
 
     '''требуется проверка fix'''
 
-    # TODO: ты не сделал рандомизацию чисел
+
     @staticmethod
     def control_work_task_combinatorics_1_3(number_of_tasks):
         """
@@ -786,7 +789,7 @@ class CombinatoricsTaskGenerator:
             all_cust = random.randint(14, 1000)
             random_cust = random.randint(3, all_cust - 15)
             task_text = (
-                f"Девушка выбирает 3 платья из 14, имеющихся в магазине. С помощью какой комбинаторной схемы можно"
+                f"Девушка выбирает {random_cust} платья из {all_cust}, имеющихся в магазине. С помощью какой комбинаторной схемы можно"
                 f" построить множество способов такого выбора?")
             answer = set()
             forbidden_answer = set()
