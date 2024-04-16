@@ -992,7 +992,28 @@ class CombinatoricsTaskGenerator:
         """
         return math.factorial(n) // (math.factorial(k) * math.factorial(n - k))
 
-    def logic_1_task_combinatorics_one_binom_newton(self, number_of_tasks):
+    @staticmethod
+    def solve_quadratic_equation(a, b, c):
+        """
+        Функция для решения квадратного уравнения вида ax^2 + bx + c = 0.
+        Возвращает корни уравнения.
+        """
+        discriminant = b ** 2 - 4 * a * c
+        if discriminant > 0:
+            root1 = (-b + math.sqrt(discriminant)) / (2 * a)
+            root2 = (-b - math.sqrt(discriminant)) / (2 * a)
+            return round(root1, 2), round(root2, 2)  # Округление корней
+        elif discriminant == 0:
+            root = -b / (2 * a)
+            return round(root, 2),  # Округление корня
+        else:
+            return "Уравнение не имеет действительных корней"
+
+    @staticmethod
+    def shielding(input_str: str):
+        return input_str.replace("{", r"\{").replace("}", r"\}")
+
+    def logic_1_task_combinatorics_one_binomial_newton(self, number_of_tasks):
         """
         В выражении (-a+3b)^15 раскрыли скобки и привели подобные слагаемые. Какие числовые коэффициенты будут
         у выражений a^3⋅b^12?
@@ -1024,6 +1045,133 @@ class CombinatoricsTaskGenerator:
             answer = self.C(n, k) * (a_coefficient ** (n - k)) * (b_coefficient ** k)
 
             result_tasks_massive.append((task_text, [answer], []))
+
+        return result_tasks_massive
+
+    def _forming_response_logic_1_task_combinatorics_two(self, root1, root2):
+        sign_root = '-' if root1 < 0 else '+'
+        sign_root_start = '-' if root2 < 0 else ''
+        response = fr"$$ {sign_root_start}c_1 \cdot {abs(root1)}^{{n}} {sign_root} c_2 \cdot {abs(root2)}^{{n}} $$"
+        response = self.shielding(response)
+        return response
+
+    def logic_1_task_combinatorics_two_recurrence_relation(self, number_of_tasks):
+        """
+        Найти общее решение рекуррентное соотношения a_(n+2)-8a_(n+1)+16a_n=0
+        :param number_of_tasks:
+        :return:
+        """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            a = 1
+            b = 0
+            c = 0
+            root = "Уравнение не имеет действительных корней"
+            while root == "Уравнение не имеет действительных корней":
+                b = 0
+                c = 0
+                while b == 0:
+                    b = random.randint(-5, 5)
+                while c == 0:
+                    c = random.randint(-10, 10)
+                root = self.solve_quadratic_equation(a, b, c)
+
+            # Определение знака перед b и c
+            sign_b = '-' if b < 0 else '+'
+            sign_c = '-' if c < 0 else '+'
+
+            # Формирование строки с уравнением в LaTeX
+            expression = self.shielding(fr'$$ a_{{n+2}} {sign_b} {abs(b)}a_{{n+1}} {sign_c} {abs(c)}a_n = 0 $$')
+
+            task_text = f"Найти общее решение рекуррентного соотношения {expression}"
+
+            forbidden_answer = []
+            if isinstance(root, tuple) and len(root) == 2:
+                answer = self._forming_response_logic_1_task_combinatorics_two(root[0], root[1])
+                forbidden_answer.append(self._forming_response_logic_1_task_combinatorics_two(root[0] * 2, root[1] * 2))
+                forbidden_answer.append(self._forming_response_logic_1_task_combinatorics_two(root[0], root[0]))
+                forbidden_answer.append(self._forming_response_logic_1_task_combinatorics_two(root[1], root[1]))
+            else:
+                root = float(root[0])
+                answer = self._forming_response_logic_1_task_combinatorics_two(root, root)
+                forbidden_answer.append(self._forming_response_logic_1_task_combinatorics_two(root * 2, root * 2))
+                forbidden_answer.append(self._forming_response_logic_1_task_combinatorics_two(root / 2, root / 2))
+                forbidden_answer.append(self._forming_response_logic_1_task_combinatorics_two(root * 2, root / 2))
+
+            result_tasks_massive.append((task_text, [answer], forbidden_answer))
+
+        return result_tasks_massive
+
+    def _forming_response_logic_1_task_combinatorics_three(self, root, c1, c2):
+        if isinstance(root, tuple):
+            sign_root_1 = '-' if c1 < 0 else '+'
+            sign_root_2 = '-' if c2 < 0 else ''
+            root_0 = f"({root[0]})"
+            if root[0] > 0:
+                root_0.replace("(", "").replace(")", "")
+            root_1 = f"({root[1]})"
+            if root[1] > 0:
+                root_1.replace("(", "").replace(")", "")
+            response = fr"$$ {sign_root_1}{abs(c1)}{root_0}^{{n}} {sign_root_2} {abs(c2)}{root_1}^{{n}}$$"
+        else:
+            sign_c2_c1 = '-' if c2 - c1 < 0 else '+'
+            sign_root_start = '-' if root < 0 else ''
+            response = fr"$$ {sign_root_start}{abs(root)}^{{n}}({c1}n {sign_c2_c1} {c2 - c1}) $$"
+        response = self.shielding(response)
+        return response
+
+    def logic_1_task_combinatorics_three_recurrence_relation(self, number_of_tasks):
+        """
+        Найти a_n, зная рекуррентное соотношение и начальные члены: a_(n+2)-4a_(n+1)+4a_n=0,a_1=2,a_2=4
+        :param number_of_tasks:
+        :return:
+        """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            a = 1
+            b = 0
+            c = 0
+            root = "Уравнение не имеет действительных корней"
+            while root == "Уравнение не имеет действительных корней":
+                b = 0
+                c = 0
+                while b == 0:
+                    b = random.randint(-5, 5)
+                while c == 0:
+                    c = random.randint(-10, 10)
+                root = self.solve_quadratic_equation(a, b, c)
+
+            # Определение знака перед b и c
+            sign_b = '-' if b < 0 else '+'
+            sign_c = '-' if c < 0 else '+'
+
+            a1 = random.randint(1, 10)
+            a2 = random.randint(1 + a1, 10 + a1)
+            # Формирование строки с уравнением в LaTeX
+            expression = \
+                fr'$$ a_{{n+2}} {sign_b} {abs(b)}a_{{n+1}} {sign_c} {abs(c)}a_n = 0, a_{{1}} = {a1}, a_{{2}} = {a2} $$'
+            expression = self.shielding(expression)
+
+            task_text = f"Найти a_{{n}}, зная рекуррентное соотношение и начальные члены: {expression}"
+
+            forbidden_answer = []
+            if isinstance(root, tuple) and len(root) == 2:
+                c2 = (a2 - root[0] * a1) / (root[1] ** 2 - root[0] * root[1])
+                c1 = (a1 - c2 * root[1]) / root[0]
+                answer = self._forming_response_logic_1_task_combinatorics_three(root, c1, c2)
+                forbidden_answer.append(self._forming_response_logic_1_task_combinatorics_three(root, c1, c2))
+                forbidden_answer.append(self._forming_response_logic_1_task_combinatorics_three(root, c1, c2))
+                forbidden_answer.append(self._forming_response_logic_1_task_combinatorics_three(root, c1, c2))
+            else:
+                root = float(root[0])
+                c2 = a1 / root
+                c1 = a2 / root ** 2 - c2
+                answer = self._forming_response_logic_1_task_combinatorics_three(root, c1, c2)
+                forbidden_answer.append(self._forming_response_logic_1_task_combinatorics_three(root, c1, c2))
+                forbidden_answer.append(self._forming_response_logic_1_task_combinatorics_three(root, c1, c2))
+                forbidden_answer.append(self._forming_response_logic_1_task_combinatorics_three(root, c1, c2))
+
+            result_tasks_massive.append((task_text, [answer], forbidden_answer))
 
         return result_tasks_massive
 

@@ -137,11 +137,13 @@ def create_all_tasks_combinatorics():
         "control_work_task_combinatorics_man": "Задание 22. Комбинаторика. Категория 5",
         "control_work_task_combinatorics_dice_2": "Задание 23. Комбинаторика. Категория 5",
 
-        "logic_1_task_combinatorics_one_binom_newton": "Задание 101. Комбинаторика. Категория 11",
-        "logic_1_task_combinatorics_five_distribution_tickets": "Задание 102. Комбинаторика. Категория 11",
-        "logic_1_task_combinatorics_six_different_gender_pairs": "Задание 103. Комбинаторика. Категория 11",
-        "logic_1_task_combinatorics_one_binom_newton": "Задание 101. Комбинаторика. Категория 11",
-        "logic_1_task_combinatorics_one_binom_newton": "Задание 101. Комбинаторика. Категория 11",
+        "logic_1_task_combinatorics_one_binomial_newton": "Задание 101. Комбинаторика. Категория 11",
+        "logic_1_task_combinatorics_two_recurrence_relation": "Задание 102. Комбинаторика. Категория 11",
+        "logic_1_task_combinatorics_three_recurrence_relation": "Задание 103. Комбинаторика. Категория 11",
+        # "logic_1_task_combinatorics_one_binom_newton": "Задание 104. Комбинаторика. Категория 11",
+        "logic_1_task_combinatorics_five_distribution_tickets": "Задание 110. Комбинаторика. Категория 11",
+        "logic_1_task_combinatorics_six_different_gender_pairs": "Задание 111. Комбинаторика. Категория 11",
+        # "logic_1_task_combinatorics_one_binom_newton": "Задание 101. Комбинаторика. Категория 11",
 
     }
 
@@ -172,7 +174,9 @@ def create_all_tasks_combinatorics():
                         combinatorics_gen.control_work_task_combinatorics_man,
                         combinatorics_gen.control_work_task_combinatorics_dice_2,
 
-                        combinatorics_gen.logic_1_task_combinatorics_one_binom_newton,
+                        combinatorics_gen.logic_1_task_combinatorics_one_binomial_newton,
+                        combinatorics_gen.logic_1_task_combinatorics_two_recurrence_relation,
+                        combinatorics_gen.logic_1_task_combinatorics_three_recurrence_relation,
                         combinatorics_gen.logic_1_task_combinatorics_five_distribution_tickets,
                         combinatorics_gen.logic_1_task_combinatorics_six_different_gender_pairs,
                         ]
@@ -184,7 +188,7 @@ def create_all_tasks_combinatorics():
             categories_dict[method_name] = categories[method_name]
 
     for i, method in enumerate(all_tasks_method):
-        for number_variables in [1]:
+        for number_variables in [10]:
             start_time = time.time()
 
             tasks = method(number_variables)
