@@ -3,6 +3,8 @@ import random
 import numpy as np
 from scipy.integrate import quad
 from scipy.optimize import minimize_scalar
+from itertools import permutations
+import itertools
 
 
 class CombinatoricsTaskGenerator:
@@ -771,7 +773,6 @@ class CombinatoricsTaskGenerator:
 
     '''требуется проверка fix'''
 
-
     @staticmethod
     def control_work_task_combinatorics_1_3(number_of_tasks):
         """
@@ -994,6 +995,26 @@ class CombinatoricsTaskGenerator:
         """
         return math.factorial(n) // (math.factorial(k) * math.factorial(n - k))
 
+    def stirling_second(self, n, k):
+        """
+        Вычисляет числа Стирлинга второго рода S(n, k).
+
+        Параметры:
+        - n: количество объектов
+        - k: количество непустых неразличимых множеств
+
+        Возвращает:
+        - количество способов разбиения n объектов на k непустых неразличимых множеств
+        """
+        # Базовый случай: если n или k равны 0, возвращаем 0
+        if n == 0 or k == 0:
+            return 0
+        # Базовый случай: если n равно k, возвращаем 1
+        if n == k:
+            return 1
+        # Рекурсивный случай
+        return k * self.stirling_second(n - 1, k) + self.stirling_second(n - 1, k - 1)
+
     def logic_1_task_combinatorics_one_binom_newton(self, number_of_tasks):
         """
         В выражении (-a+3b)^15 раскрыли скобки и привели подобные слагаемые. Какие числовые коэффициенты будут
@@ -1072,7 +1093,171 @@ class CombinatoricsTaskGenerator:
 
         return result_tasks_massive
 
+    def logic_1_task_combinatorics_seven_digits(self, number_of_tasks):
+        """
+                Найти сумму всех цифр всех шестизначных чисел полученных при перестановке цифр 1, 2, 3, 4, 5, 6.
+                :param number_of_tasks:
+                :return:
+                """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            forbidden_answer = set()
+            number_of_card = random.randint(3, 9)  # кол-во чисел
+            digits_array = list(range(1, number_of_card + 1))  # массив цифр
+            task_text = f"Найти сумму всех цифр всех {number_of_card}-ных чисел полученных при перестановке цифр {digits_array}. "
+
+            total_sum = 0
+            # Генерация всех перестановок
+            perms = itertools.permutations(digits_array)
+            for perm in perms:
+                # Преобразуем перестановку в число
+                num = int(''.join(map(str, perm)))
+                # Вычисляем сумму цифр числа и добавляем её к общей сумме
+                total_sum += sum(int(digit) for digit in str(num))
+
+            answer = total_sum
+
+            forbidden_answer.add(f"{math.factorial(number_of_card)}")
+            forbidden_answer.add(f"{math.factorial(number_of_card) * number_of_card}")
+            forbidden_answer.add(f"{total_sum - math.factorial(number_of_card)}")
+            result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
+
+        return result_tasks_massive
+
+    def logic_1_task_combinatorics_eight_soldier(self, number_of_tasks):
+        """
+                Во взводе 3 сержанта и 36 солдат. Сколько существует способов выделения одного сержанта и трех
+                солдат для патрулирования?
+                :param number_of_tasks:
+                :return:
+                """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            forbidden_answer = set()
+            number_of_serg = random.randint(2, 12)  # кол-во сержиков
+            number_of_soldier = random.randint(number_of_serg + 1, 50)  # количество солдат
+            number_of_serg_choice = random.randint(1, number_of_serg - 1)  # кол-во выбрать
+            number_of_soldier_choice = random.randint(1, number_of_soldier - 1)  # количество выбрать
+            task_text = (f"Во взводе {number_of_serg} сержанта и {number_of_soldier} солдат. Сколько существует"
+                         f" способов выделения {number_of_serg_choice} сержанта и "
+                         f"{number_of_soldier_choice} солдат для патрулирования?. ")
+
+            answer = self.C(number_of_serg, number_of_serg_choice) * self.C(number_of_soldier, number_of_soldier_choice)
+
+            forbidden_answer.add(f"{self.C(number_of_serg, number_of_serg_choice)}")
+            forbidden_answer.add(f"{self.C(number_of_soldier, number_of_soldier_choice)}")
+            forbidden_answer.add(
+                f"{self.C(number_of_serg, number_of_serg_choice) * self.C(number_of_soldier, number_of_soldier_choice) * 2}")
+            result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
+
+        return result_tasks_massive
+
+    def logic_1_task_combinatorics_nine_alphabet(self, number_of_tasks):
+        """
+                Сколькими способами можно составить из 5 гласных и 9 согласных слова, в которые входят 4
+                 различных согласных и не менее 3 различных гласных?
+                :param number_of_tasks:
+                :return:
+                """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            forbidden_answer = set()
+            number_of_gl = random.randint(2, 20)  # кол-во гласных
+            number_of_sogl = random.randint(2, 20)  # количество согласных
+            number_of_gl_choice = random.randint(1, number_of_gl - 1)  # кол-во выбрать
+            number_of_sogl_choice = random.randint(1, number_of_sogl - 1)  # количество выбрать
+            task_text = (f"Сколькими способами можно составить из {number_of_gl} гласных"
+                         f" и {number_of_sogl} согласных слова, в которые"
+                         f" входят {number_of_sogl_choice} различных согласных"
+                         f" и не менее {number_of_gl_choice} различных гласных?. ")
+
+            # Вычисление количества способов выбрать 4 различных согласных из 9
+            ways_to_choose_consonants = math.comb(number_of_sogl, number_of_sogl_choice)
+
+            # Вычисление количества способов выбрать не менее 3 различных гласных из 5
+            ways_to_choose_vowels = sum(math.comb(number_of_gl, i) for i in range(number_of_gl_choice, number_of_gl+1))
+
+            answer = ways_to_choose_consonants * ways_to_choose_vowels
+
+            forbidden_answer.add(f"{ways_to_choose_consonants + ways_to_choose_vowels}")
+            forbidden_answer.add(
+                f"{ways_to_choose_consonants * ways_to_choose_vowels - ways_to_choose_consonants}")
+            forbidden_answer.add(
+                f"{ways_to_choose_consonants * ways_to_choose_vowels + ways_to_choose_consonants * ways_to_choose_vowels}")
+            result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
+
+        return result_tasks_massive
+
+    '''возможно потребуется корректировка fix'''
+    def logic_1_task_combinatorics_ten_arifmethic(self, number_of_tasks):
+        """
+                Известно, что арифметические операции сложения и умножения коммутативны для конечного числа операндов.
+                 Например, выражение (a+b+c+d)∙(e+f) можно записать иначе: (f+e)∙(b+a+c+d).
+                  Сколько всего существует способов записи этого выражения?
+                :param number_of_tasks:
+                :return:
+                """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            forbidden_answer = set()
+            number_1 = random.randint(2, 10)  # кол-во букв
+            operands_1 = [chr(ord('a') + i) for i in range(number_1)]
+            expression_0_1 = "(" + "+".join(operands_1) + ")"
+            random.shuffle(operands_1)  # Перемешиваем операнды
+            expression_1 = "(" + "+".join(operands_1) + ")"  # Формируем строку с суммой
+
+            number_2 = random.randint(2, 10)  # кол-во букв
+            operands_2 = [chr(ord('a') + number_1 + i) for i in range(number_2)]
+            expression_0_2 = "(" + "+".join(operands_2) + ")"
+            random.shuffle(operands_2)  # Перемешиваем операнды
+            expression_2 = "(" + "+".join(operands_2) + ")"  # Формируем строку с суммой
+
+            task_text = (f"Известно, что арифметические операции сложения и умножения"
+                         f" коммутативны для конечного числа операндов. Например,"
+                         f" выражение {expression_0_2}∙{expression_0_1} можно записать иначе: {expression_1}∙{expression_2}."
+                         f" Сколько всего существует способов записи этого выражения?")
+
+            # Вычисляем количество способов группировки для суммы (a+b+c+d)
+            ways_to_group_sum = sum(math.comb(number_2, i) for i in range(1, number_2 - 1))
+
+            # Вычисляем количество способов группировки для суммы другого выражения
+            ways_to_choose_vowels = sum(math.comb(number_1, i) for i in range(1, number_1 - 1))
+
+            answer = ways_to_group_sum * ways_to_choose_vowels
+
+            forbidden_answer.add(f"{ways_to_group_sum + ways_to_choose_vowels}")
+            forbidden_answer.add(
+                f"{ways_to_group_sum * ways_to_choose_vowels - ways_to_group_sum}")
+            forbidden_answer.add(
+                f"{ways_to_group_sum * ways_to_choose_vowels + ways_to_group_sum * ways_to_choose_vowels}")
+            result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
+
+        return result_tasks_massive
+
+    def logic_1_task_combinatorics_eleven_stirling(self, number_of_tasks):
+        """
+               Найдите S(6,3)?
+                :param number_of_tasks:
+                :return:
+                """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            forbidden_answer = set()
+            number_1 = random.randint(1, 10)  # кол-во карт
+            number_2 = random.randint(0, number_1)  # количество частей
+            task_text = f"Найдите S({number_1},{number_2})?"
+
+            answer = self.stirling_second(number_1, number_2)
+            rand = random.randint(1,10)
+            forbidden_answer.add(f"{self.stirling_second(number_1, number_2)+rand}")
+            forbidden_answer.add(f"{number_1 + number_2}")
+            forbidden_answer.add(f"{math.pow(number_1, number_2)}")
+            result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
+
+        return result_tasks_massive
+
     """не уверен в решении, так как на вопрос как решать мне ответили погугли fix"""
+
     def logic_1_task_combinatorics_twelve_cards(self, number_of_tasks):
         """
                 12.	Сколькими способами колоду из 36 карт можно разделить произвольно на 2 части?
