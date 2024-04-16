@@ -5,6 +5,8 @@ from scipy.integrate import quad
 from scipy.optimize import minimize_scalar
 from itertools import permutations
 import itertools
+from sympy import symbols, expand, collect
+import re
 
 
 class CombinatoricsTaskGenerator:
@@ -1093,6 +1095,79 @@ class CombinatoricsTaskGenerator:
 
         return result_tasks_massive
 
+    def logic_1_task_combinatorics_four_koef(self, number_of_tasks):
+        """
+                Определить коэффициенты, которые будут стоять при x^17 после раскрытия скобок и
+                приведения подобных членов в выражении (1 + x^2 + x^3)^1000.
+                :param number_of_tasks:
+                :return:
+                """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            def extract_coefficient_and_power(term):
+                # Используем регулярное выражение для извлечения коэффициента и степени
+                match = re.match(r"([-+]?\d+)\*x\*\*(\d+)", term)
+                if match:
+                    coefficient = int(match.group(1))
+                    power = int(match.group(2))
+                    return abs(coefficient), power  # Учитываем только абсолютное значение коэффициента
+                else:
+                    # Если не удалось извлечь коэффициент и степень, возвращаем None
+                    return None, None
+
+            def expand_expression(expression):
+                # Преобразуем входное выражение в формат sympy
+                x = symbols('x')
+                expr = eval(expression)
+
+                # Раскрываем скобки
+                expanded_expr = expand(expr)
+
+                # Собираем слагаемые по степеням x
+                collected_expr = collect(expanded_expr, x)
+
+                # Извлекаем коэффициенты перед x
+                coefficients_dict = {}
+                for term in collected_expr.as_ordered_terms():
+                    coefficient, power = extract_coefficient_and_power(str(term))
+                    # print("Коэффициент:", coefficient)
+                    # print("Степень:", power)
+                    coefficients_dict[str(power)] = str(coefficient)
+
+                return coefficients_dict
+
+            def random_value_except_none(dictionary):
+                # Получаем список ключей, у которых значения не равны None
+                keys_with_values = [key for key, value in dictionary.items() if value is not None]
+
+                # Выбираем случайный ключ из списка
+                random_key = random.choice(keys_with_values)
+
+                # Возвращаем значение по выбранному ключу
+                return random_key
+
+            num_1 = random.randint(2, 15)
+            num_2 = random.randint(num_1 + 1, 16)
+            num_3 = random.randint(10, 100)
+
+            expression = (f"(1 + x**{num_1} - x**{num_2})**{num_3}")
+            forbidden_answer = set()
+            coefficients_dict = expand_expression(expression)
+
+            random_value = random_value_except_none(coefficients_dict)
+
+            task_text = (f"Определить коэффициенты, которые будут стоять при x^{random_value} после раскрытия скобок"
+                         f" и приведения подобных членов в выражении {expression}. ")
+
+            answer = coefficients_dict[random_value]
+
+            # forbidden_answer.add(f"{coefficients_dict[random_value]}")
+            # forbidden_answer.add(f"{math.factorial(number_of_card) * number_of_card}")
+            # forbidden_answer.add(f"{total_sum - math.factorial(number_of_card)}")
+            result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
+
+        return result_tasks_massive
+
     def logic_1_task_combinatorics_seven_digits(self, number_of_tasks):
         """
                 Найти сумму всех цифр всех шестизначных чисел полученных при перестановке цифр 1, 2, 3, 4, 5, 6.
@@ -1175,7 +1250,8 @@ class CombinatoricsTaskGenerator:
             ways_to_choose_consonants = math.comb(number_of_sogl, number_of_sogl_choice)
 
             # Вычисление количества способов выбрать не менее 3 различных гласных из 5
-            ways_to_choose_vowels = sum(math.comb(number_of_gl, i) for i in range(number_of_gl_choice, number_of_gl+1))
+            ways_to_choose_vowels = sum(
+                math.comb(number_of_gl, i) for i in range(number_of_gl_choice, number_of_gl + 1))
 
             answer = ways_to_choose_consonants * ways_to_choose_vowels
 
@@ -1189,6 +1265,7 @@ class CombinatoricsTaskGenerator:
         return result_tasks_massive
 
     '''возможно потребуется корректировка fix'''
+
     def logic_1_task_combinatorics_ten_arifmethic(self, number_of_tasks):
         """
                 Известно, что арифметические операции сложения и умножения коммутативны для конечного числа операндов.
@@ -1248,8 +1325,8 @@ class CombinatoricsTaskGenerator:
             task_text = f"Найдите S({number_1},{number_2})?"
 
             answer = self.stirling_second(number_1, number_2)
-            rand = random.randint(1,10)
-            forbidden_answer.add(f"{self.stirling_second(number_1, number_2)+rand}")
+            rand = random.randint(1, 10)
+            forbidden_answer.add(f"{self.stirling_second(number_1, number_2) + rand}")
             forbidden_answer.add(f"{number_1 + number_2}")
             forbidden_answer.add(f"{math.pow(number_1, number_2)}")
             result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
