@@ -1048,6 +1048,7 @@ class Graph:
             result_mas.append((string_task, [string_task_results], wrong_ans, path_to_graph_img))
         return result_mas
 
+# TODO: сделать так чтобы из города nck нельзя было попасть сразу в город E
     def task_eleven(self, count_task, max_weight=10):
         """
     ::Теория графов::Система автодорог, проходящих через N-скую область, может обеспечить следующие пропускные способности измеряемые в тыс. автомашин в час:
@@ -1095,7 +1096,7 @@ class Graph:
             while not nx.is_strongly_connected(G):
                 start = random.choice(nodes)
                 end = random.choice(nodes)
-                if start != end:
+                if start != end and not (start == source_node and end == sink_node):
                     capacity = random.randint(1, max_weight)
                     G.add_edge(start, end, capacity=capacity)
 
@@ -1112,42 +1113,167 @@ class Graph:
             # Добавляем рёбра с пропускными способностями в граф
             # Находим максимальный поток
             max_flow_value, max_flow_dict = nx.maximum_flow(G, source_node, sink_node)
-            string_task = ("Система автодорог, проходящих через N-скую область, может обеспечить следующие пропускные "
-                           "способности измеряемые в тыс. автомашин в час:")
-            for start, end, capacity in G.edges(data=True):
-                capacity_value = capacity['capacity']
-                string_task += f"\n из города {start} в город {end} - пропускная способность равна {capacity_value};"
-            self.graph = {(key1, key2): value for key1, key2, value in G.edges(data='capacity')}
-            self.vertices = ['N-ск', 'A', 'B', 'C', 'D', 'E']
+            task_var = random.randint(1,4)
+            match task_var:
+                case 1:
+                    string_task = ("Система автодорог, проходящих через N-скую область, может обеспечить следующие пропускные "
+                                   "способности измеряемые в тыс. автомашин в час:")
+                    for start, end, capacity in G.edges(data=True):
+                        capacity_value = capacity['capacity']
+                        string_task += f"\n из города {start} в город {end} - пропускная способность равна {capacity_value};"
+                    self.graph = {(key1, key2): value for key1, key2, value in G.edges(data='capacity')}
+                    self.vertices = ['N-ск', 'A', 'B', 'C', 'D', 'E']
 
-            string_task += (
-                               "\n Въезд в область осуществляется через город N-ск, а выезд через город Е. Каков максимальный "
-                               "поток через эту систему (тыс. автомашин в час)?") + "<br/>graph_img"
+                    string_task += (
+                                       "\n Въезд в область осуществляется через город N-ск, а выезд через город Е. Каков максимальный "
+                                       "поток через эту систему (тыс. автомашин в час)?") + "<br/>graph_img"
 
-            string_task_results = max_flow_value
-            # print(min_spanning_tree.edges(data=False))
-            for som in range(3):
+                    string_task_results = max_flow_value
+                    # print(min_spanning_tree.edges(data=False))
+                    for som in range(3):
 
-                while True:
-                    random_var = random.choice([True, False])
-                    new_value = 0
-                    if random_var:
+                        while True:
+                            random_var = random.choice([True, False])
+                            new_value = 0
+                            if random_var:
 
-                        new_value = max_flow_value - random.randint(1, 10)
-                    else:
-                        new_value = max_flow_value + random.randint(1, 10)
+                                new_value = max_flow_value - random.randint(1, 10)
+                            else:
+                                new_value = max_flow_value + random.randint(1, 10)
 
-                    # Проверка на отрицательное значение и отсутствие в массиве
-                    if new_value >= 0 and new_value not in wrong_ans and new_value != max_flow_value:
-                        wrong_ans.append(new_value)
-                        break
-            path_to_graph_img = self.paintilovka(True, True)
-            result_mas.append((string_task, [string_task_results], wrong_ans, path_to_graph_img))
-            print(f"Максимальный поток: {max_flow_value}")
-            print("Поток по рёбрам:")
-            for start, edges in max_flow_dict.items():
-                for end, flow in edges.items():
-                    print(f"Ребро ({start} -> {end}): Поток = {flow}")
+                            # Проверка на отрицательное значение и отсутствие в массиве
+                            if new_value >= 0 and new_value not in wrong_ans and new_value != max_flow_value:
+                                wrong_ans.append(new_value)
+                                break
+                    path_to_graph_img = self.paintilovka(True, True)
+                    result_mas.append((string_task, [string_task_results], wrong_ans, path_to_graph_img))
+                    print(f"Максимальный поток: {max_flow_value}")
+                    print("Поток по рёбрам:")
+                    for start, edges in max_flow_dict.items():
+                        for end, flow in edges.items():
+                            print(f"Ребро ({start} -> {end}): Поток = {flow}")
+                case 2:
+                    string_task = ("Фирма добывает некоторое сырье в пункте, обозначенном на карте точкой N-ск. "
+                                   "Его нужно доставить на завод – обозначенный на карте точкой E. Так же на "
+                                   "карте обозначены возможные маршруты, по которым добытое сырье может "
+                                   "быть отправлено. Для каждого участка маршрута указано сколько сырья "
+                                   "можно по нему доставить.")
+                    for start, end, capacity in G.edges(data=True):
+                        capacity_value = capacity['capacity']
+                        string_task += f"\n из участка {start} в участок {end} - пропускная способность равна {capacity_value};"
+                    self.graph = {(key1, key2): value for key1, key2, value in G.edges(data='capacity')}
+                    self.vertices = ['N-ск', 'A', 'B', 'C', 'D', 'E']
+
+                    string_task += (
+                                       "\n  Какое максимальное количества "
+                                       "сырья может быть доставлено из пункта N-ск в пункт E?") + "<br/>graph_img"
+
+                    string_task_results = max_flow_value
+                    # print(min_spanning_tree.edges(data=False))
+                    for som in range(3):
+
+                        while True:
+                            random_var = random.choice([True, False])
+                            new_value = 0
+                            if random_var:
+
+                                new_value = max_flow_value - random.randint(1, 10)
+                            else:
+                                new_value = max_flow_value + random.randint(1, 10)
+
+                            # Проверка на отрицательное значение и отсутствие в массиве
+                            if new_value >= 0 and new_value not in wrong_ans and new_value != max_flow_value:
+                                wrong_ans.append(new_value)
+                                break
+                    path_to_graph_img = self.paintilovka(True, True)
+                    result_mas.append((string_task, [string_task_results], wrong_ans, path_to_graph_img))
+                    print(f"Максимальный поток: {max_flow_value}")
+                    print("Поток по рёбрам:")
+                    for start, edges in max_flow_dict.items():
+                        for end, flow in edges.items():
+                            print(f"Ребро ({start} -> {end}): Поток = {flow}")
+                case 3:
+                    string_task = ("Дан участок сети труб, через который некоторое вещество с постоянной "
+                                   "скоростью движется от источника N-ск к стоку E. Известна пропускная "
+                                   "способность каждой трубы.")
+                    for start, end, capacity in G.edges(data=True):
+                        capacity_value = capacity['capacity']
+                        string_task += f"\n из трубы {start} в трубу {end} - пропускная способность равна {capacity_value} тыс. литров в сутки;"
+                    self.graph = {(key1, key2): value for key1, key2, value in G.edges(data='capacity')}
+                    self.vertices = ['N-ск', 'A', 'B', 'C', 'D', 'E']
+
+                    string_task += (
+                                       "\n   Какое максимальное количества вещества "
+                                       "может быть пропущено на данном участке сети из А в Z?") + "<br/>graph_img"
+
+                    string_task_results = max_flow_value
+                    # print(min_spanning_tree.edges(data=False))
+                    for som in range(3):
+
+                        while True:
+                            random_var = random.choice([True, False])
+                            new_value = 0
+                            if random_var:
+
+                                new_value = max_flow_value - random.randint(1, 10)
+                            else:
+                                new_value = max_flow_value + random.randint(1, 10)
+
+                            # Проверка на отрицательное значение и отсутствие в массиве
+                            if new_value >= 0 and new_value not in wrong_ans and new_value != max_flow_value:
+                                wrong_ans.append(new_value)
+                                break
+                    path_to_graph_img = self.paintilovka(True, True)
+                    result_mas.append((string_task, [string_task_results], wrong_ans, path_to_graph_img))
+                    print(f"Максимальный поток: {max_flow_value}")
+                    print("Поток по рёбрам:")
+                    for start, edges in max_flow_dict.items():
+                        for end, flow in edges.items():
+                            print(f"Ребро ({start} -> {end}): Поток = {flow}")
+                case 4:
+                    string_task = ("Владелец некоторого завода, выпускающего «Товар», находящегося в пункте "
+                                   "А, заключил контракт с фирмой, находящейся в другом городе на поставку "
+                                   "товаров в их розничную сеть. Товары придется доставлять авиаперевозкой. "
+                                   "При транспортировке в аэропорт, находящийся в пункте Z, есть некоторые "
+                                   "ограничения: на дорогах стоят пункты досмотра груза, весового контроля, "
+                                   "некоторые дороги и вовсе ремонтируются. Т. е. известна «пропускная "
+                                   "способностью» дорог в день.")
+                    for start, end, capacity in G.edges(data=True):
+                        capacity_value = capacity['capacity']
+                        string_task += f"\n для участка дороги ({start}, {end}) - {capacity_value} ящика;"
+                    self.graph = {(key1, key2): value for key1, key2, value in G.edges(data='capacity')}
+                    self.vertices = ['N-ск', 'A', 'B', 'C', 'D', 'E']
+
+                    string_task += (
+                                       "\n    Владельцу "
+                                       "необходимо узнать: какое максимальное число ящиков он сможете "
+                                       "транспортировать в аэропорт в день, учитывая пропускную способность "
+                                       "дорог?") + "<br/>graph_img"
+
+                    string_task_results = max_flow_value
+                    # print(min_spanning_tree.edges(data=False))
+                    for som in range(3):
+
+                        while True:
+                            random_var = random.choice([True, False])
+                            new_value = 0
+                            if random_var:
+
+                                new_value = max_flow_value - random.randint(1, 10)
+                            else:
+                                new_value = max_flow_value + random.randint(1, 10)
+
+                            # Проверка на отрицательное значение и отсутствие в массиве
+                            if new_value >= 0 and new_value not in wrong_ans and new_value != max_flow_value:
+                                wrong_ans.append(new_value)
+                                break
+                    path_to_graph_img = self.paintilovka(True, True)
+                    result_mas.append((string_task, [string_task_results], wrong_ans, path_to_graph_img))
+                    print(f"Максимальный поток: {max_flow_value}")
+                    print("Поток по рёбрам:")
+                    for start, edges in max_flow_dict.items():
+                        for end, flow in edges.items():
+                            print(f"Ребро ({start} -> {end}): Поток = {flow}")
         return result_mas
 
     @staticmethod
