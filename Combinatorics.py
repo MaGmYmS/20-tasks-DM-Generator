@@ -1108,16 +1108,18 @@ class CombinatoricsTaskGenerator:
         return result_tasks_massive
 
     def _forming_response_logic_1_task_combinatorics_three(self, root, c1, c2):
+        c1 = round(c1, 2)
+        c2 = round(c2, 2)
         if isinstance(root, tuple):
-            sign_root_1 = '-' if c1 < 0 else '+'
-            sign_root_2 = '-' if c2 < 0 else ''
+            sign_root_1 = '-' if c2 < 0 else ''
+            sign_root_2 = '-' if c1 < 0 else '+'
             root_0 = f"({root[0]})"
             if root[0] > 0:
-                root_0.replace("(", "").replace(")", "")
+                root_0 = root_0.replace("(", "").replace(")", "")
             root_1 = f"({root[1]})"
             if root[1] > 0:
-                root_1.replace("(", "").replace(")", "")
-            response = fr"$$ {sign_root_1}{abs(c1)}{root_0}^{{n}} {sign_root_2} {abs(c2)}{root_1}^{{n}}$$"
+                root_1 = root_1.replace("(", "").replace(")", "")
+            response = fr"$$ {sign_root_1}{abs(c1)}\cdot{root_0}^{{n}} {sign_root_2} {abs(c2)}\cdot{root_1}^{{n}}$$"
         else:
             sign_c2_c1 = '-' if c2 - c1 < 0 else '+'
             sign_root_start = '-' if root < 0 else ''
@@ -1157,69 +1159,31 @@ class CombinatoricsTaskGenerator:
                 fr'$$ a_{{n+2}} {sign_b} {abs(b)}a_{{n+1}} {sign_c} {abs(c)}a_n = 0, a_{{1}} = {a1}, a_{{2}} = {a2} $$'
             expression = self.shielding(expression)
 
-            task_text = f"Найти a_{{n}}, зная рекуррентное соотношение и начальные члены: {expression}"
+            task_text = rf"Найти a_\{{n\}}, зная рекуррентное соотношение и начальные члены: {expression}"
 
             forbidden_answer = []
             if isinstance(root, tuple) and len(root) == 2:
                 c2 = (a2 - root[0] * a1) / (root[1] ** 2 - root[0] * root[1])
                 c1 = (a1 - c2 * root[1]) / root[0]
-                answer = self._forming_response_logic_1_task_combinatorics_three(root, c1, c2)
-                forbidden_answer.append(self._forming_response_logic_1_task_combinatorics_three(root, c1, c2))
-                forbidden_answer.append(self._forming_response_logic_1_task_combinatorics_three(root, c1, c2))
-                forbidden_answer.append(self._forming_response_logic_1_task_combinatorics_three(root, c1, c2))
+                forbidden_answer.append(
+                    self._forming_response_logic_1_task_combinatorics_three(root, c1 / root[0], c2 * root[1]))
+                forbidden_answer.append(
+                    self._forming_response_logic_1_task_combinatorics_three(root, c1 * root[1] / root[0], c2 * root[0]))
+                forbidden_answer.append(
+                    self._forming_response_logic_1_task_combinatorics_three(root, c1, c2 * (a2 - root[0] * a1)))
             else:
                 root = float(root[0])
                 c2 = a1 / root
                 c1 = a2 / root ** 2 - c2
-                answer = self._forming_response_logic_1_task_combinatorics_three(root, c1, c2)
-                forbidden_answer.append(self._forming_response_logic_1_task_combinatorics_three(root, c1, c2))
-                forbidden_answer.append(self._forming_response_logic_1_task_combinatorics_three(root, c1, c2))
-                forbidden_answer.append(self._forming_response_logic_1_task_combinatorics_three(root, c1, c2))
+                forbidden_answer.append(
+                    self._forming_response_logic_1_task_combinatorics_three(root, c1 + c2, c2 / root))
+                forbidden_answer.append(
+                    self._forming_response_logic_1_task_combinatorics_three(root, (c1 + c2) * a2, c2 * a1))
+                forbidden_answer.append(
+                    self._forming_response_logic_1_task_combinatorics_three(root, (c1 + c2) * root, c2))
 
+            answer = self._forming_response_logic_1_task_combinatorics_three(root, c1, c2)
             result_tasks_massive.append((task_text, [answer], forbidden_answer))
-
-        return result_tasks_massive
-
-    def logic_1_task_combinatorics_five_distribution_tickets(self, number_of_tasks):
-        """
-        Группе из десяти сотрудников выделено три путевки. Сколько существует способов распределения путевок,
-        если все путевки одинаковы?
-        :param number_of_tasks:
-        :return:
-        """
-        result_tasks_massive = []
-        for _ in range(number_of_tasks):
-            number_of_employees = random.randint(5, 15)  # количество сотрудников
-            number_of_tickets = random.randint(1, number_of_employees - 2)  # количество путевок
-            task_text = f"Группе из {number_of_employees} сотрудников выделено {number_of_tickets} путевки. " \
-                        f"Сколько существует способов распределения путевок, если все путевки одинаковы?"
-
-            answer = self.C(number_of_employees, number_of_tickets)
-
-            result_tasks_massive.append((task_text, [answer], []))
-
-        return result_tasks_massive
-
-    def logic_1_task_combinatorics_six_different_gender_pairs(self, number_of_tasks):
-        """
-        На школьном вечере присутствуют 12 девушек и 15 юношей. Сколькими способами можно выбрать из них 4
-        разнополые пары для танца?
-        :param number_of_tasks:
-        :return:
-        """
-        result_tasks_massive = []
-        for _ in range(number_of_tasks):
-            number_of_girls = random.randint(8, 20)
-            number_of_boys = random.randint(8, 20)
-            number_pairs = random.randint(3, 8)
-            task_text = f"На школьном вечере присутствуют {number_of_girls} девушек и {number_of_boys} юношей. " \
-                        f"Сколькими способами можно выбрать из них {number_pairs} разнополые пары для танца?"
-
-            part1 = self.C(number_of_girls, number_pairs)
-            part2 = self.C(number_of_boys, number_pairs)
-            answer = part1 * part2
-
-            result_tasks_massive.append((task_text, [answer], []))
 
         return result_tasks_massive
 
@@ -1294,6 +1258,49 @@ class CombinatoricsTaskGenerator:
             # forbidden_answer.add(f"{math.factorial(number_of_card) * number_of_card}")
             # forbidden_answer.add(f"{total_sum - math.factorial(number_of_card)}")
             result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
+
+        return result_tasks_massive
+
+    def logic_1_task_combinatorics_five_distribution_tickets(self, number_of_tasks):
+        """
+        Группе из десяти сотрудников выделено три путевки. Сколько существует способов распределения путевок,
+        если все путевки одинаковы?
+        :param number_of_tasks:
+        :return:
+        """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            number_of_employees = random.randint(5, 15)  # количество сотрудников
+            number_of_tickets = random.randint(1, number_of_employees - 2)  # количество путевок
+            task_text = f"Группе из {number_of_employees} сотрудников выделено {number_of_tickets} путевки. " \
+                        f"Сколько существует способов распределения путевок, если все путевки одинаковы?"
+
+            answer = self.C(number_of_employees, number_of_tickets)
+
+            result_tasks_massive.append((task_text, [answer], []))
+
+        return result_tasks_massive
+
+    def logic_1_task_combinatorics_six_different_gender_pairs(self, number_of_tasks):
+        """
+        На школьном вечере присутствуют 12 девушек и 15 юношей. Сколькими способами можно выбрать из них 4
+        разнополые пары для танца?
+        :param number_of_tasks:
+        :return:
+        """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            number_of_girls = random.randint(8, 20)
+            number_of_boys = random.randint(8, 20)
+            number_pairs = random.randint(3, 8)
+            task_text = f"На школьном вечере присутствуют {number_of_girls} девушек и {number_of_boys} юношей. " \
+                        f"Сколькими способами можно выбрать из них {number_pairs} разнополые пары для танца?"
+
+            part1 = self.C(number_of_girls, number_pairs)
+            part2 = self.C(number_of_boys, number_pairs)
+            answer = part1 * part2
+
+            result_tasks_massive.append((task_text, [answer], []))
 
         return result_tasks_massive
 
