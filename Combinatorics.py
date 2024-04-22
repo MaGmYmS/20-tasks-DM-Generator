@@ -256,7 +256,7 @@ class CombinatoricsTaskGenerator:
         """
         result_tasks_massive = []
         for _ in range(number_of_tasks):
-            lambda_x = random.randint(1, 9)
+            lambda_x = random.randint(1, 100)
 
             answer = 1 / lambda_x
             answer = round(answer, 2)
@@ -428,7 +428,7 @@ class CombinatoricsTaskGenerator:
 
         return result_tasks_massive
 
-    '''проверить формулу, ну уж очень я в ней не уверен fix'''
+
 
     @staticmethod
     def lecture_4_task_combinatorics_five(number_of_tasks):
@@ -463,7 +463,7 @@ class CombinatoricsTaskGenerator:
 
         return list_task
 
-    '''по хорошему, спросить формулу и подправить вариативность, ложные ответы fix'''
+    '''по хорошему, спросить формулу и подправить вариативность, ложные ответы fix  np.exp(-((x - 3)**2) / 8)  8/2'''
 
     @staticmethod
     def lecture_4_task_combinatorics_six(number_of_tasks):
@@ -522,7 +522,7 @@ class CombinatoricsTaskGenerator:
 
         return list_task
 
-    '''жесть че за формула жоская надо уточнять fix'''
+
 
     @staticmethod
     def lecture_4_task_combinatorics_seven(number_of_tasks):
@@ -790,7 +790,7 @@ class CombinatoricsTaskGenerator:
         list_task = []
         for i in range(number_of_tasks):
             all_cust = random.randint(14, 1000)
-            random_cust = random.randint(3, all_cust - 15)
+            random_cust = random.randint(3, all_cust - 10)
             task_text = (
                 f"Девушка выбирает {random_cust} платья из {all_cust}, имеющихся в магазине. С помощью какой комбинаторной схемы можно"
                 f" построить множество способов такого выбора?")
@@ -943,7 +943,7 @@ class CombinatoricsTaskGenerator:
 
         return list_task
 
-    '''требуется проверка формулы плюсом поиграть с разбросом fix'''
+    '''требуется проверка формулы плюсом поиграть с разбросом fix формула бернули'''
 
     @staticmethod
     def control_work_task_combinatorics_dice_2(number_of_tasks):
@@ -1243,7 +1243,7 @@ class CombinatoricsTaskGenerator:
             num_2 = random.randint(num_1 + 1, 16)
             num_3 = random.randint(10, 100)
 
-            expression = (f"(1 + x**{num_1} - x**{num_2})**{num_3}")
+            expression = f"(1 + x**{num_1} - x**{num_2})**{num_3}"
             forbidden_answer = set()
             coefficients_dict = expand_expression(expression)
 
@@ -1541,7 +1541,7 @@ class CombinatoricsTaskGenerator:
 
         return result_tasks_massive
 
-    def logic_1_task_combinatorics_Fourteen_cake(self, number_of_tasks):
+    def logic_1_task_combinatorics_fourteen_cake(self, number_of_tasks):
         """
                 14.	В кондитерской продаются пирожные четырех видов. Сколькими способами можно купить 8 пирожных?
                 :param number_of_tasks:
@@ -1596,7 +1596,7 @@ class CombinatoricsTaskGenerator:
         return result_tasks_massive
 
     @staticmethod
-    def logic_1_task_combinatorics_SEXteen_profkom(number_of_tasks):
+    def logic_1_task_combinatorics_sixteen_profkom(number_of_tasks):
         """
                16.	В профком выбрано 9 человек. Из них нужно выбрать председателя, его заместителя и секретаря.
                 Сколькими способами это можно сделать?

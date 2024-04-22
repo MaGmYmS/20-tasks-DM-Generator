@@ -119,6 +119,7 @@ def create_all_tasks_combinatorics():
         "lecture_1_task_combinatorics_five": "Задание 5. Комбинаторика. Категория 1",
         "lecture_2_probability_of_value": "Задание 6. Комбинаторика. Категория 2",
         "lecture_3_expected_value": "Задание 7. Комбинаторика. Категория 3",
+
         "lecture_4_task_combinatorics_one": "Задание 8. Комбинаторика. Категория 4",
         "lecture_4_task_combinatorics_two": "Задание 9. Комбинаторика. Категория 4",
         "lecture_4_task_combinatorics_three": "Задание 10. Комбинаторика. Категория 4",
@@ -140,10 +141,19 @@ def create_all_tasks_combinatorics():
         "logic_1_task_combinatorics_one_binomial_newton": "Задание 101. Комбинаторика. Категория 11",
         "logic_1_task_combinatorics_two_recurrence_relation": "Задание 102. Комбинаторика. Категория 11",
         "logic_1_task_combinatorics_three_recurrence_relation": "Задание 103. Комбинаторика. Категория 11",
-        # "logic_1_task_combinatorics_one_binom_newton": "Задание 104. Комбинаторика. Категория 11",
-        "logic_1_task_combinatorics_five_distribution_tickets": "Задание 110. Комбинаторика. Категория 11",
-        "logic_1_task_combinatorics_six_different_gender_pairs": "Задание 111. Комбинаторика. Категория 11",
-        # "logic_1_task_combinatorics_one_binom_newton": "Задание 101. Комбинаторика. Категория 11",
+        "logic_1_task_combinatorics_four_koef": "Задание 104. Комбинаторика. Категория 11",
+        "logic_1_task_combinatorics_five_distribution_tickets": "Задание 105. Комбинаторика. Категория 11",
+        "logic_1_task_combinatorics_six_different_gender_pairs": "Задание 106. Комбинаторика. Категория 11",
+        "logic_1_task_combinatorics_seven_digits": "Задание 107. Комбинаторика. Категория 11",
+        "logic_1_task_combinatorics_eight_soldier": "Задание 108. Комбинаторика. Категория 11",
+        "logic_1_task_combinatorics_nine_alphabet": "Задание 109. Комбинаторика. Категория 11",
+        "logic_1_task_combinatorics_ten_arithmetic": "Задание 110. Комбинаторика. Категория 11",
+        "logic_1_task_combinatorics_eleven_stirling": "Задание 111. Комбинаторика. Категория 11",
+        "logic_1_task_combinatorics_twelve_cards": "Задание 112. Комбинаторика. Категория 11",
+        "logic_1_task_combinatorics_thirteen_biatlon": "Задание 113. Комбинаторика. Категория 11",
+        "logic_1_task_combinatorics_fourteen_cake": "Задание 114. Комбинаторика. Категория 11",
+        "logic_1_task_combinatorics_fifteen_letter": "Задание 115. Комбинаторика. Категория 11",
+        "logic_1_task_combinatorics_sixteen_profkom": "Задание 116. Комбинаторика. Категория 11",
 
     }
 
@@ -177,8 +187,19 @@ def create_all_tasks_combinatorics():
                         combinatorics_gen.logic_1_task_combinatorics_one_binomial_newton,
                         combinatorics_gen.logic_1_task_combinatorics_two_recurrence_relation,
                         combinatorics_gen.logic_1_task_combinatorics_three_recurrence_relation,
+                        combinatorics_gen.logic_1_task_combinatorics_four_koef,
                         combinatorics_gen.logic_1_task_combinatorics_five_distribution_tickets,
                         combinatorics_gen.logic_1_task_combinatorics_six_different_gender_pairs,
+                        combinatorics_gen.logic_1_task_combinatorics_seven_digits,
+                        combinatorics_gen.logic_1_task_combinatorics_eight_soldier,
+                        combinatorics_gen.logic_1_task_combinatorics_nine_alphabet,
+                        combinatorics_gen.logic_1_task_combinatorics_ten_arithmetic,
+                        combinatorics_gen.logic_1_task_combinatorics_eleven_stirling,
+                        combinatorics_gen.logic_1_task_combinatorics_twelve_cards,
+                        combinatorics_gen.logic_1_task_combinatorics_thirteen_biatlon,
+                        combinatorics_gen.logic_1_task_combinatorics_fourteen_cake,
+                        combinatorics_gen.logic_1_task_combinatorics_fifteen_letter,
+                        combinatorics_gen.logic_1_task_combinatorics_sixteen_profkom,
                         ]
 
     categories_dict = {}
@@ -188,7 +209,7 @@ def create_all_tasks_combinatorics():
             categories_dict[method_name] = categories[method_name]
 
     for i, method in enumerate(all_tasks_method):
-        for number_variables in [1]:
+        for number_variables in [100]:
             start_time = time.time()
 
             tasks = method(number_variables)
