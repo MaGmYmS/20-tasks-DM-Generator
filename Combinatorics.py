@@ -428,8 +428,6 @@ class CombinatoricsTaskGenerator:
 
         return result_tasks_massive
 
-
-
     @staticmethod
     def lecture_4_task_combinatorics_five(number_of_tasks):
         """
@@ -521,8 +519,6 @@ class CombinatoricsTaskGenerator:
             list_task.append(result)
 
         return list_task
-
-
 
     @staticmethod
     def lecture_4_task_combinatorics_seven(number_of_tasks):
@@ -987,6 +983,260 @@ class CombinatoricsTaskGenerator:
 
         return list_task
 
+    # endregion
+
+    # region Тест по лекции № 6
+    @staticmethod
+    def lecture_6_task_combinatorics_one(number_of_tasks):
+        """
+        Под выборкой в гипотетическом варианте интерпретации понимаем (правильный ответ – d)
+            a.	случайную величину
+            b.	набор конкретных чисел
+            c.	последовательность независимых случайных величин, распределенных по нормальному закону
+            d.	последовательность независимых одинаково распределенных случайных величин
+
+        :param number_of_tasks: количество задач для генерации
+        :return: список задач в формате (текст_задачи, правильный_ответ, неправильные_ответы)
+        """
+        list_tasks = []
+
+        for i in range(number_of_tasks):
+            random_people = random.randint(5, 100)
+            task_text = "Под выборкой в гипотетическом варианте интерпретации понимаем"
+            answer = set()
+            forbidden_answer = set()
+            answer.add("последовательность независимых одинаково распределенных случайных величин")
+
+            forbidden_answer.add("случайную величину")
+            forbidden_answer.add("набор конкретных чисел")
+            forbidden_answer.add("последовательность независимых случайных величин, "
+                                 "распределенных по нормальному закону")
+
+            result = (task_text, list(answer), list(forbidden_answer))
+            list_tasks.append(result)
+
+        return list_tasks
+
+    @staticmethod
+    def lecture_6_task_combinatorics_two(number_of_tasks):
+        """
+        Генерирует задачи с одним правильным ответом из четырех вариантов.
+
+        :param number_of_tasks: количество задач для генерации
+        :return: список задач в формате (текст_задачи, правильный_ответ, неправильные_ответы)
+        """
+        list_tasks = []
+
+        for i in range(number_of_tasks):
+            task_text = "Выборка будет репрезентативной, если"
+            answer = set()
+            forbidden_answer = set()
+            answer.add( "её осуществить случайным образом, при этом все объекты генеральной совокупности имеют "
+                        "одинаковую вероятность попасть в выборку")
+
+            forbidden_answer.add("её осуществить случайным образом")
+            forbidden_answer.add("её объем будет больше половины объема генеральной совокупности")
+            forbidden_answer.add("её объем будет больше половины объема генеральной совокупности и распределение "
+                                 "выборки будет подчинено нормальному закону")
+
+            result = (task_text, list(answer), list(forbidden_answer))
+            list_tasks.append(result)
+
+        return list_tasks
+
+    @staticmethod
+    def lecture_6_task_combinatorics_three(number_of_tasks):
+        """
+        Генерирует задачи с одним правильным ответом из четырех вариантов.
+
+        :param number_of_tasks: количество задач для генерации
+        :return: список задач в формате (текст_задачи, правильный_ответ, неправильные_ответы)
+        """
+        list_tasks = []
+
+        for i in range(number_of_tasks):
+            task_text = "Число, показывающие сколько раз варианта встречалась в выборке, называется"
+            answer = set()
+            forbidden_answer = set()
+            answer.add("частотой")
+
+            forbidden_answer.add("модой")
+            forbidden_answer.add("относительной частотой")
+            forbidden_answer.add("эмпирической вероятностью")
+
+            result = (task_text, list(answer), list(forbidden_answer))
+            list_tasks.append(result)
+
+        return list_tasks
+
+    @staticmethod
+    def lecture_6_task_combinatorics_four(number_of_tasks):
+        """
+        Генерирует задачи с одним правильным ответом из четырех вариантов.
+
+        :param number_of_tasks: количество задач для генерации
+        :return: список задач в формате (текст_задачи, правильный_ответ, неправильные_ответы)
+        """
+        list_tasks = []
+
+        for i in range(number_of_tasks):
+            task_text = ("Совокупность всех возможных объектов данного вида, над которыми проводятся наблюдения с "
+                         "целью получения конкретных значений определенной случайной величины, называется")
+            answer = set()
+            forbidden_answer = set()
+            answer.add("генеральной совокупностью")
+
+            forbidden_answer.add("выборкой")
+            forbidden_answer.add("вариантами")
+            forbidden_answer.add("выборочной совокупностью")
+
+            result = (task_text, list(answer), list(forbidden_answer))
+            list_tasks.append(result)
+
+        return list_tasks
+
+    @staticmethod
+    def lecture_6_task_combinatorics_five(number_of_tasks):
+        """
+        Генерирует задачи с одним правильным ответом из четырех вариантов.
+
+        :param number_of_tasks: количество задач для генерации
+        :return: список задач в формате (текст_задачи, правильный_ответ, неправильные_ответы)
+        """
+        list_tasks = []
+
+        for i in range(number_of_tasks):
+            task_text = ("Статистическая оценка, которая при любом объеме выборки дает систематически завышенную "
+                         "оценку оцениваемого параметра, является")
+            answer = set()
+            forbidden_answer = set()
+            answer.add("смещенной")
+
+            forbidden_answer.add("несмещенной")
+            forbidden_answer.add("модой")
+            forbidden_answer.add("несостоятельной")
+
+            result = (task_text, list(answer), list(forbidden_answer))
+            list_tasks.append(result)
+
+        return list_tasks
+
+    @staticmethod
+    def lecture_6_task_combinatorics_six(number_of_tasks):
+        """
+        Генерирует задачи с несколькими правильными ответами.
+
+        :param number_of_tasks: количество задач для генерации
+        :return: список задач в формате (текст_задачи, правильные_ответы)
+        """
+        list_tasks = []
+
+        for i in range(number_of_tasks):
+            task_text = "Выборочная средняя является оценкой"
+            correct_answers = ["математического ожидания генеральной совокупности",
+                               "параметра a нормально распределенной генеральной совокупности",
+                               "абсциссы симметрии теоретической плотности нормально распределенной "
+                               "генеральной совокупности",
+                               "параметра λ генеральной совокупности, распределенной по закону Пуассона"]
+            result = (task_text, correct_answers, [])
+            list_tasks.append(result)
+
+        return list_tasks
+
+    @staticmethod
+    def lecture_6_task_combinatorics_seven(number_of_tasks):
+        """
+        Генерирует задачи с одним правильным ответом из четырех вариантов.
+
+        :param number_of_tasks: количество задач для генерации
+        :return: список задач в формате (текст_задачи, правильный_ответ, неправильные_ответы)
+        """
+        list_tasks = []
+
+        for i in range(number_of_tasks):
+            task_text = "Средние большого числа наблюдений обнаруживают свойство устойчивости на основании"
+            answer = set()
+            forbidden_answer = set()
+            answer.add("ЗБЧ")
+
+            forbidden_answer.add("ДСВ")
+            forbidden_answer.add("НСВ")
+            forbidden_answer.add("ФСБ")
+
+            result = (task_text, list(answer), list(forbidden_answer))
+            list_tasks.append(result)
+
+        return list_tasks
+
+    @staticmethod
+    def lecture_6_task_combinatorics_eight(number_of_tasks):
+        """
+        Генерирует задачи с одним правильным ответом из четырех вариантов.
+
+        :param number_of_tasks: количество задач для генерации
+        :return: список задач в формате (текст_задачи, правильный_ответ, неправильные_ответы)
+        """
+        list_tasks = []
+
+        for i in range(number_of_tasks):
+            task_text = "Требование несмещенности гарантирует"
+            answer = set()
+            forbidden_answer = set()
+            answer.add("отсутствие систематических ошибок")
+
+            forbidden_answer.add("состоятельность оценки")
+            forbidden_answer.add("несостоятельность оценки")
+            forbidden_answer.add("нормальное распределение генеральной совокупности")
+
+            result = (task_text, list(answer), list(forbidden_answer))
+            list_tasks.append(result)
+
+        return list_tasks
+
+    @staticmethod
+    def lecture_6_task_combinatorics_nine(number_of_tasks):
+        """
+        Генерирует задачи с одним правильным ответом из четырех вариантов.
+
+        :param number_of_tasks: количество задач для генерации
+        :return: список задач в формате (текст_задачи, правильный_ответ, неправильные_ответы)
+        """
+        list_tasks = []
+
+        for i in range(number_of_tasks):
+            task_text = "Если все варианты уменьшить на одно и то же число k, то выборочная дисперсия"
+            answer = set()
+            forbidden_answer = set()
+            answer.add("не измениться")
+
+            forbidden_answer.add("уменьшиться на то же число k")
+            forbidden_answer.add("уменьшиться в k раз")
+            forbidden_answer.add("уменьшиться в k^2 раз")
+
+            result = (task_text, list(answer), list(forbidden_answer))
+            list_tasks.append(result)
+
+        return list_tasks
+
+    @staticmethod
+    def lecture_6_task_combinatorics_ten(number_of_tasks):
+        """
+        Генерирует задачи с несколькими правильными ответами.
+
+        :param number_of_tasks: количество задач для генерации
+        :return: список задач в формате (текст_задачи, правильные_ответы, неправильные_ответы)
+        """
+        list_tasks = []
+
+        for i in range(number_of_tasks):
+            task_text = "Выборочная дисперсия является"
+            correct_answers = ["состоятельной оценкой генеральной дисперсии", "смещенной оценкой генеральной дисперсии"]
+            incorrect_answers = ["несмещенной оценкой генеральной дисперсии", "несостоятельной оценкой генеральной "
+                                                                              "дисперсии"]
+            result = (task_text, correct_answers, incorrect_answers)
+            list_tasks.append(result)
+
+        return list_tasks
     # endregion
 
     # region Задачи по комбинаторике от Володины Т.Ю
