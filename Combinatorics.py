@@ -337,7 +337,6 @@ class CombinatoricsTaskGenerator:
 
         return result_tasks_massive
 
-    '''поиграться с величинами fix'''
 
     @staticmethod
     def lecture_4_task_combinatorics_three(number_of_tasks):
@@ -461,7 +460,6 @@ class CombinatoricsTaskGenerator:
 
         return list_task
 
-    '''по хорошему, спросить формулу и подправить вариативность, ложные ответы fix  np.exp(-((x - 3)**2) / 8)  8/2'''
 
     @staticmethod
     def lecture_4_task_combinatorics_six(number_of_tasks):
@@ -507,8 +505,8 @@ class CombinatoricsTaskGenerator:
             # Вычисляем дисперсию
             variance = e_x2 - e_x ** 2
 
-            answer = set()
-            answer.add(f"{variance:.1f}")
+            answer = round(random_d/2,1)
+            # answer.add(f"{variance:.1f}")
 
             forbidden_answer = set()
             forbidden_answer.add(f"{variance + 1:.1f}")
@@ -556,7 +554,6 @@ class CombinatoricsTaskGenerator:
 
         return list_task
 
-    '''формула думаю верная, подправить ложные ответы и вариативность рандома fix'''
 
     @staticmethod
     def lecture_4_task_combinatorics_eight(number_of_tasks):
@@ -733,7 +730,7 @@ class CombinatoricsTaskGenerator:
 
         return list_task
 
-    '''требуется проверка fix'''
+
 
     @staticmethod
     def control_work_task_combinatorics_1_2(number_of_tasks):
@@ -769,7 +766,6 @@ class CombinatoricsTaskGenerator:
 
         return list_task
 
-    '''требуется проверка fix'''
 
     @staticmethod
     def control_work_task_combinatorics_1_3(number_of_tasks):
@@ -893,7 +889,6 @@ class CombinatoricsTaskGenerator:
 
         return list_task
 
-    '''может быть косяк с тем как считается надо уточнить этот момент fix'''
 
     @staticmethod
     def control_work_task_combinatorics_man(number_of_tasks):
@@ -939,7 +934,6 @@ class CombinatoricsTaskGenerator:
 
         return list_task
 
-    '''требуется проверка формулы плюсом поиграть с разбросом fix формула бернули'''
 
     @staticmethod
     def control_work_task_combinatorics_dice_2(number_of_tasks):
@@ -1489,9 +1483,9 @@ class CombinatoricsTaskGenerator:
                 # Возвращаем значение по выбранному ключу
                 return random_key
 
-            num_1 = random.randint(2, 15)
-            num_2 = random.randint(num_1 + 1, 16)
-            num_3 = random.randint(10, 100)
+            num_1 = random.randint(2, 10)
+            num_2 = random.randint(num_1 + 1, 12)
+            num_3 = random.randint(5, 15)
 
             expression = f"(1 + x**{num_1} - x**{num_2})**{num_3}"
             forbidden_answer = set()
@@ -1507,7 +1501,8 @@ class CombinatoricsTaskGenerator:
             # forbidden_answer.add(f"{coefficients_dict[random_value]}")
             # forbidden_answer.add(f"{math.factorial(number_of_card) * number_of_card}")
             # forbidden_answer.add(f"{total_sum - math.factorial(number_of_card)}")
-            result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
+            if answer != 'None':
+                result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
 
         return result_tasks_massive
 
@@ -1520,7 +1515,7 @@ class CombinatoricsTaskGenerator:
         """
         result_tasks_massive = []
         for _ in range(number_of_tasks):
-            number_of_employees = random.randint(5, 15)  # количество сотрудников
+            number_of_employees = random.randint(5, 30)  # количество сотрудников
             number_of_tickets = random.randint(1, number_of_employees - 2)  # количество путевок
             task_text = f"Группе из {number_of_employees} сотрудников выделено {number_of_tickets} путевки. " \
                         f"Сколько существует способов распределения путевок, если все путевки одинаковы?"
@@ -1565,7 +1560,9 @@ class CombinatoricsTaskGenerator:
         for _ in range(number_of_tasks):
             forbidden_answer = set()
             number_of_card = random.randint(3, 9)  # кол-во чисел
-            digits_array = list(range(1, number_of_card + 1))  # массив цифр
+            # number_of_card_2 = random.randint(3, 9)  # кол-во чисел
+            # digits_array = list(range(1, number_of_card + 1))  # массив цифр
+            digits_array = random.sample(range(1, 10), number_of_card)
             task_text = f"Найти сумму всех цифр всех {number_of_card}-ных чисел полученных при перестановке цифр {digits_array}. "
 
             total_sum = 0
@@ -1652,7 +1649,6 @@ class CombinatoricsTaskGenerator:
 
         return result_tasks_massive
 
-    '''возможно потребуется корректировка fix'''
 
     @staticmethod
     def logic_1_task_combinatorics_ten_arithmetic(number_of_tasks):
@@ -1742,7 +1738,6 @@ class CombinatoricsTaskGenerator:
 
         return result_tasks_massive
 
-    """не уверен в решении, так как на вопрос как решать мне ответили погугли fix"""
 
     def logic_1_task_combinatorics_twelve_cards(self, number_of_tasks):
         """
@@ -1753,7 +1748,7 @@ class CombinatoricsTaskGenerator:
         result_tasks_massive = []
         for _ in range(number_of_tasks):
             forbidden_answer = set()
-            number_of_card = random.choice([36, 52])  # кол-во карт
+            number_of_card = random.choice([36, 52, 54, 32, 48, 30, 24, 40, 42, 44, 46, 50])  # кол-во карт
             number_of_part = random.randint(2, 10)  # количество частей
             task_text = f"Сколькими способами колоду из {number_of_card} карт можно разделить произвольно на {number_of_part} частей?"
 
@@ -1800,15 +1795,15 @@ class CombinatoricsTaskGenerator:
         result_tasks_massive = []
         for _ in range(number_of_tasks):
             forbidden_answer = set()
-            number_of_cake = random.randint(4, 6)  # виды пирожных
-            number_of_choice = random.randint(8, 14)  # количество, что мы берем
+            number_of_cake = random.randint(4, 10)  # виды пирожных
+            number_of_choice = random.randint(8, 20)  # количество, что мы берем
             task_text = (f"В кондитерской продаются пирожные {number_of_cake} видов. Сколькими способами можно купить"
                          f" {number_of_choice} пирожных?")
 
-            answer = self.C(number_of_cake + number_of_choice - 1, number_of_choice)
-            forbidden_answer.add(f"{self.C(number_of_cake + number_of_choice, number_of_choice)}")
-            forbidden_answer.add(f"{number_of_choice * number_of_cake}")
-            forbidden_answer.add(f"{math.pow(2, number_of_choice)}")
+            answer = round(self.C(number_of_cake + number_of_choice - 1, number_of_choice))
+            forbidden_answer.add(f"{round(self.C(number_of_cake + number_of_choice, number_of_choice))}")
+            forbidden_answer.add(f"{round(number_of_choice * number_of_cake)}")
+            forbidden_answer.add(f"{round(math.pow(2, number_of_choice))}")
             result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
 
         return result_tasks_massive
@@ -1825,8 +1820,8 @@ class CombinatoricsTaskGenerator:
         for _ in range(number_of_tasks):
 
             forbidden_answer = set()
-            number_of_letter = random.randint(2, 10)  # кол-во букв
-            number_of_words = random.randint(2, 5)  # длина слова
+            number_of_letter = random.randint(2, 20)  # кол-во букв
+            number_of_words = random.randint(2, 8)  # длина слова
             task_text = (
                 f"Алфавит А состоит из {number_of_letter} символов. Сколько существует различных слов алфавита А,"
                 f"длины которых не превосходят {number_of_words}?")
@@ -1838,10 +1833,10 @@ class CombinatoricsTaskGenerator:
                 words_count = math.pow(number_of_letter, length)
                 answer += words_count
 
-            forbidden_answer.add(f"{answer / number_of_words}")
-            forbidden_answer.add(f"{(answer / number_of_words) * 2}")
-            forbidden_answer.add(f"{math.pow(2, number_of_words)}")
-            result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
+            forbidden_answer.add(f"{round(answer / number_of_words)}")
+            forbidden_answer.add(f"{round((answer / number_of_words) * 1.5)}")
+            forbidden_answer.add(f"{round(math.pow(2, number_of_words))}")
+            result_tasks_massive.append((task_text, [round(answer)], list(forbidden_answer)))
 
         return result_tasks_massive
 
@@ -1854,12 +1849,17 @@ class CombinatoricsTaskGenerator:
                 :return:
                 """
         result_tasks_massive = []
+        # Список возможных ролей
+        roles = ["председателя", "главу", "руководителя", "президента"]
+        roles2 = ["помощника", "заместителя", "ассистента"]
+        roles3 = ["администратора", "канцеляра", "секретаря"]
+
         for _ in range(number_of_tasks):
             forbidden_answer = set()
             number_of_letter = random.randint(7, 15)  # кол-во людей
             # number_of_words = random.randint(2, 5)  # длина слова
             task_text = (
-                f"В профком выбрано {number_of_letter} человек. Из них нужно выбрать председателя, его заместителя и секретаря."
+                f"В профком выбрано {number_of_letter} человек. Из них нужно выбрать {random.choice(roles)}, {random.choice(roles2)} и {random.choice(roles3)}."
                 "Сколькими способами это можно сделать?")
 
             answer = number_of_letter * (number_of_letter - 1) * (number_of_letter - 2)
