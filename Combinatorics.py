@@ -3,7 +3,6 @@ import random
 import numpy as np
 from scipy.integrate import quad
 from scipy.optimize import minimize_scalar
-from itertools import permutations
 import itertools
 from sympy import symbols, expand, collect
 import re
@@ -337,7 +336,6 @@ class CombinatoricsTaskGenerator:
 
         return result_tasks_massive
 
-
     @staticmethod
     def lecture_4_task_combinatorics_three(number_of_tasks):
         """
@@ -353,25 +351,25 @@ class CombinatoricsTaskGenerator:
         list_task = []
 
         for i in range(number_of_tasks):
-            random_C = random.randint(3, 50)
-            random_x = random.randint(1, random_C - 1)
+            random_c = random.randint(3, 50)
+            random_x = random.randint(1, random_c - 1)
             random_sign = random.choice(['-', '+'])
 
             task_text = (f"Случайная величина Х имеет стандартное нормальное распределение,"
-                         f"  математическое ожидание случайной величины У={random_C}{random_sign}{random_x}Х равно ")
+                         f"  математическое ожидание случайной величины У={random_c}{random_sign}{random_x}Х равно ")
             answer = set()
 
-            answer.add(f"{random_C}")
+            answer.add(f"{random_c}")
 
             forbidden_answer = set()
             forbidden_answer.add(f"0")
             if random_sign == '-':
                 forbidden_answer.add(f"{random_sign}{random_x}")
-                forbidden_answer.add(f"{random_C - random_x}")
+                forbidden_answer.add(f"{random_c - random_x}")
 
             else:
                 forbidden_answer.add(f"{random_x}")
-                forbidden_answer.add(f"{random_C + random_x}")
+                forbidden_answer.add(f"{random_c + random_x}")
 
             result = (task_text, list(answer), list(forbidden_answer))
             list_task.append(result)
@@ -460,7 +458,6 @@ class CombinatoricsTaskGenerator:
 
         return list_task
 
-
     @staticmethod
     def lecture_4_task_combinatorics_six(number_of_tasks):
         """
@@ -505,7 +502,7 @@ class CombinatoricsTaskGenerator:
             # Вычисляем дисперсию
             variance = e_x2 - e_x ** 2
 
-            answer = round(random_d/2,1)
+            answer = round(random_d / 2, 1)
             # answer.add(f"{variance:.1f}")
 
             forbidden_answer = set()
@@ -513,7 +510,7 @@ class CombinatoricsTaskGenerator:
             forbidden_answer.add(f"{variance - 1:.1f}")
             forbidden_answer.add(f"{variance - 2:.1f}")
 
-            result = (task_text, list(answer), list(forbidden_answer))
+            result = (task_text, [answer], list(forbidden_answer))
             list_task.append(result)
 
         return list_task
@@ -554,7 +551,6 @@ class CombinatoricsTaskGenerator:
 
         return list_task
 
-
     @staticmethod
     def lecture_4_task_combinatorics_eight(number_of_tasks):
         """
@@ -575,8 +571,6 @@ class CombinatoricsTaskGenerator:
         for i in range(number_of_tasks):
             # random_alpha = random.randint(1, 60)
             # random_sigma = random.randint(1, 3)
-            x_min = -10  # Минимальное значение X для интегрирования
-            x_max = 10  # Максимальное значение X для интегрирования
             random_a = random.randint(3, 15)
             random_d = random.randint(8, 15)
 
@@ -730,8 +724,6 @@ class CombinatoricsTaskGenerator:
 
         return list_task
 
-
-
     @staticmethod
     def control_work_task_combinatorics_1_2(number_of_tasks):
         """
@@ -766,7 +758,6 @@ class CombinatoricsTaskGenerator:
 
         return list_task
 
-
     @staticmethod
     def control_work_task_combinatorics_1_3(number_of_tasks):
         """
@@ -784,8 +775,8 @@ class CombinatoricsTaskGenerator:
             all_cust = random.randint(14, 1000)
             random_cust = random.randint(3, all_cust - 10)
             task_text = (
-                f"Девушка выбирает {random_cust} платья из {all_cust}, имеющихся в магазине. С помощью какой комбинаторной схемы можно"
-                f" построить множество способов такого выбора?")
+                f"Девушка выбирает {random_cust} платья из {all_cust}, имеющихся в магазине. С помощью какой "
+                f"комбинаторной схемы можно построить множество способов такого выбора?")
             answer = set()
             forbidden_answer = set()
             answer.add("размещения без повторений")
@@ -889,7 +880,6 @@ class CombinatoricsTaskGenerator:
 
         return list_task
 
-
     @staticmethod
     def control_work_task_combinatorics_man(number_of_tasks):
         """
@@ -934,11 +924,11 @@ class CombinatoricsTaskGenerator:
 
         return list_task
 
-
     @staticmethod
     def control_work_task_combinatorics_dice_2(number_of_tasks):
         """
-        Опыт состоит в бросании игрального кубика 5 раз. Чему равна вероятность того, что четное число очков выпадет 3 раза? (правильный ответ – c)
+        Опыт состоит в бросании игрального кубика 5 раз. Чему равна вероятность того, что четное число очков выпадет 3
+        раза? (правильный ответ – c)
         1/8;
         3/2;
         5/16;
@@ -995,7 +985,6 @@ class CombinatoricsTaskGenerator:
         list_tasks = []
 
         for i in range(number_of_tasks):
-            random_people = random.randint(5, 100)
             task_text = "Под выборкой в гипотетическом варианте интерпретации понимаем"
             answer = set()
             forbidden_answer = set()
@@ -1025,8 +1014,8 @@ class CombinatoricsTaskGenerator:
             task_text = "Выборка будет репрезентативной, если"
             answer = set()
             forbidden_answer = set()
-            answer.add( "её осуществить случайным образом, при этом все объекты генеральной совокупности имеют "
-                        "одинаковую вероятность попасть в выборку")
+            answer.add("её осуществить случайным образом, при этом все объекты генеральной совокупности имеют "
+                       "одинаковую вероятность попасть в выборку")
 
             forbidden_answer.add("её осуществить случайным образом")
             forbidden_answer.add("её объем будет больше половины объема генеральной совокупности")
@@ -1231,6 +1220,11 @@ class CombinatoricsTaskGenerator:
             list_tasks.append(result)
 
         return list_tasks
+
+    # endregion
+
+    # region region Тест по лекции № 7
+
     # endregion
 
     # region Задачи по комбинаторике от Володины Т.Ю
@@ -1563,7 +1557,8 @@ class CombinatoricsTaskGenerator:
             # number_of_card_2 = random.randint(3, 9)  # кол-во чисел
             # digits_array = list(range(1, number_of_card + 1))  # массив цифр
             digits_array = random.sample(range(1, 10), number_of_card)
-            task_text = f"Найти сумму всех цифр всех {number_of_card}-ных чисел полученных при перестановке цифр {digits_array}. "
+            task_text = (f"Найти сумму всех цифр всех {number_of_card}-ных чисел полученных при перестановке "
+                         f"цифр {digits_array}. ")
 
             total_sum = 0
             # Генерация всех перестановок
@@ -1649,7 +1644,6 @@ class CombinatoricsTaskGenerator:
 
         return result_tasks_massive
 
-
     @staticmethod
     def logic_1_task_combinatorics_ten_arithmetic(number_of_tasks):
         """
@@ -1676,7 +1670,8 @@ class CombinatoricsTaskGenerator:
 
             task_text = (f"Известно, что арифметические операции сложения и умножения"
                          f" коммутативны для конечного числа операндов. Например,"
-                         f" выражение {expression_0_2}∙{expression_0_1} можно записать иначе: {expression_1}∙{expression_2}."
+                         f" выражение {expression_0_2}∙{expression_0_1} можно записать иначе: "
+                         f"{expression_1}∙{expression_2}."
                          f" Сколько всего существует способов записи этого выражения?")
 
             # Вычисляем количество способов группировки для суммы (a+b+c+d)
@@ -1738,7 +1733,6 @@ class CombinatoricsTaskGenerator:
 
         return result_tasks_massive
 
-
     def logic_1_task_combinatorics_twelve_cards(self, number_of_tasks):
         """
                 12.	Сколькими способами колоду из 36 карт можно разделить произвольно на 2 части?
@@ -1750,7 +1744,8 @@ class CombinatoricsTaskGenerator:
             forbidden_answer = set()
             number_of_card = random.choice([36, 52, 54, 32, 48, 30, 24, 40, 42, 44, 46, 50])  # кол-во карт
             number_of_part = random.randint(2, 10)  # количество частей
-            task_text = f"Сколькими способами колоду из {number_of_card} карт можно разделить произвольно на {number_of_part} частей?"
+            task_text = (f"Сколькими способами колоду из {number_of_card} карт можно разделить произвольно на "
+                         f"{number_of_part} частей?")
 
             answer = self.C(number_of_card - 1, number_of_part)
             forbidden_answer.add(f"{self.C(number_of_card, number_of_part)}")
@@ -1859,7 +1854,8 @@ class CombinatoricsTaskGenerator:
             number_of_letter = random.randint(7, 15)  # кол-во людей
             # number_of_words = random.randint(2, 5)  # длина слова
             task_text = (
-                f"В профком выбрано {number_of_letter} человек. Из них нужно выбрать {random.choice(roles)}, {random.choice(roles2)} и {random.choice(roles3)}."
+                f"В профком выбрано {number_of_letter} человек. Из них нужно выбрать {random.choice(roles)}, "
+                f"{random.choice(roles2)} и {random.choice(roles3)}."
                 "Сколькими способами это можно сделать?")
 
             answer = number_of_letter * (number_of_letter - 1) * (number_of_letter - 2)
