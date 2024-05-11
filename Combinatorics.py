@@ -1224,6 +1224,217 @@ class CombinatoricsTaskGenerator:
     # endregion
 
     # region region Тест по лекции № 7
+    @staticmethod
+    def lecture_7_task_combinatorics_one(number_of_tasks):
+        """
+        Генерирует задачи с несколькими правильными ответами.
+
+        :param number_of_tasks: количество задач для генерации
+        :return: список задач в формате (текст_задачи, правильные_ответы, неправильные_ответы)
+        """
+        list_tasks = []
+
+        for i in range(number_of_tasks):
+            task_text = "Выберите из предложенных вариантов формулировки гипотез"
+            correct_answers = ["Генеральная совокупность имеет нормальное распределение",
+                               "Номинальный размер детали 15 мм"]
+            incorrect_answers = ["Выборочная совокупность имеет нормальное распределение",
+                                 "Варианты выборки независимы и распределены по нормальному закону"]
+            result = (task_text, correct_answers, incorrect_answers)
+            list_tasks.append(result)
+
+        return list_tasks
+
+    @staticmethod
+    def lecture_7_task_combinatorics_two(number_of_tasks):
+        """
+        Генерирует задачи с одним правильным ответом.
+
+        :param number_of_tasks: количество задач для генерации
+        :return: список задач в формате (текст_задачи, правильный_ответ, неправильные_ответы)
+        """
+        list_tasks = []
+
+        for i in range(number_of_tasks):
+            task_text = "Мощность критерия является величина"
+            correct_answer = "1-β"
+            incorrect_answers = ["α", "β", "1-α"]
+            result = (task_text, correct_answer, incorrect_answers)
+            list_tasks.append(result)
+
+        return list_tasks
+
+    @staticmethod
+    def lecture_7_task_combinatorics_three(number_of_tasks):
+        """
+        Генерирует задачи с одним правильным ответом.
+
+        :param number_of_tasks: количество задач для генерации
+        :return: список задач в формате (текст_задачи, правильный_ответ, неправильные_ответы)
+        """
+        list_tasks = []
+
+        for i in range(number_of_tasks):
+            task_text = "Уровень значимости критерия - это"
+            correct_answer = "вероятность отвергнуть верную гипотезу"
+            incorrect_answers = ["вероятность принять неверную гипотезу",
+                                 "вероятность принять верную гипотезу",
+                                 "вероятность отвергнуть неверную гипотезу"]
+            result = (task_text, correct_answer, incorrect_answers)
+            list_tasks.append(result)
+
+        return list_tasks
+
+    @staticmethod
+    def lecture_7_task_combinatorics_four(number_of_tasks):
+        """
+        Генерирует задачи с несколькими правильными ответами.
+
+        :param number_of_tasks: количество задач для генерации
+        :return: список задач в формате (текст_задачи, правильные_ответы, неправильные_ответы)
+        """
+        list_tasks = []
+
+        for i in range(number_of_tasks):
+            task_text = ("Если наблюдаемое значение критерия (критической статистики) гипотезы попадает в область "
+                         "правдоподобных значений, то это означает что")
+            correct_answers = ["проверяемая гипотеза не противоречит выборочным данным",
+                               "возможно, существуют другие гипотезы, которые наравне с проверяемой гипотезой не "
+                               "противоречат опытным данным"]
+            incorrect_answers = ["только проверяемая гипотеза верна", "нулевая гипотеза отвергается"]
+            result = (task_text, correct_answers, incorrect_answers)
+            list_tasks.append(result)
+
+        return list_tasks
+
+    @staticmethod
+    def lecture_7_task_combinatorics_five(number_of_tasks):
+        """
+        Генерирует задачи с одним правильным ответом.
+
+        :param number_of_tasks: количество задач для генерации
+        :return: список задач в формате (текст_задачи, правильный_ответ, неправильные_ответы)
+        """
+        list_tasks = []
+
+        for i in range(number_of_tasks):
+            task_text = "P-value - это"
+            correct_answer = "минимальный уровень значимости, на котором нулевая гипотеза отвергается"
+            incorrect_answers = ["минимальный уровень значимости, на котором нулевая гипотеза принимается",
+                                 "максимальный уровень значимости, на котором нулевая гипотеза принимается",
+                                 "максимальный уровень значимости, на котором нулевая гипотеза отвергается"]
+            result = (task_text, correct_answer, incorrect_answers)
+            list_tasks.append(result)
+
+        return list_tasks
+
+    @staticmethod
+    def lecture_7_task_combinatorics_six(number_of_tasks):
+        """
+        Генерирует задачи с несколькими правильными ответами.
+
+        :param number_of_tasks: количество задач для генерации
+        :return: список задач в формате (текст_задачи, правильные_ответы, неправильные_ответы)
+        """
+        list_tasks = []
+
+        for i in range(number_of_tasks):
+            task_text = ("Генеральная совокупность – размер определенного изделия. Выберите формулировки "
+                         "возможных гипотез")
+            correct_answers = ["Генеральная совокупность имеет равномерное распределение",
+                               "Размер изделия превышает номинальный",
+                               "Размер изделия равен номинальному размеру"]
+            incorrect_answers = ["Выборочная совокупность имеет нормальное распределение"]
+            result = (task_text, correct_answers, incorrect_answers)
+            list_tasks.append(result)
+
+        return list_tasks
+
+    @staticmethod
+    def lecture_7_task_combinatorics_seven(number_of_tasks):
+        """
+        Генерирует задачи с одним правильным ответом.
+
+        :param number_of_tasks: количество задач для генерации
+        :return: список задач в формате (текст_задачи, правильный_ответ, неправильные_ответы)
+        """
+        list_tasks = []
+
+        for i in range(number_of_tasks):
+            task_text = "Если p-value > α, то"
+            correct_answer = "Нулевая гипотеза не отвергается на уровне значимости α"
+            incorrect_answers = ["Нулевая гипотеза отвергается на уровне значимости α",
+                                 "Альтернативная гипотеза принимается на уровне значимости α",
+                                 "Альтернативная гипотеза не отвергается на уровне значимости α"]
+            result = (task_text, correct_answer, incorrect_answers)
+            list_tasks.append(result)
+
+        return list_tasks
+
+    @staticmethod
+    def lecture_7_task_combinatorics_eight(number_of_tasks):
+        """
+        Генерирует задачи с несколькими правильными ответами.
+
+        :param number_of_tasks: количество задач для генерации
+        :return: список задач в формате (текст_задачи, правильные_ответы, неправильные_ответы)
+        """
+        list_tasks = []
+
+        for i in range(number_of_tasks):
+            task_text = "Критическая область зависит от"
+            correct_answers = ["уровня значимости критерия", "выбора альтернативной гипотезы"]
+            incorrect_answers = ["p-value", "выборки"]
+            result = (task_text, correct_answers, incorrect_answers)
+            list_tasks.append(result)
+
+        return list_tasks
+
+    @staticmethod
+    def lecture_7_task_combinatorics_nine(number_of_tasks):
+        """
+        Генерирует задачи с одним правильным ответом.
+
+        :param number_of_tasks: количество задач для генерации
+        :return: список задач в формате (текст_задачи, правильный_ответ, неправильные_ответы)
+        """
+        list_tasks = []
+
+        for i in range(number_of_tasks):
+            task_text = ("Если наблюдаемое значение критерия (критической статистики) гипотезы попадает в "
+                         "критическую область, то это означает что")
+            correct_answer = "нулевая гипотеза отвергается"
+            incorrect_answers = ["нулевая гипотеза не отвергается",
+                                 "принимается любая альтернативная гипотеза",
+                                 "генеральная совокупность не распределена по нормальному закону"]
+            result = (task_text, correct_answer, incorrect_answers)
+            list_tasks.append(result)
+
+        return list_tasks
+
+    @staticmethod
+    def lecture_7_task_combinatorics_ten(number_of_tasks):
+        """
+        Генерирует задачи с одним правильным ответом.
+
+        :param number_of_tasks: количество задач для генерации
+        :return: список задач в формате (текст_задачи, правильный_ответ, неправильные_ответы)
+        """
+        list_tasks = []
+
+        for i in range(number_of_tasks):
+            task_text = ("Нулевая гипотеза – размер изделия совпадает с номинальным размером, "
+                         "наблюдаемое значение критерия попало в левую одностороннюю область. "
+                         "В пользу какой гипотезы следует сделать выбор?")
+            correct_answer = "Размер изделия меньше номинального"
+            incorrect_answers = [
+                "Размер изделия меньше номинального на величину выборочного среднего квадратического отклонения",
+                "Размер изделия отличается от номинального",
+                "Размер изделия больше номинального"]
+            result = (task_text, correct_answer, incorrect_answers)
+            list_tasks.append(result)
+
+        return list_tasks
 
     # endregion
 
