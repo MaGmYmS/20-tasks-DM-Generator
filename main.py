@@ -149,6 +149,17 @@ def create_all_tasks_combinatorics():
         "lecture_6_task_combinatorics_nine": "Задание 32. Числовые характеристики выборки. Категория 7",
         "lecture_6_task_combinatorics_ten": "Задание 33. Числовые характеристики выборки. Категория 7",
 
+        "lecture_7_task_combinatorics_one": "Задание 34. Проверка статистических гипотез. Категория 8",
+        "lecture_7_task_combinatorics_two": "Задание 35. Проверка статистических гипотез. Категория 8",
+        "lecture_7_task_combinatorics_three": "Задание 36. Проверка статистических гипотез. Категория 8",
+        "lecture_7_task_combinatorics_four": "Задание 37. Проверка статистических гипотез. Категория 8",
+        "lecture_7_task_combinatorics_five": "Задание 38. Проверка статистических гипотез. Категория 8",
+        "lecture_7_task_combinatorics_six": "Задание 39. Проверка статистических гипотез. Категория 8",
+        "lecture_7_task_combinatorics_seven": "Задание 40. Проверка статистических гипотез. Категория 8",
+        "lecture_7_task_combinatorics_eight": "Задание 41. Проверка статистических гипотез. Категория 8",
+        "lecture_7_task_combinatorics_nine": "Задание 42. Проверка статистических гипотез. Категория 8",
+        "lecture_7_task_combinatorics_ten": "Задание 43 Проверка статистических гипотез. Категория 8",
+
         "logic_1_task_combinatorics_one_binomial_newton": "Задание 101. Комбинаторика. Категория 11",
         "logic_1_task_combinatorics_two_recurrence_relation": "Задание 102. Комбинаторика. Категория 11",
         "logic_1_task_combinatorics_three_recurrence_relation": "Задание 103. Комбинаторика. Категория 11",
@@ -206,6 +217,17 @@ def create_all_tasks_combinatorics():
                         combinatorics_gen.lecture_6_task_combinatorics_nine,
                         combinatorics_gen.lecture_6_task_combinatorics_ten,
 
+                        combinatorics_gen.lecture_7_task_combinatorics_one,
+                        combinatorics_gen.lecture_7_task_combinatorics_two,
+                        combinatorics_gen.lecture_7_task_combinatorics_three,
+                        combinatorics_gen.lecture_7_task_combinatorics_four,
+                        combinatorics_gen.lecture_7_task_combinatorics_five,
+                        combinatorics_gen.lecture_7_task_combinatorics_six,
+                        combinatorics_gen.lecture_7_task_combinatorics_seven,
+                        combinatorics_gen.lecture_7_task_combinatorics_eight,
+                        combinatorics_gen.lecture_7_task_combinatorics_nine,
+                        combinatorics_gen.lecture_7_task_combinatorics_ten,
+
                         combinatorics_gen.logic_1_task_combinatorics_one_binomial_newton,
                         combinatorics_gen.logic_1_task_combinatorics_two_recurrence_relation,
                         combinatorics_gen.logic_1_task_combinatorics_three_recurrence_relation,
@@ -231,7 +253,7 @@ def create_all_tasks_combinatorics():
             categories_dict[method_name] = categories[method_name]
 
     for i, method in enumerate(all_tasks_method):
-        for number_variables in [100]:
+        for number_variables in [1]:
             start_time = time.time()
 
             tasks = method(number_variables)

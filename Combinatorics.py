@@ -3,7 +3,6 @@ import random
 import numpy as np
 from scipy.integrate import quad
 from scipy.optimize import minimize_scalar
-from itertools import permutations
 import itertools
 from sympy import symbols, expand, collect
 import re
@@ -352,25 +351,25 @@ class CombinatoricsTaskGenerator:
         list_task = []
 
         for i in range(number_of_tasks):
-            random_C = random.randint(3, 50)
-            random_x = random.randint(1, random_C - 1)
+            random_c = random.randint(3, 50)
+            random_x = random.randint(1, random_c - 1)
             random_sign = random.choice(['-', '+'])
 
             task_text = (f"Случайная величина Х имеет стандартное нормальное распределение,"
-                         f"  математическое ожидание случайной величины У={random_C}{random_sign}{random_x}Х равно ")
+                         f"  математическое ожидание случайной величины У={random_c}{random_sign}{random_x}Х равно ")
             answer = set()
 
-            answer.add(f"{random_C}")
+            answer.add(f"{random_c}")
 
             forbidden_answer = set()
             forbidden_answer.add(f"0")
             if random_sign == '-':
                 forbidden_answer.add(f"{random_sign}{random_x}")
-                forbidden_answer.add(f"{random_C - random_x}")
+                forbidden_answer.add(f"{random_c - random_x}")
 
             else:
                 forbidden_answer.add(f"{random_x}")
-                forbidden_answer.add(f"{random_C + random_x}")
+                forbidden_answer.add(f"{random_c + random_x}")
 
             result = (task_text, list(answer), list(forbidden_answer))
             list_task.append(result)
@@ -511,7 +510,7 @@ class CombinatoricsTaskGenerator:
             forbidden_answer.add(f"{variance - 1:.1f}")
             forbidden_answer.add(f"{variance - 2:.1f}")
 
-            result = (task_text, list(answer), list(forbidden_answer))
+            result = (task_text, [answer], list(forbidden_answer))
             list_task.append(result)
 
         return list_task
@@ -572,8 +571,6 @@ class CombinatoricsTaskGenerator:
         for i in range(number_of_tasks):
             # random_alpha = random.randint(1, 60)
             # random_sigma = random.randint(1, 3)
-            x_min = -10  # Минимальное значение X для интегрирования
-            x_max = 10  # Максимальное значение X для интегрирования
             random_a = random.randint(3, 15)
             random_d = random.randint(8, 15)
 
@@ -778,8 +775,8 @@ class CombinatoricsTaskGenerator:
             all_cust = random.randint(14, 1000)
             random_cust = random.randint(3, all_cust - 10)
             task_text = (
-                f"Девушка выбирает {random_cust} платья из {all_cust}, имеющихся в магазине. С помощью какой комбинаторной схемы можно"
-                f" построить множество способов такого выбора?")
+                f"Девушка выбирает {random_cust} платья из {all_cust}, имеющихся в магазине. С помощью какой "
+                f"комбинаторной схемы можно построить множество способов такого выбора?")
             answer = set()
             forbidden_answer = set()
             answer.add("размещения без повторений")
@@ -930,7 +927,8 @@ class CombinatoricsTaskGenerator:
     @staticmethod
     def control_work_task_combinatorics_dice_2(number_of_tasks):
         """
-        Опыт состоит в бросании игрального кубика 5 раз. Чему равна вероятность того, что четное число очков выпадет 3 раза? (правильный ответ – c)
+        Опыт состоит в бросании игрального кубика 5 раз. Чему равна вероятность того, что четное число очков выпадет 3
+        раза? (правильный ответ – c)
         1/8;
         3/2;
         5/16;
@@ -987,7 +985,6 @@ class CombinatoricsTaskGenerator:
         list_tasks = []
 
         for i in range(number_of_tasks):
-            random_people = random.randint(5, 100)
             task_text = "Под выборкой в гипотетическом варианте интерпретации понимаем"
             answer = set()
             forbidden_answer = set()
@@ -1226,6 +1223,220 @@ class CombinatoricsTaskGenerator:
 
     # endregion
 
+    # region Тест по лекции № 7
+    @staticmethod
+    def lecture_7_task_combinatorics_one(number_of_tasks):
+        """
+        Генерирует задачи с несколькими правильными ответами.
+
+        :param number_of_tasks: количество задач для генерации
+        :return: список задач в формате (текст_задачи, правильные_ответы, неправильные_ответы)
+        """
+        list_tasks = []
+
+        for i in range(number_of_tasks):
+            task_text = "Выберите из предложенных вариантов формулировки гипотез"
+            correct_answers = ["Генеральная совокупность имеет нормальное распределение",
+                               "Номинальный размер детали 15 мм"]
+            incorrect_answers = ["Выборочная совокупность имеет нормальное распределение",
+                                 "Варианты выборки независимы и распределены по нормальному закону"]
+            result = (task_text, correct_answers, incorrect_answers)
+            list_tasks.append(result)
+
+        return list_tasks
+
+    @staticmethod
+    def lecture_7_task_combinatorics_two(number_of_tasks):
+        """
+        Генерирует задачи с одним правильным ответом.
+
+        :param number_of_tasks: количество задач для генерации
+        :return: список задач в формате (текст_задачи, правильный_ответ, неправильные_ответы)
+        """
+        list_tasks = []
+
+        for i in range(number_of_tasks):
+            task_text = "Мощность критерия является величина"
+            correct_answer = "1-β"
+            incorrect_answers = ["α", "β", "1-α"]
+            result = (task_text, correct_answer, incorrect_answers)
+            list_tasks.append(result)
+
+        return list_tasks
+
+    @staticmethod
+    def lecture_7_task_combinatorics_three(number_of_tasks):
+        """
+        Генерирует задачи с одним правильным ответом.
+
+        :param number_of_tasks: количество задач для генерации
+        :return: список задач в формате (текст_задачи, правильный_ответ, неправильные_ответы)
+        """
+        list_tasks = []
+
+        for i in range(number_of_tasks):
+            task_text = "Уровень значимости критерия - это"
+            correct_answer = "вероятность отвергнуть верную гипотезу"
+            incorrect_answers = ["вероятность принять неверную гипотезу",
+                                 "вероятность принять верную гипотезу",
+                                 "вероятность отвергнуть неверную гипотезу"]
+            result = (task_text, correct_answer, incorrect_answers)
+            list_tasks.append(result)
+
+        return list_tasks
+
+    @staticmethod
+    def lecture_7_task_combinatorics_four(number_of_tasks):
+        """
+        Генерирует задачи с несколькими правильными ответами.
+
+        :param number_of_tasks: количество задач для генерации
+        :return: список задач в формате (текст_задачи, правильные_ответы, неправильные_ответы)
+        """
+        list_tasks = []
+
+        for i in range(number_of_tasks):
+            task_text = ("Если наблюдаемое значение критерия (критической статистики) гипотезы попадает в область "
+                         "правдоподобных значений, то это означает что")
+            correct_answers = ["проверяемая гипотеза не противоречит выборочным данным",
+                               "возможно, существуют другие гипотезы, которые наравне с проверяемой гипотезой не "
+                               "противоречат опытным данным"]
+            incorrect_answers = ["только проверяемая гипотеза верна", "нулевая гипотеза отвергается"]
+            result = (task_text, correct_answers, incorrect_answers)
+            list_tasks.append(result)
+
+        return list_tasks
+
+    @staticmethod
+    def lecture_7_task_combinatorics_five(number_of_tasks):
+        """
+        Генерирует задачи с одним правильным ответом.
+
+        :param number_of_tasks: количество задач для генерации
+        :return: список задач в формате (текст_задачи, правильный_ответ, неправильные_ответы)
+        """
+        list_tasks = []
+
+        for i in range(number_of_tasks):
+            task_text = "P-value - это"
+            correct_answer = "минимальный уровень значимости, на котором нулевая гипотеза отвергается"
+            incorrect_answers = ["минимальный уровень значимости, на котором нулевая гипотеза принимается",
+                                 "максимальный уровень значимости, на котором нулевая гипотеза принимается",
+                                 "максимальный уровень значимости, на котором нулевая гипотеза отвергается"]
+            result = (task_text, correct_answer, incorrect_answers)
+            list_tasks.append(result)
+
+        return list_tasks
+
+    @staticmethod
+    def lecture_7_task_combinatorics_six(number_of_tasks):
+        """
+        Генерирует задачи с несколькими правильными ответами.
+
+        :param number_of_tasks: количество задач для генерации
+        :return: список задач в формате (текст_задачи, правильные_ответы, неправильные_ответы)
+        """
+        list_tasks = []
+
+        for i in range(number_of_tasks):
+            task_text = ("Генеральная совокупность – размер определенного изделия. Выберите формулировки "
+                         "возможных гипотез")
+            correct_answers = ["Генеральная совокупность имеет равномерное распределение",
+                               "Размер изделия превышает номинальный",
+                               "Размер изделия равен номинальному размеру"]
+            incorrect_answers = ["Выборочная совокупность имеет нормальное распределение"]
+            result = (task_text, correct_answers, incorrect_answers)
+            list_tasks.append(result)
+
+        return list_tasks
+
+    @staticmethod
+    def lecture_7_task_combinatorics_seven(number_of_tasks):
+        """
+        Генерирует задачи с одним правильным ответом.
+
+        :param number_of_tasks: количество задач для генерации
+        :return: список задач в формате (текст_задачи, правильный_ответ, неправильные_ответы)
+        """
+        list_tasks = []
+
+        for i in range(number_of_tasks):
+            task_text = "Если p-value > α, то"
+            correct_answer = "Нулевая гипотеза не отвергается на уровне значимости α"
+            incorrect_answers = ["Нулевая гипотеза отвергается на уровне значимости α",
+                                 "Альтернативная гипотеза принимается на уровне значимости α",
+                                 "Альтернативная гипотеза не отвергается на уровне значимости α"]
+            result = (task_text, correct_answer, incorrect_answers)
+            list_tasks.append(result)
+
+        return list_tasks
+
+    @staticmethod
+    def lecture_7_task_combinatorics_eight(number_of_tasks):
+        """
+        Генерирует задачи с несколькими правильными ответами.
+
+        :param number_of_tasks: количество задач для генерации
+        :return: список задач в формате (текст_задачи, правильные_ответы, неправильные_ответы)
+        """
+        list_tasks = []
+
+        for i in range(number_of_tasks):
+            task_text = "Критическая область зависит от"
+            correct_answers = ["уровня значимости критерия", "выбора альтернативной гипотезы"]
+            incorrect_answers = ["p-value", "выборки"]
+            result = (task_text, correct_answers, incorrect_answers)
+            list_tasks.append(result)
+
+        return list_tasks
+
+    @staticmethod
+    def lecture_7_task_combinatorics_nine(number_of_tasks):
+        """
+        Генерирует задачи с одним правильным ответом.
+
+        :param number_of_tasks: количество задач для генерации
+        :return: список задач в формате (текст_задачи, правильный_ответ, неправильные_ответы)
+        """
+        list_tasks = []
+
+        for i in range(number_of_tasks):
+            task_text = ("Если наблюдаемое значение критерия (критической статистики) гипотезы попадает в "
+                         "критическую область, то это означает что")
+            correct_answer = "нулевая гипотеза отвергается"
+            incorrect_answers = ["нулевая гипотеза не отвергается",
+                                 "принимается любая альтернативная гипотеза",
+                                 "генеральная совокупность не распределена по нормальному закону"]
+            result = (task_text, correct_answer, incorrect_answers)
+            list_tasks.append(result)
+
+        return list_tasks
+
+    @staticmethod
+    def lecture_7_task_combinatorics_ten(number_of_tasks):
+        """
+        Генерирует задачи с одним правильным ответом.
+
+        :param number_of_tasks: количество задач для генерации
+        :return: список задач в формате (текст_задачи, правильный_ответ, неправильные_ответы)
+        """
+        list_tasks = []
+
+        for i in range(number_of_tasks):
+            task_text = ("Нулевая гипотеза – размер изделия совпадает с номинальным размером, "
+                         "наблюдаемое значение критерия попало в левую одностороннюю область. "
+                         "В пользу какой гипотезы следует сделать выбор?")
+            correct_answer = "Размер изделия меньше номинального"
+            incorrect_answers = [
+                "Размер изделия меньше номинального на величину выборочного среднего квадратического отклонения",
+                "Размер изделия отличается от номинального",
+                "Размер изделия больше номинального"]
+            result = (task_text, correct_answer, incorrect_answers)
+            list_tasks.append(result)
+
+        return list_tasks
+    # endregion
+
     # region Задачи по комбинаторике от Володины Т.Ю
     @staticmethod
     def C(n: int, k: int):
@@ -1270,14 +1481,14 @@ class CombinatoricsTaskGenerator:
         """
         result_tasks_massive = []
         for _ in range(number_of_tasks):
-            n = random.randint(5, 15)  # Choose a random number
-            k = random.randint(2, n - 1)  # Choose a random number for k where 1 < k < n
+            n = random.randint(5, 15)
+            k = random.randint(2, n - 1)
             a_coefficient = 0
             while a_coefficient == 0:
-                a_coefficient = random.randint(-5, 5)  # Random coefficient for a
+                a_coefficient = random.randint(-5, 5)
             b_coefficient = 0
             while b_coefficient == 0:
-                b_coefficient = random.randint(-5, 5)  # Random coefficient for b
+                b_coefficient = random.randint(-5, 5)
 
             if b_coefficient > 0:
                 expression_1 = fr"$$ ({a_coefficient}a + {b_coefficient}b)" + r"^\{" + str(n) + r"\} $$"
@@ -1287,12 +1498,15 @@ class CombinatoricsTaskGenerator:
             # Generate task text
             task_text = (
                 f"В выражении {expression_1} раскрыли скобки и привели подобные слагаемые. "
-                f"Какие числовые коэффициенты будут у выражений {expression_2}?"
+                f"Какие числовые коэффициенты будут у выражений {expression_2}"
             )
+            c_is_n_on_k = self.C(n, k)
+            answer = c_is_n_on_k * (a_coefficient ** (n - k)) * (b_coefficient ** k)
+            forbidden_answer = [(a_coefficient ** (n - k)) * (b_coefficient ** k) // c_is_n_on_k * 3,
+                                c_is_n_on_k * (a_coefficient ** (n - k)) // (b_coefficient ** k) * 3,
+                                (a_coefficient ** (n - k)) * (b_coefficient ** k) * 3]
 
-            answer = self.C(n, k) * (a_coefficient ** (n - k)) * (b_coefficient ** k)
-
-            result_tasks_massive.append((task_text, [answer], []))
+            result_tasks_massive.append((task_text, [answer], forbidden_answer))
 
         return result_tasks_massive
 
@@ -1492,8 +1706,10 @@ class CombinatoricsTaskGenerator:
 
             random_value = random_value_except_none(coefficients_dict)
 
+            latex_expression = r"$$ (1 + x^\{" + str(num_1) + r"\} - x^\{" + str(num_2) + r"\})^\{" + str(
+                num_3) + r"\} $$"
             task_text = (f"Определить коэффициенты, которые будут стоять при x^{random_value} после раскрытия скобок"
-                         f" и приведения подобных членов в выражении {expression}. ")
+                         f" и приведения подобных членов в выражении {latex_expression}. ")
 
             answer = coefficients_dict[random_value]
 
@@ -1563,7 +1779,8 @@ class CombinatoricsTaskGenerator:
             # number_of_card_2 = random.randint(3, 9)  # кол-во чисел
             # digits_array = list(range(1, number_of_card + 1))  # массив цифр
             digits_array = random.sample(range(1, 10), number_of_card)
-            task_text = f"Найти сумму всех цифр всех {number_of_card}-ных чисел полученных при перестановке цифр {digits_array}. "
+            task_text = (f"Найти сумму всех цифр всех {number_of_card}-ных чисел полученных при перестановке "
+                         f"цифр {digits_array}. ")
 
             total_sum = 0
             # Генерация всех перестановок
@@ -1676,7 +1893,8 @@ class CombinatoricsTaskGenerator:
 
             task_text = (f"Известно, что арифметические операции сложения и умножения"
                          f" коммутативны для конечного числа операндов. Например,"
-                         f" выражение {expression_0_2}∙{expression_0_1} можно записать иначе: {expression_1}∙{expression_2}."
+                         f" выражение {expression_0_2}∙{expression_0_1} можно записать иначе: "
+                         f"{expression_1}∙{expression_2}."
                          f" Сколько всего существует способов записи этого выражения?")
 
             # # Вычисляем количество способов группировки для суммы (a+b+c+d)
@@ -1752,6 +1970,7 @@ class CombinatoricsTaskGenerator:
         for _ in range(number_of_tasks):
             forbidden_answer = set()
             number_of_card = random.choice([36, 52, 54, 32, 48, 30, 24, 40, 42, 44, 46, 50])  # кол-во карт
+
             number_of_part = random.randint(5, 20)  # количество частей
             task_text = f"Сколькими способами колоду из {number_of_card} карт можно разделить произвольно на {number_of_part} частей?"
 
@@ -1862,7 +2081,8 @@ class CombinatoricsTaskGenerator:
             number_of_letter = random.randint(7, 15)  # кол-во людей
             # number_of_words = random.randint(2, 5)  # длина слова
             task_text = (
-                f"В профком выбрано {number_of_letter} человек. Из них нужно выбрать {random.choice(roles)}, {random.choice(roles2)} и {random.choice(roles3)}."
+                f"В профком выбрано {number_of_letter} человек. Из них нужно выбрать {random.choice(roles)}, "
+                f"{random.choice(roles2)} и {random.choice(roles3)}."
                 "Сколькими способами это можно сделать?")
 
             answer = number_of_letter * (number_of_letter - 1) * (number_of_letter - 2)
