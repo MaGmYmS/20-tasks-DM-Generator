@@ -1223,7 +1223,7 @@ class CombinatoricsTaskGenerator:
 
     # endregion
 
-    # region region Тест по лекции № 7
+    # region Тест по лекции № 7
     @staticmethod
     def lecture_7_task_combinatorics_one(number_of_tasks):
         """
@@ -1476,14 +1476,14 @@ class CombinatoricsTaskGenerator:
         """
         result_tasks_massive = []
         for _ in range(number_of_tasks):
-            n = random.randint(5, 15)  # Choose a random number
-            k = random.randint(2, n - 1)  # Choose a random number for k where 1 < k < n
+            n = random.randint(5, 15)
+            k = random.randint(2, n - 1)
             a_coefficient = 0
             while a_coefficient == 0:
-                a_coefficient = random.randint(-5, 5)  # Random coefficient for a
+                a_coefficient = random.randint(-5, 5)
             b_coefficient = 0
             while b_coefficient == 0:
-                b_coefficient = random.randint(-5, 5)  # Random coefficient for b
+                b_coefficient = random.randint(-5, 5)
 
             if b_coefficient > 0:
                 expression_1 = fr"$$ ({a_coefficient}a + {b_coefficient}b)" + r"^\{" + str(n) + r"\} $$"
@@ -1493,12 +1493,15 @@ class CombinatoricsTaskGenerator:
             # Generate task text
             task_text = (
                 f"В выражении {expression_1} раскрыли скобки и привели подобные слагаемые. "
-                f"Какие числовые коэффициенты будут у выражений {expression_2}?"
+                f"Какие числовые коэффициенты будут у выражений {expression_2}"
             )
+            c_is_n_on_k = self.C(n, k)
+            answer = c_is_n_on_k * (a_coefficient ** (n - k)) * (b_coefficient ** k)
+            forbidden_answer = [(a_coefficient ** (n - k)) * (b_coefficient ** k) // c_is_n_on_k * 3,
+                                c_is_n_on_k * (a_coefficient ** (n - k)) // (b_coefficient ** k) * 3,
+                                (a_coefficient ** (n - k)) * (b_coefficient ** k) * 3]
 
-            answer = self.C(n, k) * (a_coefficient ** (n - k)) * (b_coefficient ** k)
-
-            result_tasks_massive.append((task_text, [answer], []))
+            result_tasks_massive.append((task_text, [answer], forbidden_answer))
 
         return result_tasks_massive
 
@@ -1698,8 +1701,10 @@ class CombinatoricsTaskGenerator:
 
             random_value = random_value_except_none(coefficients_dict)
 
+            latex_expression = r"$$ (1 + x^\{" + str(num_1) + r"\} - x^\{" + str(num_2) + r"\})^\{" + str(
+                num_3) + r"\} $$"
             task_text = (f"Определить коэффициенты, которые будут стоять при x^{random_value} после раскрытия скобок"
-                         f" и приведения подобных членов в выражении {expression}. ")
+                         f" и приведения подобных членов в выражении {latex_expression}. ")
 
             answer = coefficients_dict[random_value]
 
