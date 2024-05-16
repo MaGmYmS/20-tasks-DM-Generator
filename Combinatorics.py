@@ -1450,7 +1450,8 @@ class CombinatoricsTaskGenerator:
         """
                Calculate the number of combinations C(n, k). с повторениями
                """
-        return math.factorial(n+k-1) // (math.factorial(k) * math.factorial(n - 1))
+        return math.factorial(n + k - 1) // (math.factorial(k) * math.factorial(n - 1))
+
     @staticmethod
     def solve_quadratic_equation(a, b, c):
         """
@@ -1828,9 +1829,7 @@ class CombinatoricsTaskGenerator:
 
         return result_tasks_massive
 
-    # TODO: сказали решение неверное пока не пойму как исправить \ добавить вариативность, не менее заменить на не более
-    @staticmethod
-    def logic_1_task_combinatorics_nine_alphabet(number_of_tasks):
+    def logic_1_task_combinatorics_nine_alphabet(self, number_of_tasks):
         """
                 Сколькими способами можно составить из 5 гласных и 9 согласных слова, в которые входят 4
                  различных согласных и не менее 3 различных гласных?
@@ -1840,14 +1839,16 @@ class CombinatoricsTaskGenerator:
         result_tasks_massive = []
         for _ in range(number_of_tasks):
             forbidden_answer = set()
-            number_of_gl = random.randint(2, 20)  # кол-во гласных
-            number_of_sogl = random.randint(2, 20)  # количество согласных
+            number_of_gl = random.randint(3, 10)  # кол-во гласных
+            number_of_sogl = random.randint(3, 10)  # количество согласных
             number_of_gl_choice = random.randint(1, number_of_gl - 1)  # кол-во выбрать
             number_of_sogl_choice = random.randint(1, number_of_sogl - 1)  # количество выбрать
+            random_sign = random.choice(['более', 'менее'])
+
             task_text = (f"Сколькими способами можно составить из {number_of_gl} гласных"
                          f" и {number_of_sogl} согласных слова, в которые"
                          f" входят {number_of_sogl_choice} различных согласных"
-                         f" и не менее {number_of_gl_choice} различных гласных?. ")
+                         f" и не {random_sign} {number_of_gl_choice} различных гласных?. ")
 
             # Вычисление количества способов выбрать 4 различных согласных из 9
             ways_to_choose_consonants = math.comb(number_of_sogl, number_of_sogl_choice)
@@ -1855,14 +1856,31 @@ class CombinatoricsTaskGenerator:
             # Вычисление количества способов выбрать не менее 3 различных гласных из 5
             ways_to_choose_vowels = sum(
                 math.comb(number_of_gl, i) for i in range(number_of_gl_choice, number_of_gl + 1))
+            ans = 0
+            w_ans = 0
+            if random_sign == 'менее':
+                for i in range(number_of_gl_choice, number_of_gl+1, 1):
+                    ans += self.C(number_of_sogl, number_of_sogl_choice) * self.C(number_of_gl, i) * math.factorial(
+                        i + number_of_sogl_choice)
+                for i in range(0, number_of_gl_choice+1, 1):
+                    w_ans += self.C(number_of_sogl, number_of_sogl_choice) * self.C(number_of_gl, i) * math.factorial(
+                        i + number_of_sogl_choice)
+            else:
+                for i in range(0, number_of_gl_choice+1, 1):
+                    ans += self.C(number_of_sogl, number_of_sogl_choice) * self.C(number_of_gl, i) * math.factorial(
+                        i + number_of_sogl_choice)
+                for i in range(number_of_gl_choice, number_of_gl+1, 1):
+                    w_ans += self.C(number_of_sogl, number_of_sogl_choice) * self.C(number_of_gl, i) * math.factorial(
+                        i + number_of_sogl_choice)
 
-            answer = ways_to_choose_consonants * ways_to_choose_vowels
+            answer = ans
 
-            forbidden_answer.add(f"{ways_to_choose_consonants + ways_to_choose_vowels}")
             forbidden_answer.add(
-                f"{ways_to_choose_consonants * ways_to_choose_vowels - ways_to_choose_consonants}")
+                f"{w_ans}")
             forbidden_answer.add(
-                f"{ways_to_choose_consonants * ways_to_choose_vowels + ways_to_choose_consonants * ways_to_choose_vowels}")
+                f"{ways_to_choose_consonants * ways_to_choose_vowels}")
+            forbidden_answer.add(
+                f"{number_of_gl ** number_of_gl_choice}")
             result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
 
         return result_tasks_massive
@@ -1958,7 +1976,6 @@ class CombinatoricsTaskGenerator:
 
         return result_tasks_massive
 
-    # TODO: исправил, надо проверять
     def logic_1_task_combinatorics_twelve_cards(self, number_of_tasks):
         """
                 12.	Сколькими способами колоду из 36 карт можно разделить произвольно на 2 части?
