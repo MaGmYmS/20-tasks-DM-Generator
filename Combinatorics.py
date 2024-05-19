@@ -1512,8 +1512,8 @@ class CombinatoricsTaskGenerator:
         return result_tasks_massive
 
     def _forming_response_logic_1_task_combinatorics_two(self, root1, root2):
-        sign_root = '-' if root1 < 0 else '+'
-        sign_root_start = '-' if root2 < 0 else ''
+        sign_root = '-' if root2 < 0 else '+'
+        sign_root_start = '-' if root1 < 0 else ''
         response = fr"$$ {sign_root_start}c_1 \cdot {abs(root1)}^{{n}} {sign_root} c_2 \cdot {abs(root2)}^{{n}} $$"
         response = self.shielding(response)
         return response
@@ -1989,7 +1989,8 @@ class CombinatoricsTaskGenerator:
             number_of_card = random.choice([36, 52, 54, 32, 48, 30, 24, 40, 42, 44, 46, 50])  # кол-во карт
 
             number_of_part = random.randint(5, 20)  # количество частей
-            task_text = f"Сколькими способами колоду из {number_of_card} карт можно разделить произвольно на {number_of_part} частей?"
+            task_text = (f"Сколькими способами колоду из {number_of_card} карт можно разделить произвольно на "
+                         f"{number_of_part} частей?")
 
             answer = self.stirling_second(number_of_card, number_of_part)
             forbidden_answer.add(f"{self.C(number_of_card, number_of_part)}")
