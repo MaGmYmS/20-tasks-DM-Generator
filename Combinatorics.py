@@ -1527,6 +1527,7 @@ class CombinatoricsTaskGenerator:
 
         return result_tasks_massive
 
+
     def logic_1_task_combinatorics_six_different_gender_pairs(self, number_of_tasks):
         """
         На школьном вечере присутствуют 12 девушек и 15 юношей. Сколькими способами можно выбрать из них 4
@@ -1542,9 +1543,12 @@ class CombinatoricsTaskGenerator:
             task_text = f"На школьном вечере присутствуют {number_of_girls} девушек и {number_of_boys} юношей. " \
                         f"Сколькими способами можно выбрать из них {number_pairs} разнополые пары для танца?"
 
-            part1 = self.C(number_of_girls, number_pairs)
-            part2 = self.C(number_of_boys, number_pairs)
-            answer = part1 * part2
+            # part1 = self.C(number_of_girls, number_pairs)
+            # part2 = self.C(number_of_boys, number_pairs)
+            # answer = part1 * part2
+            answer = round((math.factorial(number_of_girls) * math.factorial(number_of_boys)) / (
+                        math.factorial(number_of_girls - number_pairs) * math.factorial(
+                    number_of_boys - number_pairs) * math.factorial(number_pairs)))
 
             result_tasks_massive.append((task_text, [answer], []))
 
@@ -1564,7 +1568,7 @@ class CombinatoricsTaskGenerator:
             # number_of_card_2 = random.randint(3, 9)  # кол-во чисел
             # digits_array = list(range(1, number_of_card + 1))  # массив цифр
             digits_array = random.sample(range(1, 10), number_of_card)
-            task_text = f"Найти сумму всех цифр всех {number_of_card}-ных чисел полученных при перестановке цифр {digits_array}. "
+            task_text = f"Найти сумму всех цифр всех {number_of_card} значных чисел полученных при перестановке цифр {digits_array}. "
 
             total_sum = 0
             # Генерация всех перестановок
@@ -1596,8 +1600,8 @@ class CombinatoricsTaskGenerator:
             forbidden_answer = set()
             number_of_serg = random.randint(2, 12)  # кол-во сержиков
             number_of_soldier = random.randint(number_of_serg + 1, 50)  # количество солдат
-            number_of_serg_choice = random.randint(1, number_of_serg - 1)  # кол-во выбрать
-            number_of_soldier_choice = random.randint(1, number_of_soldier - 1)  # количество выбрать
+            number_of_serg_choice = random.randint(2, number_of_serg - 1)  # кол-во выбрать
+            number_of_soldier_choice = random.randint(2, number_of_soldier - 1)  # количество выбрать
             task_text = (f"Во взводе есть сержанты: {number_of_serg} и солдаты: {number_of_soldier}. Сколько существует"
                          f" способов выделить {number_of_serg_choice} человек среди сержантов и "
                          f"{number_of_soldier_choice} человек среди солдат для патрулирования?. ")
@@ -1624,9 +1628,27 @@ class CombinatoricsTaskGenerator:
             forbidden_answer = set()
             number_of_gl = random.randint(3, 10)  # кол-во гласных
             number_of_sogl = random.randint(3, 10)  # количество согласных
-            number_of_gl_choice = random.randint(1, number_of_gl - 1)  # кол-во выбрать
-            number_of_sogl_choice = random.randint(1, number_of_sogl - 1)  # количество выбрать
+            number_of_sogl_choice = random.randint(2, number_of_sogl - 1)  # количество выбрать
             random_sign = random.choice(['более', 'менее'])
+            if random_sign == 'менее':
+                if number_of_gl<5:
+                    number_of_gl_choice = random.randint(1, number_of_gl-1)  # кол-во выбрать
+                else:
+                    number_of_gl_choice = random.randint(number_of_gl-4, number_of_gl-1)  # кол-во выбрать
+
+            else:
+                if number_of_gl<5:
+                    number_of_gl_choice = random.randint(2, number_of_gl)  # кол-во выбрать
+                else:
+                    number_of_gl_choice = random.randint(2, 5)  # кол-во выбрать
+            # print(number_of_gl,' ',number_of_sogl,' ',number_of_sogl_choice,' ',number_of_gl_choice)
+
+            # number_of_gl = 10 # кол-во гласных
+            # number_of_sogl = 9  # количество согласных
+            # number_of_sogl_choice = 2  # количество выбрать
+            # random_sign ='более'
+            # number_of_gl_choice = 9  # кол-во выбрать
+
 
             task_text = (f"Сколькими способами можно составить из {number_of_gl} гласных"
                          f" и {number_of_sogl} согласных слова, в которые"
@@ -1641,29 +1663,31 @@ class CombinatoricsTaskGenerator:
                 math.comb(number_of_gl, i) for i in range(number_of_gl_choice, number_of_gl + 1))
             ans = 0
             w_ans = 0
+
             if random_sign == 'менее':
                 for i in range(number_of_gl_choice, number_of_gl+1, 1):
                     ans += self.C(number_of_sogl, number_of_sogl_choice) * self.C(number_of_gl, i) * math.factorial(
-                        i + number_of_sogl_choice)
-                for i in range(0, number_of_gl_choice+1, 1):
-                    w_ans += self.C(number_of_sogl, number_of_sogl_choice) * self.C(number_of_gl, i) * math.factorial(
-                        i + number_of_sogl_choice)
+                        number_of_sogl_choice+i)
+
+                for i in range(0, number_of_gl_choice + 1, 1):
+                    w_ans += self.C(number_of_sogl, number_of_sogl_choice) * self.C(number_of_gl, number_of_gl_choice-i) * math.factorial(
+                        (number_of_sogl_choice+number_of_gl_choice)-i)
             else:
-                for i in range(0, number_of_gl_choice+1, 1):
-                    ans += self.C(number_of_sogl, number_of_sogl_choice) * self.C(number_of_gl, i) * math.factorial(
-                        i + number_of_sogl_choice)
-                for i in range(number_of_gl_choice, number_of_gl+1, 1):
+                for i in range(0, number_of_gl_choice+1 , 1):
+                    ans += self.C(number_of_sogl, number_of_sogl_choice) * self.C(number_of_gl, number_of_gl_choice-i) * math.factorial(
+                        (number_of_sogl_choice+number_of_gl_choice)-i)
+                for i in range(number_of_gl_choice, number_of_gl + 1, 1):
                     w_ans += self.C(number_of_sogl, number_of_sogl_choice) * self.C(number_of_gl, i) * math.factorial(
-                        i + number_of_sogl_choice)
+                        number_of_sogl_choice+i)
 
             answer = ans
 
             forbidden_answer.add(
                 f"{w_ans}")
             forbidden_answer.add(
-                f"{ways_to_choose_consonants * ways_to_choose_vowels}")
+                f"{round(ans/self.C(number_of_sogl, number_of_sogl_choice))}")
             forbidden_answer.add(
-                f"{number_of_gl ** number_of_gl_choice}")
+                f"{round(w_ans/self.C(number_of_sogl, number_of_sogl_choice))}")
             result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
 
         return result_tasks_massive
@@ -1750,8 +1774,8 @@ class CombinatoricsTaskGenerator:
             task_text = f"Найдите число стирлинга второго рода S({number_1},{number_2})?"
 
             answer = self.stirling_second(number_1, number_2)
-            rand = random.randint(1, 10)
-            forbidden_answer.add(f"{self.stirling_second(number_1, number_2) + rand}")
+            rand = random.randint(-10, 10)
+            forbidden_answer.add(f"{answer + rand}")
             forbidden_answer.add(f"{number_1 + number_2}")
             forbidden_answer.add(f"{math.pow(number_1, number_2)}")
             result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
@@ -1768,8 +1792,10 @@ class CombinatoricsTaskGenerator:
         result_tasks_massive = []
         for _ in range(number_of_tasks):
             forbidden_answer = set()
-            number_of_card = random.choice([36, 52, 54, 32, 48, 30, 24, 40, 42, 44, 46, 50])  # кол-во карт
-            number_of_part = random.randint(5, 20)  # количество частей
+            # number_of_card = random.choice([36, 52, 54, 32, 48, 30, 24, 40, 42, 44, 46, 50])  # кол-во карт
+            number_of_card = random.choice([36])  # кол-во карт
+            # number_of_part = random.randint(10, 10)  # количество частей
+            number_of_part = 11  # количество частей
             task_text = f"Сколькими способами колоду из {number_of_card} карт можно разделить произвольно на {number_of_part} частей?"
 
             answer = self.stirling_second(number_of_card, number_of_part)
