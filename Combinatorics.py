@@ -909,15 +909,15 @@ class CombinatoricsTaskGenerator:
             answer = set()
             forbidden_answer = set()
 
-            p_A = man / (woman + man)
-            p_B_or_A = (man - 1) / ((woman + man) - 1)
-            p_A_and_B = p_A * p_B_or_A
-            p_ans = p_A * 2 - p_A_and_B
+            p_a = man / (woman + man)
+            p_b_or_a = (man - 1) / ((woman + man) - 1)
+            p_a_and_b = p_a * p_b_or_a
+            p_ans = p_a * 2 - p_a_and_b
 
             answer.add(f"{p_ans:.3f}")
-            forbidden_answer.add(f"{p_A_and_B:.3f}")
-            forbidden_answer.add(f"{p_A * 2:.3f}")
-            forbidden_answer.add(f"{1 - p_A_and_B * 2:.3f}")
+            forbidden_answer.add(f"{p_a_and_b:.3f}")
+            forbidden_answer.add(f"{p_a * 2:.3f}")
+            forbidden_answer.add(f"{1 - p_a_and_b * 2:.3f}")
 
             result = (task_text, list(answer), list(forbidden_answer))
             list_task.append(result)
@@ -950,17 +950,16 @@ class CombinatoricsTaskGenerator:
                          f" Чему равна вероятность того, что {random_sign}"
                          f" число очков выпадет {count_dice} раза?")
             answer = set()
-
-            answer.add(
-                f"{math.factorial(dice) // (math.factorial(count_dice) * math.factorial(dice - count_dice)) * math.pow(1 / 2, dice):.3f}")
+            ans = math.factorial(dice) // (math.factorial(count_dice) * math.factorial(dice - count_dice)) * math.pow(
+                1 / 2, dice)
+            answer.add(f"{ans:.3f}")
 
             forbidden_answer = set()
-            forbidden_answer.add(
-                f"{math.factorial(dice) // (math.factorial(count_dice) * math.factorial(dice - count_dice)) * math.pow(1 / 2, dice + 1):.3f}")
-            forbidden_answer.add(
-                f"{math.pow(1 / 2, count_dice):.3f}")
-            forbidden_answer.add(
-                f"{(1 / 2) * count_dice}")
+            f_ans = math.factorial(dice) // (math.factorial(count_dice) * math.factorial(dice - count_dice)) * math.pow(
+                1 / 2, dice + 1)
+            forbidden_answer.add(f"{f_ans:.3f}")
+            forbidden_answer.add(f"{math.pow(1 / 2, count_dice):.3f}")
+            forbidden_answer.add(f"{(1 / 2) * count_dice}")
 
             result = (task_text, list(answer), list(forbidden_answer))
             list_task.append(result)
@@ -1435,6 +1434,7 @@ class CombinatoricsTaskGenerator:
             list_tasks.append(result)
 
         return list_tasks
+
     # endregion
 
     # region Задачи по комбинаторике от Володины Т.Ю
@@ -1666,10 +1666,10 @@ class CombinatoricsTaskGenerator:
                     # Если не удалось извлечь коэффициент и степень, возвращаем None
                     return None, None
 
-            def expand_expression(expression):
+            def expand_expression(expression_inner):
                 # Преобразуем входное выражение в формат sympy
                 x = symbols('x')
-                expr = eval(expression)
+                expr = eval(expression_inner)
 
                 # Раскрываем скобки
                 expanded_expr = expand(expr)
@@ -1678,14 +1678,14 @@ class CombinatoricsTaskGenerator:
                 collected_expr = collect(expanded_expr, x)
 
                 # Извлекаем коэффициенты перед x
-                coefficients_dict = {}
+                coefficients_dict_inner = {}
                 for term in collected_expr.as_ordered_terms():
                     coefficient, power = extract_coefficient_and_power(str(term))
                     # print("Коэффициент:", coefficient)
                     # print("Степень:", power)
-                    coefficients_dict[str(power)] = str(coefficient)
+                    coefficients_dict_inner[str(power)] = str(coefficient)
 
-                return coefficients_dict
+                return coefficients_dict_inner
 
             def random_value_except_none(dictionary):
                 # Получаем список ключей, у которых значения не равны None
@@ -1743,8 +1743,8 @@ class CombinatoricsTaskGenerator:
 
         return result_tasks_massive
 
-
-    def logic_1_task_combinatorics_six_different_gender_pairs(self, number_of_tasks):
+    @staticmethod
+    def logic_1_task_combinatorics_six_different_gender_pairs(number_of_tasks):
         """
         На школьном вечере присутствуют 12 девушек и 15 юношей. Сколькими способами можно выбрать из них 4
         разнополые пары для танца?
@@ -1763,8 +1763,8 @@ class CombinatoricsTaskGenerator:
             # part2 = self.C(number_of_boys, number_pairs)
             # answer = part1 * part2
             answer = round((math.factorial(number_of_girls) * math.factorial(number_of_boys)) / (
-                        math.factorial(number_of_girls - number_pairs) * math.factorial(
-                    number_of_boys - number_pairs) * math.factorial(number_pairs)))
+                    math.factorial(number_of_girls - number_pairs) * math.factorial(
+                number_of_boys - number_pairs) * math.factorial(number_pairs)))
 
             result_tasks_massive.append((task_text, [answer], []))
 
@@ -1785,7 +1785,8 @@ class CombinatoricsTaskGenerator:
             # digits_array = list(range(1, number_of_card + 1))  # массив цифр
             digits_array = random.sample(range(1, 10), number_of_card)
 
-            task_text = f"Найти сумму всех цифр всех {number_of_card} значных чисел полученных при перестановке цифр {digits_array}. "
+            task_text = (f"Найти сумму всех цифр всех {number_of_card} значных чисел полученных при "
+                         f"перестановке цифр {digits_array}. ")
 
             total_sum = 0
             # Генерация всех перестановок
@@ -1827,8 +1828,9 @@ class CombinatoricsTaskGenerator:
 
             forbidden_answer.add(f"{self.C(number_of_serg, number_of_serg_choice)}")
             forbidden_answer.add(f"{self.C(number_of_soldier, number_of_soldier_choice)}")
-            forbidden_answer.add(
-                f"{self.C(number_of_serg, number_of_serg_choice) * self.C(number_of_soldier, number_of_soldier_choice) * 2}")
+            tmp_ans_f = self.C(number_of_serg, number_of_serg_choice) * self.C(number_of_soldier,
+                                                                               number_of_soldier_choice) * 2
+            forbidden_answer.add(f"{tmp_ans_f}")
             result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
 
         return result_tasks_massive
@@ -1848,13 +1850,13 @@ class CombinatoricsTaskGenerator:
             number_of_sogl_choice = random.randint(2, number_of_sogl - 1)  # количество выбрать
             random_sign = random.choice(['более', 'менее'])
             if random_sign == 'менее':
-                if number_of_gl<5:
-                    number_of_gl_choice = random.randint(1, number_of_gl-1)  # кол-во выбрать
+                if number_of_gl < 5:
+                    number_of_gl_choice = random.randint(1, number_of_gl - 1)  # кол-во выбрать
                 else:
-                    number_of_gl_choice = random.randint(number_of_gl-4, number_of_gl-1)  # кол-во выбрать
+                    number_of_gl_choice = random.randint(number_of_gl - 4, number_of_gl - 1)  # кол-во выбрать
 
             else:
-                if number_of_gl<5:
+                if number_of_gl < 5:
                     number_of_gl_choice = random.randint(2, number_of_gl)  # кол-во выбрать
                 else:
                     number_of_gl_choice = random.randint(2, 5)  # кол-во выбрать
@@ -1866,45 +1868,40 @@ class CombinatoricsTaskGenerator:
             # random_sign ='более'
             # number_of_gl_choice = 9  # кол-во выбрать
 
-
             task_text = (f"Сколькими способами можно составить из {number_of_gl} гласных"
                          f" и {number_of_sogl} согласных слова, в которые"
                          f" входят {number_of_sogl_choice} различных согласных"
                          f" и не {random_sign} {number_of_gl_choice} различных гласных?. ")
 
-            # Вычисление количества способов выбрать 4 различных согласных из 9
-            ways_to_choose_consonants = math.comb(number_of_sogl, number_of_sogl_choice)
-
-            # Вычисление количества способов выбрать не менее 3 различных гласных из 5
-            ways_to_choose_vowels = sum(
-                math.comb(number_of_gl, i) for i in range(number_of_gl_choice, number_of_gl + 1))
             ans = 0
             w_ans = 0
 
             if random_sign == 'менее':
-                for i in range(number_of_gl_choice, number_of_gl+1, 1):
+                for i in range(number_of_gl_choice, number_of_gl + 1, 1):
                     ans += self.C(number_of_sogl, number_of_sogl_choice) * self.C(number_of_gl, i) * math.factorial(
-                        number_of_sogl_choice+i)
+                        number_of_sogl_choice + i)
 
                 for i in range(0, number_of_gl_choice + 1, 1):
-                    w_ans += self.C(number_of_sogl, number_of_sogl_choice) * self.C(number_of_gl, number_of_gl_choice-i) * math.factorial(
-                        (number_of_sogl_choice+number_of_gl_choice)-i)
+                    w_ans += self.C(number_of_sogl, number_of_sogl_choice) * self.C(number_of_gl,
+                                                                                    number_of_gl_choice - i) * math.factorial(
+                        (number_of_sogl_choice + number_of_gl_choice) - i)
             else:
-                for i in range(0, number_of_gl_choice+1 , 1):
-                    ans += self.C(number_of_sogl, number_of_sogl_choice) * self.C(number_of_gl, number_of_gl_choice-i) * math.factorial(
-                        (number_of_sogl_choice+number_of_gl_choice)-i)
+                for i in range(0, number_of_gl_choice + 1, 1):
+                    ans += self.C(number_of_sogl, number_of_sogl_choice) * self.C(number_of_gl,
+                                                                                  number_of_gl_choice - i) * math.factorial(
+                        (number_of_sogl_choice + number_of_gl_choice) - i)
                 for i in range(number_of_gl_choice, number_of_gl + 1, 1):
                     w_ans += self.C(number_of_sogl, number_of_sogl_choice) * self.C(number_of_gl, i) * math.factorial(
-                        number_of_sogl_choice+i)
+                        number_of_sogl_choice + i)
 
             answer = ans
 
             forbidden_answer.add(
                 f"{w_ans}")
             forbidden_answer.add(
-                f"{round(ans/self.C(number_of_sogl, number_of_sogl_choice))}")
+                f"{round(ans / self.C(number_of_sogl, number_of_sogl_choice))}")
             forbidden_answer.add(
-                f"{round(w_ans/self.C(number_of_sogl, number_of_sogl_choice))}")
+                f"{round(w_ans / self.C(number_of_sogl, number_of_sogl_choice))}")
             result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
 
         return result_tasks_massive
