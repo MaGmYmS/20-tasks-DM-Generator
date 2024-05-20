@@ -1816,7 +1816,7 @@ class CombinatoricsTaskGenerator:
         result_tasks_massive = []
         for _ in range(number_of_tasks):
             forbidden_answer = set()
-            number_of_serg = random.randint(2, 12)  # кол-во сержиков
+            number_of_serg = random.randint(3, 12)  # кол-во сержиков
             number_of_soldier = random.randint(number_of_serg + 1, 50)  # количество солдат
             number_of_serg_choice = random.randint(2, number_of_serg - 1)  # кол-во выбрать
             number_of_soldier_choice = random.randint(2, number_of_soldier - 1)  # количество выбрать
