@@ -440,20 +440,19 @@ class CombinatoricsTaskGenerator:
         list_task = []
 
         for i in range(number_of_tasks):
-            random_t = random.randint(1, 60)
+            random_t = random.randint(2, 60)
 
             task_text = (f" Случайная величина Х – время между вызовами «скорой помощи».  В среднем за один час"
                          f" поступает {random_t} вызовов.  Математическое ожидание случайной величины Х равно ")
-            answer = set()
 
-            answer.add(f"{1 / random_t:.3f}")
+            answer = 1 / random_t
 
             forbidden_answer = set()
             forbidden_answer.add(f"{1 / math.pow(random_t, 2):.3f}")
 
             forbidden_answer.add(f"{random_t}")
             forbidden_answer.add(f"{math.pow(random_t, 2)}")
-            result = (task_text, list(answer), list(forbidden_answer))
+            result = (task_text, [answer], list(forbidden_answer))
             list_task.append(result)
 
         return list_task
@@ -897,7 +896,7 @@ class CombinatoricsTaskGenerator:
 
         for i in range(number_of_tasks):
             random_all = random.randint(4, 50)
-            man = random.randint(2, random_all)
+            man = random.randint(2, random_all-1)
             woman = random_all - man
             # Man = 4
             # Woman = 6
@@ -906,7 +905,6 @@ class CombinatoricsTaskGenerator:
                 f"В отделе работают {man} мужчин и {woman} женщин. Руководитель организации выбирает двух сотрудников"
                 f" отдела для участия в проекте. Событие А - 'первый выбранный человек - мужчина', событие В -"
                 f" 'второй выбранный человек - мужчина'. Чему равна вероятность объединения событий А и В?")
-            answer = set()
             forbidden_answer = set()
 
             p_a = man / (woman + man)
@@ -914,12 +912,12 @@ class CombinatoricsTaskGenerator:
             p_a_and_b = p_a * p_b_or_a
             p_ans = p_a * 2 - p_a_and_b
 
-            answer.add(f"{p_ans:.3f}")
+            answer= p_ans
             forbidden_answer.add(f"{p_a_and_b:.3f}")
             forbidden_answer.add(f"{p_a * 2:.3f}")
             forbidden_answer.add(f"{1 - p_a_and_b * 2:.3f}")
 
-            result = (task_text, list(answer), list(forbidden_answer))
+            result = (task_text, [answer], list(forbidden_answer))
             list_task.append(result)
 
         return list_task
