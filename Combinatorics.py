@@ -1755,7 +1755,7 @@ class CombinatoricsTaskGenerator:
             number_of_boys = random.randint(8, 20)
             number_pairs = random.randint(3, 8)
             task_text = f"На школьном вечере присутствуют {number_of_girls} девушек и {number_of_boys} юношей. " \
-                        f"Сколькими способами можно выбрать из них {number_pairs} разнополые пары для танца?"
+                        f"Сколькими способами можно выбрать из них разнополых пар в количестве: {number_pairs} для танца?"
 
             # part1 = self.C(number_of_girls, number_pairs)
             # part2 = self.C(number_of_boys, number_pairs)
@@ -1815,7 +1815,7 @@ class CombinatoricsTaskGenerator:
         for _ in range(number_of_tasks):
             forbidden_answer = set()
             number_of_serg = random.randint(3, 12)  # кол-во сержиков
-            number_of_soldier = random.randint(number_of_serg + 1, 50)  # количество солдат
+            number_of_soldier = random.randint(number_of_serg + 1, 20)  # количество солдат
             number_of_serg_choice = random.randint(2, number_of_serg - 1)  # кол-во выбрать
             number_of_soldier_choice = random.randint(2, number_of_soldier - 1)  # количество выбрать
             task_text = (f"Во взводе есть сержанты: {number_of_serg} и солдаты: {number_of_soldier}. Сколько существует"
@@ -1988,9 +1988,9 @@ class CombinatoricsTaskGenerator:
 
             answer = self.stirling_second(number_1, number_2)
             rand = random.randint(-10, 10)
-            forbidden_answer.add(f"{answer + rand}")
-            forbidden_answer.add(f"{number_1 + number_2}")
-            forbidden_answer.add(f"{math.pow(number_1, number_2)}")
+            forbidden_answer.add(f"{round(answer + rand)}")
+            forbidden_answer.add(f"{round(number_1 + number_2)}")
+            forbidden_answer.add(f"{round(math.pow(number_1, number_2))}")
             result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
 
         return result_tasks_massive
