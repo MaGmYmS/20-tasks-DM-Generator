@@ -1712,12 +1712,13 @@ class CombinatoricsTaskGenerator:
 
             answer = coefficients_dict[random_value]
 
-            forbidden_answer.add(f"{coefficients_dict[random_value_except_none(coefficients_dict)]}")
-            forbidden_answer.add(f"{coefficients_dict[random_value_except_none(coefficients_dict)]}")
-            forbidden_answer.add(f"{coefficients_dict[random_value_except_none(coefficients_dict)]}")
+            # forbidden_answer.add(f"{coefficients_dict[random_value_except_none(coefficients_dict)]}")
+            # forbidden_answer.add(f"{coefficients_dict[random_value_except_none(coefficients_dict)]}")
+            # forbidden_answer.add(f"{coefficients_dict[random_value_except_none(coefficients_dict)]}")
 
             if answer != 'None':
-                result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
+                # result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
+                result_tasks_massive.append((task_text, [answer], []))
 
         return result_tasks_massive
 
@@ -1800,7 +1801,8 @@ class CombinatoricsTaskGenerator:
             forbidden_answer.add(f"{math.factorial(number_of_card)}")
             forbidden_answer.add(f"{math.factorial(number_of_card) * number_of_card}")
             forbidden_answer.add(f"{total_sum - math.factorial(number_of_card)}")
-            result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
+            # result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
+            result_tasks_massive.append((task_text, [answer], []))
 
         return result_tasks_massive
 
@@ -1829,7 +1831,8 @@ class CombinatoricsTaskGenerator:
             tmp_ans_f = self.C(number_of_serg, number_of_serg_choice) * self.C(number_of_soldier,
                                                                                number_of_soldier_choice) * 2
             forbidden_answer.add(f"{tmp_ans_f}")
-            result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
+            # result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
+            result_tasks_massive.append((task_text, [answer], []))
 
         return result_tasks_massive
 
@@ -1900,7 +1903,8 @@ class CombinatoricsTaskGenerator:
                 f"{round(ans / self.C(number_of_sogl, number_of_sogl_choice))}")
             forbidden_answer.add(
                 f"{round(w_ans / self.C(number_of_sogl, number_of_sogl_choice))}")
-            result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
+            # result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
+            result_tasks_massive.append((task_text, [answer], []))
 
         return result_tasks_massive
 
@@ -1991,7 +1995,8 @@ class CombinatoricsTaskGenerator:
             forbidden_answer.add(f"{round(answer + rand)}")
             forbidden_answer.add(f"{round(number_1 + number_2)}")
             forbidden_answer.add(f"{round(math.pow(number_1, number_2))}")
-            result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
+            # result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
+            result_tasks_massive.append((task_text, [answer], []))
 
         return result_tasks_massive
 
@@ -2015,7 +2020,8 @@ class CombinatoricsTaskGenerator:
             forbidden_answer.add(f"{self.C(number_of_card, number_of_part)}")
             forbidden_answer.add(f"{number_of_card * number_of_part}")
             forbidden_answer.add(f"{math.pow(2, number_of_part)}")
-            result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
+            # result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
+            result_tasks_massive.append((task_text, [answer], []))
 
         return result_tasks_massive
 
@@ -2041,7 +2047,8 @@ class CombinatoricsTaskGenerator:
             forbidden_answer.add(f"{round(self.C(number_of_target - 1, number_of_miss))}")
             forbidden_answer.add(f"{round(number_of_target * number_of_miss)}")
             forbidden_answer.add(f"{round(self.C_(number_of_target, number_of_miss))}")
-            result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
+            # result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
+            result_tasks_massive.append((task_text, [answer], []))
 
         return result_tasks_massive
 
@@ -2063,7 +2070,8 @@ class CombinatoricsTaskGenerator:
             forbidden_answer.add(f"{round(self.C(number_of_cake + number_of_choice, number_of_choice))}")
             forbidden_answer.add(f"{round(number_of_choice * number_of_cake)}")
             forbidden_answer.add(f"{round(math.pow(2, number_of_choice))}")
-            result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
+            # result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
+            result_tasks_massive.append((task_text, [answer], []))
 
         return result_tasks_massive
 
