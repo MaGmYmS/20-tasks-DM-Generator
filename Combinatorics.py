@@ -1471,6 +1471,7 @@ class CombinatoricsTaskGenerator:
     def shielding(input_str: str):
         return input_str.replace("{", r"\{").replace("}", r"\}")
 
+    # Задание в тесте № 1
     def logic_1_task_combinatorics_one_binomial_newton(self, number_of_tasks):
         """
         В выражении (-a+3b)^15 раскрыли скобки и привели подобные слагаемые. Какие числовые коэффициенты будут
@@ -1516,6 +1517,7 @@ class CombinatoricsTaskGenerator:
         response = self.shielding(response)
         return response
 
+    # Задание в тесте № 2
     def logic_1_task_combinatorics_two_recurrence_relation(self, number_of_tasks):
         """
         Найти общее решение рекуррентное соотношения a_(n+2)-8a_(n+1)+16a_n=0
@@ -1583,6 +1585,7 @@ class CombinatoricsTaskGenerator:
         response = self.shielding(response)
         return response
 
+    # Задание в тесте № 2
     def logic_1_task_combinatorics_three_recurrence_relation(self, number_of_tasks):
         """
         Найти a_n, зная рекуррентное соотношение и начальные члены: a_(n+2)-4a_(n+1)+4a_n=0,a_1=2,a_2=4
@@ -1643,6 +1646,7 @@ class CombinatoricsTaskGenerator:
 
         return result_tasks_massive
 
+    # Задание в тесте № 3
     @staticmethod
     def logic_1_task_combinatorics_four_koef(number_of_tasks):
         """
@@ -1712,16 +1716,16 @@ class CombinatoricsTaskGenerator:
 
             answer = coefficients_dict[random_value]
 
-            # forbidden_answer.add(f"{coefficients_dict[random_value_except_none(coefficients_dict)]}")
-            # forbidden_answer.add(f"{coefficients_dict[random_value_except_none(coefficients_dict)]}")
-            # forbidden_answer.add(f"{coefficients_dict[random_value_except_none(coefficients_dict)]}")
+            forbidden_answer.add(f"{coefficients_dict[random_value_except_none(coefficients_dict)]}")
+            forbidden_answer.add(f"{coefficients_dict[random_value_except_none(coefficients_dict)]}")
+            forbidden_answer.add(f"{coefficients_dict[random_value_except_none(coefficients_dict)]}")
 
             if answer != 'None':
-                # result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
-                result_tasks_massive.append((task_text, [answer], []))
+                result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
 
         return result_tasks_massive
 
+    # Задание в тесте № 4
     def logic_1_task_combinatorics_five_distribution_tickets(self, number_of_tasks):
         """
         Группе из десяти сотрудников выделено три путевки. Сколько существует способов распределения путевок,
@@ -1742,6 +1746,7 @@ class CombinatoricsTaskGenerator:
 
         return result_tasks_massive
 
+    # Задание в тесте № 5
     @staticmethod
     def logic_1_task_combinatorics_six_different_gender_pairs(number_of_tasks):
         """
@@ -1769,6 +1774,7 @@ class CombinatoricsTaskGenerator:
 
         return result_tasks_massive
 
+    # Задание в тесте № 6
     @staticmethod
     def logic_1_task_combinatorics_seven_digits(number_of_tasks):
         """
@@ -1798,14 +1804,15 @@ class CombinatoricsTaskGenerator:
 
             answer = total_sum
 
-            forbidden_answer.add(f"{math.factorial(number_of_card)}")
-            forbidden_answer.add(f"{math.factorial(number_of_card) * number_of_card}")
-            forbidden_answer.add(f"{total_sum - math.factorial(number_of_card)}")
+            # forbidden_answer.add(f"{math.factorial(number_of_card)}")
+            # forbidden_answer.add(f"{math.factorial(number_of_card) * number_of_card}")
+            # forbidden_answer.add(f"{total_sum - math.factorial(number_of_card)}")
             # result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
             result_tasks_massive.append((task_text, [answer], []))
 
         return result_tasks_massive
 
+    # Задание в тесте № 7
     def logic_1_task_combinatorics_eight_soldier(self, number_of_tasks):
         """
                 Во взводе 3 сержанта и 36 солдат. Сколько существует способов выделения одного сержанта и трех
@@ -1826,16 +1833,17 @@ class CombinatoricsTaskGenerator:
 
             answer = self.C(number_of_serg, number_of_serg_choice) * self.C(number_of_soldier, number_of_soldier_choice)
 
-            forbidden_answer.add(f"{self.C(number_of_serg, number_of_serg_choice)}")
-            forbidden_answer.add(f"{self.C(number_of_soldier, number_of_soldier_choice)}")
-            tmp_ans_f = self.C(number_of_serg, number_of_serg_choice) * self.C(number_of_soldier,
-                                                                               number_of_soldier_choice) * 2
-            forbidden_answer.add(f"{tmp_ans_f}")
+            # forbidden_answer.add(f"{self.C(number_of_serg, number_of_serg_choice)}")
+            # forbidden_answer.add(f"{self.C(number_of_soldier, number_of_soldier_choice)}")
+            # tmp_ans_f = self.C(number_of_serg, number_of_serg_choice) * self.C(number_of_soldier,
+            #                                                                    number_of_soldier_choice) * 2
+            # forbidden_answer.add(f"{tmp_ans_f}")
             # result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
             result_tasks_massive.append((task_text, [answer], []))
 
         return result_tasks_massive
 
+    # Задание в тесте № 8
     def logic_1_task_combinatorics_nine_alphabet(self, number_of_tasks):
         """
                 Сколькими способами можно составить из 5 гласных и 9 согласных слова, в которые входят 4
@@ -1897,17 +1905,18 @@ class CombinatoricsTaskGenerator:
 
             answer = ans
 
-            forbidden_answer.add(
-                f"{w_ans}")
-            forbidden_answer.add(
-                f"{round(ans / self.C(number_of_sogl, number_of_sogl_choice))}")
-            forbidden_answer.add(
-                f"{round(w_ans / self.C(number_of_sogl, number_of_sogl_choice))}")
+            # forbidden_answer.add(
+            #     f"{w_ans}")
+            # forbidden_answer.add(
+            #     f"{round(ans / self.C(number_of_sogl, number_of_sogl_choice))}")
+            # forbidden_answer.add(
+            #     f"{round(w_ans / self.C(number_of_sogl, number_of_sogl_choice))}")
             # result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
             result_tasks_massive.append((task_text, [answer], []))
 
         return result_tasks_massive
 
+    # Задание в тесте № 9
     @staticmethod
     def logic_1_task_combinatorics_ten_arithmetic(number_of_tasks):
         """
@@ -1948,12 +1957,13 @@ class CombinatoricsTaskGenerator:
             ans2 = math.factorial(number_2)
             answer = ans1 * ans2 * 2
 
-            forbidden_answer.add(f"{ans1}")
-            forbidden_answer.add(
-                f"{ans1 * ans2 - ans1}")
-            forbidden_answer.add(
-                f"{ans1 * ans2 * 2 - ans2}")
-            result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
+            # forbidden_answer.add(f"{ans1}")
+            # forbidden_answer.add(
+            #     f"{ans1 * ans2 - ans1}")
+            # forbidden_answer.add(
+            #     f"{ans1 * ans2 * 2 - ans2}")
+            # result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
+            result_tasks_massive.append((task_text, [answer], []))
 
         return result_tasks_massive
 
@@ -1977,6 +1987,7 @@ class CombinatoricsTaskGenerator:
         # Рекурсивный случай
         return k * self.stirling_second(n - 1, k) + self.stirling_second(n - 1, k - 1)
 
+    # Задание в тесте № 10
     def logic_1_task_combinatorics_eleven_stirling(self, number_of_tasks):
         """
                Найдите S(6,3)?
@@ -2000,6 +2011,7 @@ class CombinatoricsTaskGenerator:
 
         return result_tasks_massive
 
+    # Этого задания в тесте нет
     def logic_1_task_combinatorics_twelve_cards(self, number_of_tasks):
         """
                 12.	Сколькими способами колоду из 36 карт можно разделить произвольно на 2 части?
@@ -2025,6 +2037,7 @@ class CombinatoricsTaskGenerator:
 
         return result_tasks_massive
 
+    # Задание в тесте № 11
     def logic_1_task_combinatorics_thirteen_biatlon(self, number_of_tasks):
         """
                 13.	Биатлонист делает 5 выстрелов на рубеже. За каждую не закрытую мишень он
@@ -2044,14 +2057,15 @@ class CombinatoricsTaskGenerator:
                 f"приводят к {number_of_miss} штрафным кругам?")
 
             answer = round(self.C(number_of_target, number_of_miss))
-            forbidden_answer.add(f"{round(self.C(number_of_target - 1, number_of_miss))}")
-            forbidden_answer.add(f"{round(number_of_target * number_of_miss)}")
-            forbidden_answer.add(f"{round(self.C_(number_of_target, number_of_miss))}")
+            # forbidden_answer.add(f"{round(self.C(number_of_target - 1, number_of_miss))}")
+            # forbidden_answer.add(f"{round(number_of_target * number_of_miss)}")
+            # forbidden_answer.add(f"{round(self.C_(number_of_target, number_of_miss))}")
             # result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
             result_tasks_massive.append((task_text, [answer], []))
 
         return result_tasks_massive
 
+    # Задание в тесте № 12
     def logic_1_task_combinatorics_fourteen_cake(self, number_of_tasks):
         """
                 14.	В кондитерской продаются пирожные четырех видов. Сколькими способами можно купить 8 пирожных?
@@ -2067,14 +2081,15 @@ class CombinatoricsTaskGenerator:
                          f" {number_of_choice} пирожных?")
 
             answer = round(self.C(number_of_cake + number_of_choice - 1, number_of_choice))
-            forbidden_answer.add(f"{round(self.C(number_of_cake + number_of_choice, number_of_choice))}")
-            forbidden_answer.add(f"{round(number_of_choice * number_of_cake)}")
-            forbidden_answer.add(f"{round(math.pow(2, number_of_choice))}")
+            # forbidden_answer.add(f"{round(self.C(number_of_cake + number_of_choice, number_of_choice))}")
+            # forbidden_answer.add(f"{round(number_of_choice * number_of_cake)}")
+            # forbidden_answer.add(f"{round(math.pow(2, number_of_choice))}")
             # result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
             result_tasks_massive.append((task_text, [answer], []))
 
         return result_tasks_massive
 
+    # Задание в тесте № 13
     @staticmethod
     def logic_1_task_combinatorics_fifteen_letter(number_of_tasks):
         """
@@ -2100,13 +2115,15 @@ class CombinatoricsTaskGenerator:
                 words_count = math.pow(number_of_letter, length)
                 answer += words_count
 
-            forbidden_answer.add(f"{round(answer / number_of_words)}")
-            forbidden_answer.add(f"{round((answer / number_of_words) * 1.5)}")
-            forbidden_answer.add(f"{round(math.pow(2, number_of_words))}")
-            result_tasks_massive.append((task_text, [round(answer)], list(forbidden_answer)))
+            # forbidden_answer.add(f"{round(answer / number_of_words)}")
+            # forbidden_answer.add(f"{round((answer / number_of_words) * 1.5)}")
+            # forbidden_answer.add(f"{round(math.pow(2, number_of_words))}")
+            # result_tasks_massive.append((task_text, [round(answer)], list(forbidden_answer)))
+            result_tasks_massive.append((task_text, [round(answer)], []))
 
         return result_tasks_massive
 
+    # Задание в тесте № 14
     @staticmethod
     def logic_1_task_combinatorics_sixteen_profkom(number_of_tasks):
         """
@@ -2133,10 +2150,11 @@ class CombinatoricsTaskGenerator:
             answer = number_of_letter * (number_of_letter - 1) * (number_of_letter - 2)
             # Перебираем длины слов от 1 до максимальной длины
 
-            forbidden_answer.add(f"{math.pow(number_of_letter, 2)}")
-            forbidden_answer.add(f"{math.pow(2, number_of_letter)}")
-            forbidden_answer.add(f"{number_of_letter * (number_of_letter - 1)}")
-            result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
+            # forbidden_answer.add(f"{math.pow(number_of_letter, 2)}")
+            # forbidden_answer.add(f"{math.pow(2, number_of_letter)}")
+            # forbidden_answer.add(f"{number_of_letter * (number_of_letter - 1)}")
+            # result_tasks_massive.append((task_text, [answer], list(forbidden_answer)))
+            result_tasks_massive.append((task_text, [answer], []))
 
         return result_tasks_massive
     # endregion
