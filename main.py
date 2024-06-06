@@ -160,24 +160,24 @@ def create_all_tasks_combinatorics():
         "lecture_7_task_combinatorics_nine": "Задание 42. Проверка статистических гипотез. Категория 8",
         "lecture_7_task_combinatorics_ten": "Задание 43 Проверка статистических гипотез. Категория 8",
 
-        "logic_1_task_combinatorics_one_binomial_newton": "Задание 101. Комбинаторика. Бином Ньютона. Категория 11",
-        "logic_1_task_combinatorics_two_recurrence_relation": "Задание 102. Комбинаторика. Рекуррентные соотношения. "
+        "logic_1_task_combinatorics_one_binomial_newton": "Задание 101. Комбинаторика 1. Бином Ньютона. Категория 11",
+        "logic_1_task_combinatorics_two_recurrence_relation": "Задание 102. Комбинаторика 2. Рекуррентные соотношения. "
                                                               "Категория 11",
-        "logic_1_task_combinatorics_three_recurrence_relation": "Задание 103. Комбинаторика. Рекуррентные соотношения. "
+        "logic_1_task_combinatorics_three_recurrence_relation": "Задание 103. Комбинаторика 2. Рекуррентные соотношения. "
                                                                 "Категория 11",
-        "logic_1_task_combinatorics_four_koef": "Задание 104. Комбинаторика. Категория 11",
-        "logic_1_task_combinatorics_five_distribution_tickets": "Задание 105. Комбинаторика. Категория 11",
-        "logic_1_task_combinatorics_six_different_gender_pairs": "Задание 106. Комбинаторика. Категория 11",
-        "logic_1_task_combinatorics_seven_digits": "Задание 107. Комбинаторика. Категория 11",
-        "logic_1_task_combinatorics_eight_soldier": "Задание 108. Комбинаторика. Категория 11",
-        "logic_1_task_combinatorics_nine_alphabet": "Задание 109. Комбинаторика. Категория 11",
-        "logic_1_task_combinatorics_ten_arithmetic": "Задание 110. Комбинаторика. Категория 11",
-        "logic_1_task_combinatorics_eleven_stirling": "Задание 111. Комбинаторика. Категория 11",
-        "logic_1_task_combinatorics_twelve_cards": "Задание 112. Комбинаторика. Категория 11",
-        "logic_1_task_combinatorics_thirteen_biatlon": "Задание 113. Комбинаторика. Категория 11",
-        "logic_1_task_combinatorics_fourteen_cake": "Задание 114. Комбинаторика. Категория 11",
-        "logic_1_task_combinatorics_fifteen_letter": "Задание 115. Комбинаторика. Категория 11",
-        "logic_1_task_combinatorics_sixteen_profkom": "Задание 116. Комбинаторика. Категория 11",
+        "logic_1_task_combinatorics_four_koef": "Задание 104. Комбинаторика 3. Категория 11",
+        "logic_1_task_combinatorics_five_distribution_tickets": "Задание 105. Комбинаторика 4. Категория 11",
+        "logic_1_task_combinatorics_six_different_gender_pairs": "Задание 106. Комбинаторика 5. Категория 11",
+        "logic_1_task_combinatorics_seven_digits": "Задание 107. Комбинаторика 6. Категория 11",
+        "logic_1_task_combinatorics_eight_soldier": "Задание 108. Комбинаторика 7. Категория 11",
+        "logic_1_task_combinatorics_nine_alphabet": "Задание 109. Комбинаторика 8. Категория 11",
+        "logic_1_task_combinatorics_ten_arithmetic": "Задание 110. Комбинаторика 9. Категория 11",
+        "logic_1_task_combinatorics_eleven_stirling": "Задание 111. Комбинаторика 10. Категория 11",
+        "logic_1_task_combinatorics_twelve_cards": "Задание 112. Комбинаторика -1. Категория 11",
+        "logic_1_task_combinatorics_thirteen_biatlon": "Задание 113. Комбинаторика 11. Категория 11",
+        "logic_1_task_combinatorics_fourteen_cake": "Задание 114. Комбинаторика 12. Категория 11",
+        "logic_1_task_combinatorics_fifteen_letter": "Задание 115. Комбинаторика 13. Категория 11",
+        "logic_1_task_combinatorics_sixteen_profkom": "Задание 116. Комбинаторика 14. Категория 11",
 
     }
 
