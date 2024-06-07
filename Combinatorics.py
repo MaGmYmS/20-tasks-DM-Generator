@@ -1816,6 +1816,224 @@ class CombinatoricsTaskGenerator:
 
     # endregion
 
+    # region Файл 2
+    @staticmethod
+    def generate_sample(count_sample=10):
+        sample = []
+        number_mode = count_sample // 3
+        mode_stack = list(range(1, 11))
+        random.shuffle(mode_stack)
+        while len(sample) < count_sample:
+            value = mode_stack.pop()
+            sample.extend([value] * number_mode)  # Добавляем count раз значение value в выборку
+            number_mode -= 1 if number_mode > 1 else 0
+            number_mode = min(number_mode, count_sample - len(sample))
+        random.shuffle(sample)
+        return sample
+
+    def file_2_task_1_generate_sample_mode_tasks(self, number_of_tasks):
+        """
+        Генерирует задачи по определению выборочной моды выборки.
+
+        Задача:
+        Дана выборка: 3, 5, 1, 2, 8, 2, 5, 2, 10, 9, 4.
+        Выборочная мода равна:
+
+        Args:
+            number_of_tasks (int): Количество задач для генерации.
+
+        Returns:
+            list: Список кортежей, каждый из которых содержит текст задачи, правильный ответ и массив неправильных
+            ответов.
+        """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            # Генерируем случайное количество чисел в выборке от 8 до 15
+            n = random.randint(8, 15)
+
+            # Генерируем выборку так, чтобы она не имела две моды
+            sample = self.generate_sample(n)
+
+            # Находим выборочную моду
+            mode = max(set(sample), key=sample.count)
+
+            # Составляем текст задачи
+            task_text = (
+                f"Дана выборка: {', '.join(str(num) for num in sample)}. "
+                f"Выборочная мода равна:"
+            )
+
+            result_tasks_massive.append((task_text, [mode], list(set(sample) - {mode})))
+
+        return result_tasks_massive
+
+    def file_2_task_2_generate_sample_median_tasks(self, number_of_tasks):
+        """
+        Генерирует задачи по определению выборочной медианы выборки.
+
+        Задача:
+        Дана выборка: 2, 6, 3, 12, 1, 5, 2, 7, 4, 10.
+        Выборочная медиана равна:
+
+        Args:
+            number_of_tasks (int): Количество задач для генерации.
+
+        Returns:
+            list: Список кортежей, каждый из которых содержит текст задачи, правильный ответ и массив неправильных
+            ответов.
+        """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            n = random.randint(8, 15)
+            sample = [random.randint(1, 11) for _ in range(n)]
+
+            # Находим выборочную медиану
+            sorted_sample = sorted(sample)
+            n = len(sorted_sample)
+            if n % 2 == 0:
+                median = (sorted_sample[n // 2 - 1] + sorted_sample[n // 2]) / 2
+            else:
+                median = sorted_sample[n // 2]
+
+            # Составляем текст задачи
+            task_text = (
+                f"Дана выборка: {', '.join(str(num) for num in sample)}. "
+                f"Выборочная медиана равна:"
+            )
+
+            result_tasks_massive.append((task_text, [median], list(set(sample) - {median})))
+
+        return result_tasks_massive
+
+    def file_2_task_3_generate_sample_variance_tasks(self, number_of_tasks):
+        """
+        Генерирует задачи по определению выборочной дисперсии выборки.
+
+        Задача:
+        Дана выборка: 4, 9, 2, 10, 5.
+        Выборочная дисперсия равна:
+
+        Args:
+            number_of_tasks (int): Количество задач для генерации.
+
+        Returns:
+            list: Список кортежей, каждый из которых содержит текст задачи, правильный ответ и массив неправильных
+            ответов.
+        """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            n = 5
+            sample = [random.randint(1, 11) for _ in range(n)]
+
+            mean = sum(sample) / n
+            variance = sum((x - mean) ** 2 for x in sample) / n
+
+            # Составляем текст задачи
+            task_text = (
+                f"Дана выборка: {', '.join(str(num) for num in sample)}. "
+                f"Выборочная дисперсия равна: (Значения округлены до 2 знаков после запятой)"
+            )
+
+            # Генерируем неправильные ответы
+            wrong_answers = set()
+            wrong_answers.add("{:.2f}".format(sum((x - mean) for x in sample) / n))
+            wrong_answers.add("{:.2f}".format(sum((x - mean) for x in sample) / mean))
+            wrong_answers.add("{:.2f}".format(sum((x ** 2 - mean ** 2) for x in sample) / n))
+
+            result_tasks_massive.append((task_text, [variance], list(wrong_answers)))
+
+        return result_tasks_massive
+
+    @staticmethod
+    def file_2_task_4_generate_corrected_standard_deviation_tasks(number_of_tasks):
+        """
+        Генерирует задачи по определению исправленного выборочного среднеквадратического отклонения.
+
+        Задача:
+        По выборке объема 25 найдена выборочная дисперсия, равная 12.
+        Исправленное выборочное среднее квадратическое отклонение равно:
+
+        Args:
+            number_of_tasks (int): Количество задач для генерации.
+
+        Returns:
+            list: Список кортежей, каждый из которых содержит текст задачи, правильный ответ и массив неправильных
+            ответов.
+        """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            # Генерируем выборку объема 25
+            n = random.randint(16, 30)
+
+            # Заданная выборочная дисперсия
+            sample_variance = random.randint(5, 14)
+
+            # Вычисляем исправленное выборочное среднее квадратическое отклонение
+            answer = round((sample_variance * (n / (n - 1))) ** 0.5, 5)
+
+            # Генерируем неправильные ответы
+            wrong_answers = set()
+            wrong_answers.add("{:.5f}".format(answer / 2))
+            wrong_answers.add("{:.5f}".format(answer ** 2))
+            wrong_answers.add("Недостаточно данных, чтобы дать ответ")
+
+            # Составляем текст задачи
+            task_text = (
+                f"По выборке объема {n} найдена выборочная дисперсия, равная {sample_variance}. "
+                f"Исправленное выборочное среднее квадратическое отклонение равно: "
+                f"(Значения округлены до 5 знаков после запятой)"
+            )
+
+            result_tasks_massive.append((task_text, [answer], list(wrong_answers)))
+
+        return result_tasks_massive
+
+    @staticmethod
+    def file_2_task_5_generate_sample_variance_tasks(number_of_tasks):
+        """
+        Генерирует задачи по определению выборочной дисперсии по исправленному выборочному среднему квадратическому отклонению.
+
+        Задача:
+        По выборке объема 15 найдено исправленное выборочное среднее квадратическое отклонение, равное 5.
+        Выборочная дисперсия равна:
+
+        Args:
+            number_of_tasks (int): Количество задач для генерации.
+
+        Returns:
+            list: Список кортежей, каждый из которых содержит текст задачи, правильный ответ и массив неправильных
+            ответов.
+        """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            # Заданное исправленное выборочное среднее квадратическое отклонение
+            corrected_standard_deviation = random.randint(2, 10)
+
+            # Объем выборки
+            n = random.randint(16, 30)
+
+            # Вычисляем выборочную дисперсию
+            answer = round((corrected_standard_deviation ** 2) * ((n - 1) / n), 5)
+
+            # Генерируем неправильные ответы
+            wrong_answers = set()
+            wrong_answers.add("{:.5f}".format(answer / 2))
+            wrong_answers.add("{:.5f}".format(answer * 2))
+            wrong_answers.add("Недостаточно данных, чтобы дать ответ")
+
+            # Составляем текст задачи
+            task_text = (
+                f"По выборке объема {n} найдено исправленное выборочное среднее квадратическое отклонение, "
+                f"равное {corrected_standard_deviation}. Выборочная дисперсия равна: "
+                f"(Значения округлены до 5 знаков после запятой)"
+            )
+
+            result_tasks_massive.append((task_text, [answer], list(wrong_answers)))
+
+        return result_tasks_massive
+
+    # endregion
+
     # region Задачи по комбинаторике от Володины Т.Ю
     @staticmethod
     def C(n: int, k: int):
