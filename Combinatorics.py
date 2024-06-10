@@ -2415,6 +2415,35 @@ d.	правосторонняя или левосторонняя критиче
         return list_tasks
 
     # endregion
+    # задача со звездочкой
+    @staticmethod
+    def file_specific_task_star(number_of_tasks):
+        """
+       Случайная величина принимает значения 1 и 2 с вероятностями 0,6 и 0,4 соответственно. Дисперсия этой случайной величины равна (правильный ответ – b)
+            a.	1,4
+            b.	0,24
+            c.	0,76
+            d.	2,2
+
+        :param number_of_tasks: количество задач для генерации
+        :return: список задач в формате (текст_задачи, правильный_ответ, неправильные_ответы)
+        """
+        list_tasks = []
+
+        for i in range(number_of_tasks):
+            ver_1 = round(random.uniform(0.01, 0.99),2)
+            ver_2 = 1-ver_1
+            task_text = (
+                f"Случайная величина принимает значения 1 и 2 с вероятностями {ver_1} и {ver_2} соответственно. Дисперсия этой случайной величины равна")
+            correct_answer = f"{ver_1*ver_2}"
+            incorrect_answers = [
+                f"{1-(ver_2*ver_1)}",
+                f"{round(ver_2/ver_1,2)}",
+                f"{ver_1*ver_2*2}"]
+            result = (task_text, correct_answer, incorrect_answers)
+            list_tasks.append(result)
+
+        return list_tasks
     # region Задачи по комбинаторике от Володины Т.Ю
     @staticmethod
     def C(n: int, k: int):
