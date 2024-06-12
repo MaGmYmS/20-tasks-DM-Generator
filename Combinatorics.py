@@ -1844,7 +1844,7 @@ class CombinatoricsTaskGenerator:
             while vtoroe == pervoe:
                 vtoroe = random.randint(1, objee_chislo - 1)
             task_text = (
-                f"По выборке объема {objee_chislo * 2} найдены два доверительных интервала для математического ожидания нормально распределенного признака X генеральной совокупности: {objee_chislo - pervoe}<a<{objee_chislo + pervoe} и {objee_chislo - vtoroe}<a<{objee_chislo - vtoroe}. Верным является утверждение")
+                f"По выборке объема {objee_chislo * 2} найдены два доверительных интервала для математического ожидания нормально распределенного признака X генеральной совокупности: {round(objee_chislo - pervoe,2)}<a<{round(objee_chislo + pervoe,2)} и {round(objee_chislo - vtoroe,2)}<a<{round(objee_chislo + vtoroe,2)}. Верным является утверждение")
 
             if pervoe < vtoroe:
                 correct_answer = "надежность первой интервальной оценки меньше, чем надежность второй интервальной оценки"
@@ -1887,11 +1887,11 @@ class CombinatoricsTaskGenerator:
             objee_chislo = round(random.uniform(2.0, 4.0), 2)
             pervoe = round(random.uniform(0.5, objee_chislo), 2)
             vtoroe = round(random.uniform(0.5, objee_chislo), 2)
-            while vtoroe == pervoe:
+            while pervoe == vtoroe:
                 vtoroe = round(random.uniform(0.5, objee_chislo), 2)
             task_text = (
                 f"По двум разным выборкам надежностью 0,95 найдены доверительные интервалы для среднего квадратического "
-                f"отклонения нормально распределенного признака X генеральной совокупности: {objee_chislo - pervoe}<σ<{objee_chislo + pervoe} и {objee_chislo - vtoroe}<σ<{objee_chislo - vtoroe}. "
+                f"отклонения нормально распределенного признака X генеральной совокупности: {round(objee_chislo - pervoe,2)}<σ<{round(objee_chislo + pervoe,2)} и {round(objee_chislo - vtoroe,2)}<σ<{round(objee_chislo + vtoroe,2)}. "
                 f"Выборочные дисперсии, найденные по этим выборкам, приблизительно равны.Верным является утверждение")
 
             if pervoe < vtoroe:
