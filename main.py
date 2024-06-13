@@ -356,7 +356,7 @@ def create_all_tasks_combinatorics():
             categories_dict[method_name] = categories[method_name]
 
     for i, method in enumerate(all_tasks_method):
-        for number_variables in [1]:
+        for number_variables in [100]:
             start_time = time.time()
 
             tasks = method(number_variables)

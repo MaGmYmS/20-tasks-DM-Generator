@@ -1435,6 +1435,607 @@ class CombinatoricsTaskGenerator:
 
     # endregion
 
+    # region Файл 1
+    @staticmethod
+    def file_1_task_1_generate_bernoulli_variance_tasks(number_of_tasks):
+        """
+          Генерирует задачи по определению дисперсии случайной величины Бернулли.
+
+          Задача:
+          Случайная величина X имеет распределение Бернулли с параметром p.
+          Дисперсия этой случайной величины равна:
+
+          Args:
+              number_of_tasks (int): Количество задач для генерации.
+
+          Returns:
+              list: Список кортежей, каждый из которых содержит текст задачи, правильный ответ и массив неправильных
+              ответов.
+          """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            # Генерируем случайное значение вероятности p от 0.1 до 0.9
+            p = round(random.uniform(0.1, 0.9), 2)
+
+            # Вычисляем дисперсию
+            variance = round(p * (1 - p), 2)
+
+            # Приводим ответ к строковому виду с точностью до двух десятичных знаков
+            variance_str = "{:.2f}".format(variance)
+
+            # Генерируем неправильные ответы
+            wrong_answers = set()
+            wrong_answers.add("{:.2f}".format(variance / 2))
+            wrong_answers.add("{:.2f}".format((1 - p) / 2))
+            wrong_answers.add("{:.2f}".format(1 - p))
+
+            # Составляем текст задачи
+            task_text = (
+                f"Случайная величина X имеет распределение Бернулли с параметром p = {p}. "
+                f"Дисперсия этой случайной величины равна: (Значения могут быть округлены до 2 знаков после запятой)"
+            )
+
+            result_tasks_massive.append((task_text, [variance_str], list(wrong_answers)))
+
+        return result_tasks_massive
+
+    @staticmethod
+    def file_1_task_2_generate_binomial_expectation_tasks(number_of_tasks):
+        """
+        Генерирует задачи по определению математического ожидания случайной величины с биномиальным распределением.
+
+        Задача:
+        Спортсмен стреляет в мишень n раз, вероятность попадания при каждом выстреле равна p.
+        Случайная величина X – число попаданий в мишень. Математическое ожидание этой случайной величины равно:
+
+        Args:
+            number_of_tasks (int): Количество задач для генерации.
+
+        Returns:
+            list: Список кортежей, каждый из которых содержит текст задачи,
+                  правильный ответ и массив неправильных ответов.
+        """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            # Генерируем случайное значение n от 3 до 20
+            n = random.randint(3, 20)
+            # Генерируем случайное значение вероятности p от 0.40 до 0.99 с округлением до сотых
+            p = round(random.uniform(0.40, 0.99), 2)
+
+            # Вычисляем математическое ожидание
+            expected_value = round(n * p, 2)
+
+            # Приводим ответ к строковому виду с точностью до двух десятичных знаков
+            expected_value_str = "{:.2f}".format(expected_value)
+
+            # Генерируем неправильные ответы
+            wrong_answers = set()
+            wrong_answers.add("Недостаточно данных, чтобы дать ответ")
+            wrong_answers.add("{:.2f}".format(n ** 2 * p ** 2))
+            wrong_answers.add("{:.2f}".format(n * p / 2))
+
+            # Составляем текст задачи
+            task_text = (
+                f"Спортсмен стреляет в мишень {n} раз, вероятность попадания при каждом выстреле равна {p}. "
+                f"Случайная величина X – число попаданий в мишень. Математическое ожидание этой случайной "
+                f"величины равно: (Значения могут быть округлены до 2 знаков после запятой)"
+            )
+
+            result_tasks_massive.append((task_text, [expected_value_str], list(wrong_answers)))
+
+        return result_tasks_massive
+
+    @staticmethod
+    def file_1_task_3_generate_binomial_variance_tasks(number_of_tasks):
+        """
+        Генерирует задачи по определению дисперсии случайной величины с биномиальным распределением.
+
+        Задача:
+        В курортном городе в летний период 80% дней по статистике являются солнечными.
+        Человек планирует отдохнуть на этом курорте 10 дней. Случайная величина X – число солнечных дней за период отдыха человека.
+        Дисперсия этой случайной величины равна:
+
+        Args:
+            number_of_tasks (int): Количество задач для генерации.
+
+        Returns:
+            list: Список кортежей, каждый из которых содержит текст задачи, правильный ответ и массив неправильных ответов.
+        """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            # Генерируем случайное значение n от 7 до 30 (дней отдыха)
+            n = random.randint(7, 30)
+            # Генерируем случайное значение вероятности p от 0.5 до 0.99 с округлением до сотых (солнечные дни)
+            p = round(random.uniform(0.5, 0.95), 2)
+
+            # Вычисляем дисперсию
+            variance = round(n * p * (1 - p), 2)
+
+            # Приводим ответ к строковому виду с точностью до двух десятичных знаков
+            variance_str = "{:.2f}".format(variance)
+
+            # Генерируем неправильные ответы
+            wrong_answers = set()
+            wrong_answers.add("{:.2f}".format(variance / 2))
+            wrong_answers.add("{:.2f}".format(n * p))
+            wrong_answers.add("{:.2f}".format((1 - p) * n))
+
+            # Составляем текст задачи
+            task_text = (
+                f"В курортном городе в летний период {round(p * 100)}% дней по статистике являются солнечными. "
+                f"Человек планирует отдохнуть на этом курорте {n} дней. "
+                f"Случайная величина X – число солнечных дней за период отдыха человека. "
+                f"Дисперсия этой случайной величины равна: (Значения могут быть округлены до 2 знаков после запятой)"
+            )
+
+            result_tasks_massive.append((task_text, [variance_str], list(wrong_answers)))
+
+        return result_tasks_massive
+
+    @staticmethod
+    def file_1_task_4_generate_binomial_probability_tasks(number_of_tasks):
+        """
+        Генерирует задачи по определению вероятности того, что k из n студентов сдадут экзамен с первой попытки.
+
+        Задача:
+        Вероятность сдать экзамен по математическому анализу с первой попытки равна p.
+        Экзамен сдают n студентов. Вероятность того, что k из них сдадут экзамен с первой попытки равна:
+
+        Args:
+            number_of_tasks (int): Количество задач для генерации.
+
+        Returns:
+            list: Список кортежей, каждый из которых содержит текст задачи, правильный ответ и массив неправильных
+            ответов.
+        """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            # Генерируем случайное значение n от 4 до 8 (количество студентов)
+            n = random.randint(4, 8)
+            # Генерируем случайное значение вероятности p от 0.1 до 0.9 с округлением до десятых
+            p = round(random.uniform(0.1, 0.9), 1)
+            # Генерируем случайное значение k от 2 до 7 (количество студентов, которые сдадут экзамен)
+            k = random.randint(2, n - 1)
+
+            # Вычисляем вероятность того, что k из n студентов сдадут экзамен с первой попытки
+            probability = round(math.comb(n, k) * (p ** k) * ((1 - p) ** (n - k)), 5)
+
+            # Приводим ответ к строковому виду с точностью до пяти десятичных знаков
+            probability_str = "{:.5f}".format(probability)
+
+            # Генерируем неправильные ответы
+            wrong_answers = set()
+            wrong_answers.add("{:.5f}".format((p ** k) * ((1 - p) ** (n - k))))
+            wrong_answers.add("{:.5f}".format(p ** k))
+            wrong_answers.add("{:.5f}".format(p ** (n - k)))
+
+            # Составляем текст задачи
+            task_text = (
+                f"Вероятность сдать экзамен по математическому анализу с первой попытки равна {p}. "
+                f"Экзамен сдают {n} студентов. Вероятность того, что {k} из них сдадут экзамен с первой попытки равна: "
+                f"(Значения могут быть округлены до 5 знаков после запятой)"
+            )
+
+            result_tasks_massive.append((task_text, [probability_str], list(wrong_answers)))
+
+        return result_tasks_massive
+
+    @staticmethod
+    def file_1_task_5_generate_poisson_probability_tasks(number_of_tasks):
+        """
+        Генерирует задачи по определению вероятности того, что k из n тигров являются альбиносами с использованием
+        распределения Пуассона.
+
+        Задача:
+        Тигры-альбиносы составляют в природе 0,5% от общей численности популяции.
+        Вероятность того, что из n тигров, живущих на некоторой территории, k тигра-альбиноса, приближенно равна:
+
+        Args:
+            number_of_tasks (int): Количество задач для генерации.
+
+        Returns:
+            list: Список кортежей, каждый из которых содержит текст задачи, правильный ответ и массив неправильных
+            ответов.
+        """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            # Устанавливаем фиксированные значения для n и p
+            n = 100 * random.randint(2, 10)
+            p = random.uniform(0.002, 0.009)
+            # Генерируем случайное значение k от 2 до 7 (количество тигров-альбиносов)
+            k = random.randint(2, 7)
+
+            # Вычисляем параметр λ для распределения Пуассона
+            lambda_poisson = n * p
+
+            # Вычисляем вероятность по формуле Пуассона
+            probability = round((lambda_poisson ** k * math.exp(-lambda_poisson)) / math.factorial(k), 5)
+
+            # Приводим ответ к строковому виду с точностью до пяти десятичных знаков
+            probability_str = "{:.5f}".format(probability)
+
+            # Генерируем неправильные ответы
+            wrong_answers = set()
+            wrong_answers.add("{:.5f}".format(random.uniform(0.05, 0.6)))
+            wrong_answers.add("{:.5f}".format(random.uniform(0.05, 0.6)))
+            wrong_answers.add("{:.5f}".format(random.uniform(0.05, 0.6)))
+
+            # Составляем текст задачи
+            task_text = (
+                f"Тигры-альбиносы составляют в природе {round(p * 100, 2)}% от общей численности популяции. "
+                f"Вероятность того, что из {n} тигров, живущих на некоторой территории, {k} тигра-альбиноса, "
+                f"приближенно равна: (Значения могут быть округлены до 5 знаков после запятой)"
+            )
+
+            result_tasks_massive.append((task_text, [probability_str], list(wrong_answers)))
+
+        return result_tasks_massive
+
+    @staticmethod
+    def file_1_task_6_generate_geometric_expectation_tasks(number_of_tasks):
+        """
+        Генерирует задачи по определению математического ожидания случайной величины, которая описывает
+        количество попыток тестирования до успешного прохождения теста.
+
+        Задача:
+        Вероятность того, что попытка прохождения теста будет успешной, равна p.
+        Испытуемый может проходить тест неограниченное число раз. Случайная величина Х – число попыток тестирования
+        до успешного прохождения теста. Математическое ожидание этой случайной величины равно:
+
+        Args:
+            number_of_tasks (int): Количество задач для генерации.
+
+        Returns:
+            list: Список кортежей, каждый из которых содержит текст задачи, правильный ответ и массив неправильных ответов.
+        """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            # Генерируем случайное значение вероятности p от 0.1 до 0.9 с округлением до десятых
+            p = round(random.uniform(0.1, 0.9), 1)
+
+            # Вычисляем математическое ожидание
+            expected_value = round(1 / p, 2)
+
+            # Приводим ответ к строковому виду с точностью до двух десятичных знаков
+            expected_value_str = "{:.2f}".format(expected_value)
+
+            # Генерируем неправильные ответы
+            wrong_answers = set()
+            wrong_answers.add("{:.2f}".format(1 / (p ** 2)))
+            wrong_sum = 0
+            while wrong_sum < 1:
+                wrong_sum += p
+            wrong_answers.add("{:.2f}".format(wrong_sum))
+            wrong_answers.add("Недостаточно данных, чтобы дать ответ")
+
+            # Составляем текст задачи
+            task_text = (
+                f"Вероятность того, что попытка прохождения теста будет успешной, равна {p}. "
+                f"Испытуемый может проходить тест неограниченное число раз. Случайная величина X – число попыток "
+                f"тестирования до успешного прохождения теста. Математическое ожидание этой случайной величины равно:"
+                f"(Значения могут быть округлены до 2 знаков после запятой)"
+            )
+
+            result_tasks_massive.append((task_text, [expected_value_str], list(wrong_answers)))
+
+        return result_tasks_massive
+
+    @staticmethod
+    def file_1_task_7_generate_geometric_variance_tasks(number_of_tasks):
+        """
+        Генерирует задачи по определению дисперсии случайной величины, которая описывает
+        количество попыток до успешного прохождения уровня в игре.
+
+        Задача:
+        Вероятность успешного прохождения десятого уровня в компьютерной игре равна p.
+        Случайная величина X – число попыток игрока до успешного прохождения уровня.
+        Дисперсия этой случайной величины равна:
+
+        Args:
+            number_of_tasks (int): Количество задач для генерации.
+
+        Returns:
+            list: Список кортежей, каждый из которых содержит текст задачи, правильный ответ и массив неправильных ответов.
+        """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            # Генерируем случайное значение вероятности p от 0.1 до 0.9 с округлением до десятых
+            p = round(random.uniform(0.1, 0.9), 1)
+
+            # Вычисляем дисперсию
+            variance = round((1 - p) / (p ** 2), 2)
+
+            # Приводим ответ к строковому виду с точностью до двух десятичных знаков
+            variance_str = "{:.2f}".format(variance)
+
+            # Генерируем неправильные ответы
+            wrong_answers = set()
+            wrong_answers.add("{:.2f}".format((1 - p ** 2) / (p ** 2)))
+            wrong_answers.add("{:.2f}".format((1 - p) / (4 * (p ** 2))))
+            wrong_answers.add("Недостаточно данных, чтобы дать ответ")
+
+            level_in_game = random.randint(2, 10)
+            # Составляем текст задачи
+            task_text = (
+                f"Вероятность успешного прохождения {level_in_game} уровня в компьютерной игре равна {p}. "
+                f"Случайная величина X – число попыток игрока до успешного прохождения уровня. "
+                f"Дисперсия этой случайной величины равна: (Значения могут быть округлены до 2 знаков после запятой)"
+            )
+
+            result_tasks_massive.append((task_text, [variance_str], list(wrong_answers)))
+
+        return result_tasks_massive
+
+    @staticmethod
+    def file_1_task_8_generate_geometric_variance_tasks(number_of_tasks):
+        """
+        Генерирует задачи по определению дисперсии случайной величины, которая описывает
+        количество полетов до обнаружения пожара (геометрическое распределение).
+
+        Задача:
+        Вертолет совершает полеты для мониторинга очагов возгорания в тайге.
+        Случайная величина X – число полетов, совершенных до обнаружения пожара.
+        Математическое ожидание этой случайной величины равно 2.
+        Дисперсия этой случайной величины равна:
+
+        Args:
+            number_of_tasks (int): Количество задач для генерации.
+
+        Returns:
+            list: Список кортежей, каждый из которых содержит текст задачи, правильный ответ и массив неправильных ответов.
+        """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            # Математическое ожидание E(X) для геометрического распределения равно 2, значит p = 1 / E(X)
+            mathematical_expectation = random.randint(1, 10)
+            p = 1 / mathematical_expectation
+
+            # Вычисляем дисперсию
+            variance = round((1 - p) / (p ** 2), 2)
+
+            # Приводим ответ к строковому виду с точностью до двух десятичных знаков
+            variance_str = "{:.2f}".format(variance)
+
+            # Генерируем неправильные ответы
+            wrong_answers = set()
+            wrong_answers.add("{:.2f}".format((1 - p ** 2) / (p ** 2)))
+            wrong_answers.add("{:.2f}".format((1 - p) / (4 * (p ** 2))))
+            wrong_answers.add("Недостаточно данных, чтобы дать ответ")
+
+            # Составляем текст задачи
+            task_text = (
+                f"Вертолет совершает полеты для мониторинга очагов возгорания в тайге. "
+                f"Случайная величина X – число полетов, совершенных до обнаружения пожара. "
+                f"Математическое ожидание этой случайной величины равно {mathematical_expectation}. "
+                f"Дисперсия этой случайной величины равна: (Значения могут быть округлены до 2 знаков после запятой)"
+            )
+
+            result_tasks_massive.append((task_text, [variance_str], list(wrong_answers)))
+
+        return result_tasks_massive
+
+    # endregion
+
+    # region Файл 2
+    @staticmethod
+    def generate_sample(count_sample=10):
+        sample = []
+        number_mode = count_sample // 3
+        mode_stack = list(range(1, 11))
+        random.shuffle(mode_stack)
+        while len(sample) < count_sample:
+            value = mode_stack.pop()
+            sample.extend([value] * number_mode)  # Добавляем count раз значение value в выборку
+            number_mode -= 1 if number_mode > 1 else 0
+            number_mode = min(number_mode, count_sample - len(sample))
+        random.shuffle(sample)
+        return sample
+
+    def file_2_task_1_generate_sample_mode_tasks(self, number_of_tasks):
+        """
+        Генерирует задачи по определению выборочной моды выборки.
+
+        Задача:
+        Дана выборка: 3, 5, 1, 2, 8, 2, 5, 2, 10, 9, 4.
+        Выборочная мода равна:
+
+        Args:
+            number_of_tasks (int): Количество задач для генерации.
+
+        Returns:
+            list: Список кортежей, каждый из которых содержит текст задачи, правильный ответ и массив неправильных
+            ответов.
+        """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            # Генерируем случайное количество чисел в выборке от 8 до 15
+            n = random.randint(8, 15)
+
+            # Генерируем выборку так, чтобы она не имела две моды
+            sample = self.generate_sample(n)
+
+            # Находим выборочную моду
+            mode = max(set(sample), key=sample.count)
+
+            # Составляем текст задачи
+            task_text = (
+                f"Дана выборка: {', '.join(str(num) for num in sample)}. "
+                f"Выборочная мода равна:"
+            )
+
+            result_tasks_massive.append((task_text, [mode], list(set(sample) - {mode})))
+
+        return result_tasks_massive
+
+    @staticmethod
+    def file_2_task_2_generate_sample_median_tasks(number_of_tasks):
+        """
+        Генерирует задачи по определению выборочной медианы выборки.
+
+        Задача:
+        Дана выборка: 2, 6, 3, 12, 1, 5, 2, 7, 4, 10.
+        Выборочная медиана равна:
+
+        Args:
+            number_of_tasks (int): Количество задач для генерации.
+
+        Returns:
+            list: Список кортежей, каждый из которых содержит текст задачи, правильный ответ и массив неправильных
+            ответов.
+        """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            n = random.randint(8, 15)
+            sample = [random.randint(1, 11) for _ in range(n)]
+
+            # Находим выборочную медиану
+            sorted_sample = sorted(sample)
+            n = len(sorted_sample)
+            if n % 2 == 0:
+                median = (sorted_sample[n // 2 - 1] + sorted_sample[n // 2]) / 2
+            else:
+                median = sorted_sample[n // 2]
+
+            # Составляем текст задачи
+            task_text = (
+                f"Дана выборка: {', '.join(str(num) for num in sample)}. "
+                f"Выборочная медиана равна:"
+            )
+
+            result_tasks_massive.append((task_text, [median], list(set(sample) - {median})))
+
+        return result_tasks_massive
+
+    @staticmethod
+    def file_2_task_3_generate_sample_variance_tasks(number_of_tasks):
+        """
+        Генерирует задачи по определению выборочной дисперсии выборки.
+
+        Задача:
+        Дана выборка: 4, 9, 2, 10, 5.
+        Выборочная дисперсия равна:
+
+        Args:
+            number_of_tasks (int): Количество задач для генерации.
+
+        Returns:
+            list: Список кортежей, каждый из которых содержит текст задачи, правильный ответ и массив неправильных
+            ответов.
+        """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            n = 5
+            sample = [random.randint(1, 11) for _ in range(n)]
+
+            mean = sum(sample) / n
+            variance = sum((x - mean) ** 2 for x in sample) / n
+
+            # Составляем текст задачи
+            task_text = (
+                f"Дана выборка: {', '.join(str(num) for num in sample)}. "
+                f"Выборочная дисперсия равна: (Значения округлены до 2 знаков после запятой)"
+            )
+
+            # Генерируем неправильные ответы
+            wrong_answers = set()
+            wrong_answers.add("{:.2f}".format(variance / 2))
+            wrong_answers.add("{:.2f}".format(variance / 3))
+            wrong_answers.add("{:.2f}".format(variance * 2))
+
+            result_tasks_massive.append((task_text, [variance], list(wrong_answers)))
+
+        return result_tasks_massive
+
+    @staticmethod
+    def file_2_task_4_generate_corrected_standard_deviation_tasks(number_of_tasks):
+        """
+        Генерирует задачи по определению исправленного выборочного среднеквадратического отклонения.
+
+        Задача:
+        По выборке объема 25 найдена выборочная дисперсия, равная 12.
+        Исправленное выборочное среднее квадратическое отклонение равно:
+
+        Args:
+            number_of_tasks (int): Количество задач для генерации.
+
+        Returns:
+            list: Список кортежей, каждый из которых содержит текст задачи, правильный ответ и массив неправильных
+            ответов.
+        """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            # Генерируем выборку объема 25
+            n = random.randint(16, 30)
+
+            # Заданная выборочная дисперсия
+            sample_variance = random.randint(5, 14)
+
+            # Вычисляем исправленное выборочное среднее квадратическое отклонение
+            answer = round((sample_variance * (n / (n - 1))) ** 0.5, 5)
+
+            # Генерируем неправильные ответы
+            wrong_answers = set()
+            wrong_answers.add("{:.5f}".format(answer / 2))
+            wrong_answers.add("{:.5f}".format(answer ** 2))
+            wrong_answers.add("Недостаточно данных, чтобы дать ответ")
+
+            # Составляем текст задачи
+            task_text = (
+                f"По выборке объема {n} найдена выборочная дисперсия, равная {sample_variance}. "
+                f"Исправленное выборочное среднее квадратическое отклонение равно: "
+                f"(Значения округлены до 5 знаков после запятой)"
+            )
+
+            result_tasks_massive.append((task_text, [answer], list(wrong_answers)))
+
+        return result_tasks_massive
+
+    @staticmethod
+    def file_2_task_5_generate_sample_variance_tasks(number_of_tasks):
+        """
+        Генерирует задачи по определению выборочной дисперсии по исправленному выборочному среднему квадратическому отклонению.
+
+        Задача:
+        По выборке объема 15 найдено исправленное выборочное среднее квадратическое отклонение, равное 5.
+        Выборочная дисперсия равна:
+
+        Args:
+            number_of_tasks (int): Количество задач для генерации.
+
+        Returns:
+            list: Список кортежей, каждый из которых содержит текст задачи, правильный ответ и массив неправильных
+            ответов.
+        """
+        result_tasks_massive = []
+        for _ in range(number_of_tasks):
+            # Заданное исправленное выборочное среднее квадратическое отклонение
+            corrected_standard_deviation = random.randint(2, 10)
+
+            # Объем выборки
+            n = random.randint(16, 30)
+
+            # Вычисляем выборочную дисперсию
+            answer = round((corrected_standard_deviation ** 2) * ((n - 1) / n), 5)
+
+            # Генерируем неправильные ответы
+            wrong_answers = set()
+            wrong_answers.add("{:.5f}".format(answer / 2))
+            wrong_answers.add("{:.5f}".format(answer * 2))
+            wrong_answers.add("Недостаточно данных, чтобы дать ответ")
+
+            # Составляем текст задачи
+            task_text = (
+                f"По выборке объема {n} найдено исправленное выборочное среднее квадратическое отклонение, "
+                f"равное {corrected_standard_deviation}. Выборочная дисперсия равна: "
+                f"(Значения округлены до 5 знаков после запятой)"
+            )
+
+            result_tasks_massive.append((task_text, [answer], list(wrong_answers)))
+
+        return result_tasks_massive
+
+    # endregion
+
     # region дополнения Шармин файл 3
 
     @staticmethod
@@ -2441,605 +3042,6 @@ d.	правосторонняя или левосторонняя критиче
             list_tasks.append(result)
 
         return list_tasks
-
-    # region Файл 1
-    @staticmethod
-    def file_1_task_1_generate_bernoulli_variance_tasks(number_of_tasks):
-        """
-          Генерирует задачи по определению дисперсии случайной величины Бернулли.
-
-          Задача:
-          Случайная величина X имеет распределение Бернулли с параметром p.
-          Дисперсия этой случайной величины равна:
-
-          Args:
-              number_of_tasks (int): Количество задач для генерации.
-
-          Returns:
-              list: Список кортежей, каждый из которых содержит текст задачи, правильный ответ и массив неправильных
-              ответов.
-          """
-        result_tasks_massive = []
-        for _ in range(number_of_tasks):
-            # Генерируем случайное значение вероятности p от 0.1 до 0.9
-            p = round(random.uniform(0.1, 0.9), 2)
-
-            # Вычисляем дисперсию
-            variance = round(p * (1 - p), 2)
-
-            # Приводим ответ к строковому виду с точностью до двух десятичных знаков
-            variance_str = "{:.2f}".format(variance)
-
-            # Генерируем неправильные ответы
-            wrong_answers = set()
-            wrong_answers.add("{:.2f}".format(variance / 2))
-            wrong_answers.add("{:.2f}".format((1 - p) / 2))
-            wrong_answers.add("{:.2f}".format(1 - p))
-
-            # Составляем текст задачи
-            task_text = (
-                f"Случайная величина X имеет распределение Бернулли с параметром p = {p}. "
-                f"Дисперсия этой случайной величины равна: (Значения могут быть округлены до 2 знаков после запятой)"
-            )
-
-            result_tasks_massive.append((task_text, [variance_str], list(wrong_answers)))
-
-        return result_tasks_massive
-
-    @staticmethod
-    def file_1_task_2_generate_binomial_expectation_tasks(number_of_tasks):
-        """
-        Генерирует задачи по определению математического ожидания случайной величины с биномиальным распределением.
-
-        Задача:
-        Спортсмен стреляет в мишень n раз, вероятность попадания при каждом выстреле равна p.
-        Случайная величина X – число попаданий в мишень. Математическое ожидание этой случайной величины равно:
-
-        Args:
-            number_of_tasks (int): Количество задач для генерации.
-
-        Returns:
-            list: Список кортежей, каждый из которых содержит текст задачи,
-                  правильный ответ и массив неправильных ответов.
-        """
-        result_tasks_massive = []
-        for _ in range(number_of_tasks):
-            # Генерируем случайное значение n от 3 до 20
-            n = random.randint(3, 20)
-            # Генерируем случайное значение вероятности p от 0.40 до 0.99 с округлением до сотых
-            p = round(random.uniform(0.40, 0.99), 2)
-
-            # Вычисляем математическое ожидание
-            expected_value = round(n * p, 2)
-
-            # Приводим ответ к строковому виду с точностью до двух десятичных знаков
-            expected_value_str = "{:.2f}".format(expected_value)
-
-            # Генерируем неправильные ответы
-            wrong_answers = set()
-            wrong_answers.add("Недостаточно данных, чтобы дать ответ")
-            wrong_answers.add("{:.2f}".format(n ** 2 * p ** 2))
-            wrong_answers.add("{:.2f}".format(n * p / 2))
-
-            # Составляем текст задачи
-            task_text = (
-                f"Спортсмен стреляет в мишень {n} раз, вероятность попадания при каждом выстреле равна {p}. "
-                f"Случайная величина X – число попаданий в мишень. Математическое ожидание этой случайной "
-                f"величины равно: (Значения могут быть округлены до 2 знаков после запятой)"
-            )
-
-            result_tasks_massive.append((task_text, [expected_value_str], list(wrong_answers)))
-
-        return result_tasks_massive
-
-    @staticmethod
-    def file_1_task_3_generate_binomial_variance_tasks(number_of_tasks):
-        """
-        Генерирует задачи по определению дисперсии случайной величины с биномиальным распределением.
-
-        Задача:
-        В курортном городе в летний период 80% дней по статистике являются солнечными.
-        Человек планирует отдохнуть на этом курорте 10 дней. Случайная величина X – число солнечных дней за период отдыха человека.
-        Дисперсия этой случайной величины равна:
-
-        Args:
-            number_of_tasks (int): Количество задач для генерации.
-
-        Returns:
-            list: Список кортежей, каждый из которых содержит текст задачи, правильный ответ и массив неправильных ответов.
-        """
-        result_tasks_massive = []
-        for _ in range(number_of_tasks):
-            # Генерируем случайное значение n от 7 до 30 (дней отдыха)
-            n = random.randint(7, 30)
-            # Генерируем случайное значение вероятности p от 0.5 до 0.99 с округлением до сотых (солнечные дни)
-            p = round(random.uniform(0.5, 0.95), 2)
-
-            # Вычисляем дисперсию
-            variance = round(n * p * (1 - p), 2)
-
-            # Приводим ответ к строковому виду с точностью до двух десятичных знаков
-            variance_str = "{:.2f}".format(variance)
-
-            # Генерируем неправильные ответы
-            wrong_answers = set()
-            wrong_answers.add("{:.2f}".format(variance / 2))
-            wrong_answers.add("{:.2f}".format(n * p))
-            wrong_answers.add("{:.2f}".format((1 - p) * n))
-
-            # Составляем текст задачи
-            task_text = (
-                f"В курортном городе в летний период {round(p * 100,2)}% дней по статистике являются солнечными. "
-                f"Человек планирует отдохнуть на этом курорте {n} дней. "
-                f"Случайная величина X – число солнечных дней за период отдыха человека. "
-                f"Дисперсия этой случайной величины равна: (Значения могут быть округлены до 2 знаков после запятой)"
-            )
-
-            result_tasks_massive.append((task_text, [variance_str], list(wrong_answers)))
-
-        return result_tasks_massive
-
-    @staticmethod
-    def file_1_task_4_generate_binomial_probability_tasks(number_of_tasks):
-        """
-        Генерирует задачи по определению вероятности того, что k из n студентов сдадут экзамен с первой попытки.
-
-        Задача:
-        Вероятность сдать экзамен по математическому анализу с первой попытки равна p.
-        Экзамен сдают n студентов. Вероятность того, что k из них сдадут экзамен с первой попытки равна:
-
-        Args:
-            number_of_tasks (int): Количество задач для генерации.
-
-        Returns:
-            list: Список кортежей, каждый из которых содержит текст задачи, правильный ответ и массив неправильных
-            ответов.
-        """
-        result_tasks_massive = []
-        for _ in range(number_of_tasks):
-            # Генерируем случайное значение n от 4 до 8 (количество студентов)
-            n = random.randint(4, 8)
-            # Генерируем случайное значение вероятности p от 0.1 до 0.9 с округлением до десятых
-            p = round(random.uniform(0.1, 0.9), 1)
-            # Генерируем случайное значение k от 2 до 7 (количество студентов, которые сдадут экзамен)
-            k = random.randint(2, n - 1)
-
-            # Вычисляем вероятность того, что k из n студентов сдадут экзамен с первой попытки
-            probability = round(math.comb(n, k) * (p ** k) * ((1 - p) ** (n - k)), 5)
-
-            # Приводим ответ к строковому виду с точностью до пяти десятичных знаков
-            probability_str = "{:.5f}".format(probability)
-
-            # Генерируем неправильные ответы
-            wrong_answers = set()
-            wrong_answers.add("{:.5f}".format((p ** k) * ((1 - p) ** (n - k))))
-            wrong_answers.add("{:.5f}".format(p ** k))
-            wrong_answers.add("{:.5f}".format(p ** (n - k)))
-
-            # Составляем текст задачи
-            task_text = (
-                f"Вероятность сдать экзамен по математическому анализу с первой попытки равна {p}. "
-                f"Экзамен сдают {n} студентов. Вероятность того, что {k} из них сдадут экзамен с первой попытки равна: "
-                f"(Значения могут быть округлены до 5 знаков после запятой)"
-            )
-
-            result_tasks_massive.append((task_text, [probability_str], list(wrong_answers)))
-
-        return result_tasks_massive
-
-    @staticmethod
-    def file_1_task_5_generate_poisson_probability_tasks(number_of_tasks):
-        """
-        Генерирует задачи по определению вероятности того, что k из n тигров являются альбиносами с использованием
-        распределения Пуассона.
-
-        Задача:
-        Тигры-альбиносы составляют в природе 0,5% от общей численности популяции.
-        Вероятность того, что из n тигров, живущих на некоторой территории, k тигра-альбиноса, приближенно равна:
-
-        Args:
-            number_of_tasks (int): Количество задач для генерации.
-
-        Returns:
-            list: Список кортежей, каждый из которых содержит текст задачи, правильный ответ и массив неправильных
-            ответов.
-        """
-        result_tasks_massive = []
-        for _ in range(number_of_tasks):
-            # Устанавливаем фиксированные значения для n и p
-            n = 100 * random.randint(2, 10)
-            p = random.uniform(0.002, 0.009)
-            # Генерируем случайное значение k от 2 до 7 (количество тигров-альбиносов)
-            k = random.randint(2, 7)
-
-            # Вычисляем параметр λ для распределения Пуассона
-            lambda_poisson = n * p
-
-            # Вычисляем вероятность по формуле Пуассона
-            probability = round((lambda_poisson ** k * math.exp(-lambda_poisson)) / math.factorial(k), 5)
-
-            # Приводим ответ к строковому виду с точностью до пяти десятичных знаков
-            probability_str = "{:.5f}".format(probability)
-
-            # Генерируем неправильные ответы
-            wrong_answers = set()
-            wrong_answers.add("{:.5f}".format((p ** k * math.exp(-k)) / math.factorial(k)))
-            wrong_answers.add("{:.5f}".format((lambda_poisson ** k * math.exp(-k)) / math.factorial(k)))
-            wrong_answers.add("{:.5f}".format(p ** k))
-
-            # Составляем текст задачи
-            task_text = (
-                f"Тигры-альбиносы составляют в природе {p * 100}% от общей численности популяции. "
-                f"Вероятность того, что из {n} тигров, живущих на некоторой территории, {k} тигра-альбиноса, "
-                f"приближенно равна: (Значения могут быть округлены до 5 знаков после запятой)"
-            )
-
-            result_tasks_massive.append((task_text, [probability_str], list(wrong_answers)))
-
-        return result_tasks_massive
-
-    @staticmethod
-    def file_1_task_6_generate_geometric_expectation_tasks(number_of_tasks):
-        """
-        Генерирует задачи по определению математического ожидания случайной величины, которая описывает
-        количество попыток тестирования до успешного прохождения теста.
-
-        Задача:
-        Вероятность того, что попытка прохождения теста будет успешной, равна p.
-        Испытуемый может проходить тест неограниченное число раз. Случайная величина Х – число попыток тестирования
-        до успешного прохождения теста. Математическое ожидание этой случайной величины равно:
-
-        Args:
-            number_of_tasks (int): Количество задач для генерации.
-
-        Returns:
-            list: Список кортежей, каждый из которых содержит текст задачи, правильный ответ и массив неправильных ответов.
-        """
-        result_tasks_massive = []
-        for _ in range(number_of_tasks):
-            # Генерируем случайное значение вероятности p от 0.1 до 0.9 с округлением до десятых
-            p = round(random.uniform(0.1, 0.9), 1)
-
-            # Вычисляем математическое ожидание
-            expected_value = round(1 / p, 2)
-
-            # Приводим ответ к строковому виду с точностью до двух десятичных знаков
-            expected_value_str = "{:.2f}".format(expected_value)
-
-            # Генерируем неправильные ответы
-            wrong_answers = set()
-            wrong_answers.add("{:.2f}".format(1 / (p ** 2)))
-            wrong_sum = 0
-            while wrong_sum < 1:
-                wrong_sum += p
-            wrong_answers.add("{:.2f}".format(wrong_sum))
-            wrong_answers.add("Недостаточно данных, чтобы дать ответ")
-
-            # Составляем текст задачи
-            task_text = (
-                f"Вероятность того, что попытка прохождения теста будет успешной, равна {p}. "
-                f"Испытуемый может проходить тест неограниченное число раз. Случайная величина X – число попыток "
-                f"тестирования до успешного прохождения теста. Математическое ожидание этой случайной величины равно:"
-                f"(Значения могут быть округлены до 2 знаков после запятой)"
-            )
-
-            result_tasks_massive.append((task_text, [expected_value_str], list(wrong_answers)))
-
-        return result_tasks_massive
-
-    @staticmethod
-    def file_1_task_7_generate_geometric_variance_tasks(number_of_tasks):
-        """
-        Генерирует задачи по определению дисперсии случайной величины, которая описывает
-        количество попыток до успешного прохождения уровня в игре.
-
-        Задача:
-        Вероятность успешного прохождения десятого уровня в компьютерной игре равна p.
-        Случайная величина X – число попыток игрока до успешного прохождения уровня.
-        Дисперсия этой случайной величины равна:
-
-        Args:
-            number_of_tasks (int): Количество задач для генерации.
-
-        Returns:
-            list: Список кортежей, каждый из которых содержит текст задачи, правильный ответ и массив неправильных ответов.
-        """
-        result_tasks_massive = []
-        for _ in range(number_of_tasks):
-            # Генерируем случайное значение вероятности p от 0.1 до 0.9 с округлением до десятых
-            p = round(random.uniform(0.1, 0.9), 1)
-
-            # Вычисляем дисперсию
-            variance = round((1 - p) / (p ** 2), 2)
-
-            # Приводим ответ к строковому виду с точностью до двух десятичных знаков
-            variance_str = "{:.2f}".format(variance)
-
-            # Генерируем неправильные ответы
-            wrong_answers = set()
-            wrong_answers.add("{:.2f}".format((1 - p ** 2) / (p ** 2)))
-            wrong_answers.add("{:.2f}".format((1 - p) / (4 * (p ** 2))))
-            wrong_answers.add("Недостаточно данных, чтобы дать ответ")
-
-            level_in_game = random.randint(2, 10)
-            # Составляем текст задачи
-            task_text = (
-                f"Вероятность успешного прохождения {level_in_game} уровня в компьютерной игре равна {p}. "
-                f"Случайная величина X – число попыток игрока до успешного прохождения уровня. "
-                f"Дисперсия этой случайной величины равна: (Значения могут быть округлены до 2 знаков после запятой)"
-            )
-
-            result_tasks_massive.append((task_text, [variance_str], list(wrong_answers)))
-
-        return result_tasks_massive
-
-    @staticmethod
-    def file_1_task_8_generate_geometric_variance_tasks(number_of_tasks):
-        """
-        Генерирует задачи по определению дисперсии случайной величины, которая описывает
-        количество полетов до обнаружения пожара (геометрическое распределение).
-
-        Задача:
-        Вертолет совершает полеты для мониторинга очагов возгорания в тайге.
-        Случайная величина X – число полетов, совершенных до обнаружения пожара.
-        Математическое ожидание этой случайной величины равно 2.
-        Дисперсия этой случайной величины равна:
-
-        Args:
-            number_of_tasks (int): Количество задач для генерации.
-
-        Returns:
-            list: Список кортежей, каждый из которых содержит текст задачи, правильный ответ и массив неправильных ответов.
-        """
-        result_tasks_massive = []
-        for _ in range(number_of_tasks):
-            # Математическое ожидание E(X) для геометрического распределения равно 2, значит p = 1 / E(X)
-            mathematical_expectation = random.randint(1, 10)
-            p = 1 / mathematical_expectation
-
-            # Вычисляем дисперсию
-            variance = round((1 - p) / (p ** 2), 2)
-
-            # Приводим ответ к строковому виду с точностью до двух десятичных знаков
-            variance_str = "{:.2f}".format(variance)
-
-            # Генерируем неправильные ответы
-            wrong_answers = set()
-            wrong_answers.add("{:.2f}".format((1 - p ** 2) / (p ** 2)))
-            wrong_answers.add("{:.2f}".format((1 - p) / (4 * (p ** 2))))
-            wrong_answers.add("Недостаточно данных, чтобы дать ответ")
-
-            # Составляем текст задачи
-            task_text = (
-                f"Вертолет совершает полеты для мониторинга очагов возгорания в тайге. "
-                f"Случайная величина X – число полетов, совершенных до обнаружения пожара. "
-                f"Математическое ожидание этой случайной величины равно {mathematical_expectation}. "
-                f"Дисперсия этой случайной величины равна: (Значения могут быть округлены до 2 знаков после запятой)"
-            )
-
-            result_tasks_massive.append((task_text, [variance_str], list(wrong_answers)))
-
-        return result_tasks_massive
-
-    # endregion
-
-    # region Файл 2
-    @staticmethod
-    def generate_sample(count_sample=10):
-        sample = []
-        number_mode = count_sample // 3
-        mode_stack = list(range(1, 11))
-        random.shuffle(mode_stack)
-        while len(sample) < count_sample:
-            value = mode_stack.pop()
-            sample.extend([value] * number_mode)  # Добавляем count раз значение value в выборку
-            number_mode -= 1 if number_mode > 1 else 0
-            number_mode = min(number_mode, count_sample - len(sample))
-        random.shuffle(sample)
-        return sample
-
-    def file_2_task_1_generate_sample_mode_tasks(self, number_of_tasks):
-        """
-        Генерирует задачи по определению выборочной моды выборки.
-
-        Задача:
-        Дана выборка: 3, 5, 1, 2, 8, 2, 5, 2, 10, 9, 4.
-        Выборочная мода равна:
-
-        Args:
-            number_of_tasks (int): Количество задач для генерации.
-
-        Returns:
-            list: Список кортежей, каждый из которых содержит текст задачи, правильный ответ и массив неправильных
-            ответов.
-        """
-        result_tasks_massive = []
-        for _ in range(number_of_tasks):
-            # Генерируем случайное количество чисел в выборке от 8 до 15
-            n = random.randint(8, 15)
-
-            # Генерируем выборку так, чтобы она не имела две моды
-            sample = self.generate_sample(n)
-
-            # Находим выборочную моду
-            mode = max(set(sample), key=sample.count)
-
-            # Составляем текст задачи
-            task_text = (
-                f"Дана выборка: {', '.join(str(num) for num in sample)}. "
-                f"Выборочная мода равна:"
-            )
-
-            result_tasks_massive.append((task_text, [mode], list(set(sample) - {mode})))
-
-        return result_tasks_massive
-
-    def file_2_task_2_generate_sample_median_tasks(self, number_of_tasks):
-        """
-        Генерирует задачи по определению выборочной медианы выборки.
-
-        Задача:
-        Дана выборка: 2, 6, 3, 12, 1, 5, 2, 7, 4, 10.
-        Выборочная медиана равна:
-
-        Args:
-            number_of_tasks (int): Количество задач для генерации.
-
-        Returns:
-            list: Список кортежей, каждый из которых содержит текст задачи, правильный ответ и массив неправильных
-            ответов.
-        """
-        result_tasks_massive = []
-        for _ in range(number_of_tasks):
-            n = random.randint(8, 15)
-            sample = [random.randint(1, 11) for _ in range(n)]
-
-            # Находим выборочную медиану
-            sorted_sample = sorted(sample)
-            n = len(sorted_sample)
-            if n % 2 == 0:
-                median = (sorted_sample[n // 2 - 1] + sorted_sample[n // 2]) / 2
-            else:
-                median = sorted_sample[n // 2]
-
-            # Составляем текст задачи
-            task_text = (
-                f"Дана выборка: {', '.join(str(num) for num in sample)}. "
-                f"Выборочная медиана равна:"
-            )
-
-            result_tasks_massive.append((task_text, [median], list(set(sample) - {median})))
-
-        return result_tasks_massive
-
-    def file_2_task_3_generate_sample_variance_tasks(self, number_of_tasks):
-        """
-        Генерирует задачи по определению выборочной дисперсии выборки.
-
-        Задача:
-        Дана выборка: 4, 9, 2, 10, 5.
-        Выборочная дисперсия равна:
-
-        Args:
-            number_of_tasks (int): Количество задач для генерации.
-
-        Returns:
-            list: Список кортежей, каждый из которых содержит текст задачи, правильный ответ и массив неправильных
-            ответов.
-        """
-        result_tasks_massive = []
-        for _ in range(number_of_tasks):
-            n = 5
-            sample = [random.randint(1, 11) for _ in range(n)]
-
-            mean = sum(sample) / n
-            variance = sum((x - mean) ** 2 for x in sample) / n
-
-            # Составляем текст задачи
-            task_text = (
-                f"Дана выборка: {', '.join(str(num) for num in sample)}. "
-                f"Выборочная дисперсия равна: (Значения округлены до 2 знаков после запятой)"
-            )
-
-            # Генерируем неправильные ответы
-            wrong_answers = set()
-            wrong_answers.add("{:.2f}".format(sum((x - mean) for x in sample) / n))
-            wrong_answers.add("{:.2f}".format(sum((x - mean) for x in sample) / mean))
-            wrong_answers.add("{:.2f}".format(sum((x ** 2 - mean ** 2) for x in sample) / n))
-
-            result_tasks_massive.append((task_text, [variance], list(wrong_answers)))
-
-        return result_tasks_massive
-
-    @staticmethod
-    def file_2_task_4_generate_corrected_standard_deviation_tasks(number_of_tasks):
-        """
-        Генерирует задачи по определению исправленного выборочного среднеквадратического отклонения.
-
-        Задача:
-        По выборке объема 25 найдена выборочная дисперсия, равная 12.
-        Исправленное выборочное среднее квадратическое отклонение равно:
-
-        Args:
-            number_of_tasks (int): Количество задач для генерации.
-
-        Returns:
-            list: Список кортежей, каждый из которых содержит текст задачи, правильный ответ и массив неправильных
-            ответов.
-        """
-        result_tasks_massive = []
-        for _ in range(number_of_tasks):
-            # Генерируем выборку объема 25
-            n = random.randint(16, 30)
-
-            # Заданная выборочная дисперсия
-            sample_variance = random.randint(5, 14)
-
-            # Вычисляем исправленное выборочное среднее квадратическое отклонение
-            answer = round((sample_variance * (n / (n - 1))) ** 0.5, 5)
-
-            # Генерируем неправильные ответы
-            wrong_answers = set()
-            wrong_answers.add("{:.5f}".format(answer / 2))
-            wrong_answers.add("{:.5f}".format(answer ** 2))
-            wrong_answers.add("Недостаточно данных, чтобы дать ответ")
-
-            # Составляем текст задачи
-            task_text = (
-                f"По выборке объема {n} найдена выборочная дисперсия, равная {sample_variance}. "
-                f"Исправленное выборочное среднее квадратическое отклонение равно: "
-                f"(Значения округлены до 5 знаков после запятой)"
-            )
-
-            result_tasks_massive.append((task_text, [answer], list(wrong_answers)))
-
-        return result_tasks_massive
-
-    @staticmethod
-    def file_2_task_5_generate_sample_variance_tasks(number_of_tasks):
-        """
-        Генерирует задачи по определению выборочной дисперсии по исправленному выборочному среднему квадратическому отклонению.
-
-        Задача:
-        По выборке объема 15 найдено исправленное выборочное среднее квадратическое отклонение, равное 5.
-        Выборочная дисперсия равна:
-
-        Args:
-            number_of_tasks (int): Количество задач для генерации.
-
-        Returns:
-            list: Список кортежей, каждый из которых содержит текст задачи, правильный ответ и массив неправильных
-            ответов.
-        """
-        result_tasks_massive = []
-        for _ in range(number_of_tasks):
-            # Заданное исправленное выборочное среднее квадратическое отклонение
-            corrected_standard_deviation = random.randint(2, 10)
-
-            # Объем выборки
-            n = random.randint(16, 30)
-
-            # Вычисляем выборочную дисперсию
-            answer = round((corrected_standard_deviation ** 2) * ((n - 1) / n), 5)
-
-            # Генерируем неправильные ответы
-            wrong_answers = set()
-            wrong_answers.add("{:.5f}".format(answer / 2))
-            wrong_answers.add("{:.5f}".format(answer * 2))
-            wrong_answers.add("Недостаточно данных, чтобы дать ответ")
-
-            # Составляем текст задачи
-            task_text = (
-                f"По выборке объема {n} найдено исправленное выборочное среднее квадратическое отклонение, "
-                f"равное {corrected_standard_deviation}. Выборочная дисперсия равна: "
-                f"(Значения округлены до 5 знаков после запятой)"
-            )
-
-            result_tasks_massive.append((task_text, [answer], list(wrong_answers)))
-
-        return result_tasks_massive
-
-    # endregion
 
     # region Задачи по комбинаторике от Володины Т.Ю
     @staticmethod
