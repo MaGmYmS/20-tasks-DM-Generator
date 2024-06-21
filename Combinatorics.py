@@ -2227,9 +2227,9 @@ class CombinatoricsTaskGenerator:
         for i in range(number_of_tasks):
             task_text = (
                 "Критическая область является левосторонней. Гипотезы Н0 и Н1 могут иметь вид")
-            correct_answer = f"H_0:a={i + 9},H_1:a<{i + 9}"
+            correct_answer = rf"H_0:a\={i + 9},H_1:a<{i + 9}"
             incorrect_answers = [
-                f"H_0:a={i + 9},H_1:a>{i + 9}",
+                rf"H_0:a\={i + 9},H_1:a>{i + 9}",
                 f"H_0:a≠{i + 9},H_1:a<{i + 9}",
                 f"H_0:a≠{i + 9},H_1:a>{i + 9}"]
             result = (task_text, [correct_answer], incorrect_answers)
