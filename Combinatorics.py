@@ -2635,9 +2635,9 @@ class CombinatoricsTaskGenerator:
         list_tasks = []
 
         for i in range(number_of_tasks):
-            P_value = round(random.uniform(0.02, 0.99), 2)
-            gip = round(random.uniform(0.01, P_value), 2)
-            negip = round(random.uniform(P_value, 1.00), 2)
+            P_value = round(random.uniform(0.02, 0.09), 2)
+            gip = round(random.uniform(0.01, P_value-0.01), 2)
+            negip = round(random.uniform(P_value-0.01, 0.10), 2)
 
             task_text = (
                 f"Если в результате проверки гипотезы о равенстве нулю генерального коэффициента корреляции "
@@ -2969,9 +2969,9 @@ d.	правосторонняя или левосторонняя критиче
         list_tasks = []
 
         for i in range(number_of_tasks):
-            P_value = round(random.uniform(0.02, 0.99), 2)
-            gip = round(random.uniform(P_value, 0.99), 2)
-            negip = round(random.uniform(0.01, P_value), 2)
+            P_value = round(random.uniform(0.02, 0.09), 2)
+            gip = round(random.uniform(P_value+0.01, 0.10), 2)
+            negip = round(random.uniform(0.01, P_value+0.01), 2)
 
             task_text = (
                 f"Если в результате проверки гипотезы о равенстве нулю генерального коэффициента корреляции "
