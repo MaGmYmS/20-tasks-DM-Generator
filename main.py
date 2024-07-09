@@ -18,6 +18,32 @@ def delete_image_folder():
         print(f'Папка {folder_path} не существует.')
 
 
+def merge_text_files(input_folder, output_folder, output_filename):
+    # Ensure the output folder exists
+    os.makedirs(output_folder, exist_ok=True)
+
+    # Initialize an empty string to hold the combined contents
+    combined_contents = ""
+
+    # Iterate over all files in the input folder
+    for filename in os.listdir(input_folder):
+        # Construct the full file path
+        file_path = os.path.join(input_folder, filename)
+
+        # Check if the file is a text file
+        if os.path.isfile(file_path) and filename.endswith('.txt'):
+            # Read the contents of the file
+            with open(file_path, 'r', encoding='utf-8') as file:
+                combined_contents += file.read() + '\n\n\n'
+
+    # Construct the full output file path
+    output_file_path = os.path.join(output_folder, output_filename)
+
+    # Write the combined contents to the output file
+    with open(output_file_path, 'w', encoding='utf-8') as output_file:
+        output_file.write(combined_contents)
+
+
 def create_all_tasks_graph():
     start_time_all = time.time()
 
@@ -377,4 +403,7 @@ def create_all_tasks_combinatorics():
     print("\n\n\n")
 
 
-create_all_tasks_combinatorics()
+# create_all_tasks_combinatorics()
+input_files = r"D:\я у мамы программист\Проект ТП\graph_generator_tasks_1_15\input_combined_file"
+output_files = r"D:\я у мамы программист\Проект ТП\graph_generator_tasks_1_15\output_combined_file"
+merge_text_files(input_files, output_files, 'Категория 16.txt')
